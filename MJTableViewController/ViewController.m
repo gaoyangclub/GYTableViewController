@@ -35,7 +35,7 @@
 -(void)headerRefresh:(HeaderRefreshHandler)handler{
     int64_t delay = 1.0 * NSEC_PER_SEC;
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//
         int count = (arc4random() % 18) + 30; //生成3-10范围的随机数
         NSMutableArray* sourceArray = [NSMutableArray array];
         for (NSUInteger i = 0; i < count; i++) {
@@ -55,13 +55,13 @@
 //        [self.tableView addSource:[SourceVo initWithParams:sourceData headerHeight:0 headerClass:NULL headerData:NULL]];
         
         handler(sourceArray.count > 0);
-    });
+//    });
 }
 
 -(void)footerLoadMore:(FooterLoadMoreHandler)handler lastSectionVo:(SectionVo*)lastSectionVo{
     NSLog(@"上拉加载中!");
     int64_t delay = 1.0 * NSEC_PER_SEC;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//
         int count = (arc4random() % 10); //生成0-2范围的随机数
         if (count <= 0) {
             handler(NO);
@@ -81,7 +81,7 @@
 //             [CellVo initWithParams:50 cellClass:[TestTableViewCell class] cellData:[NSString stringWithFormat:@"数据: %lu",startIndex + i]]];
 //        }
         handler(YES);
-    });
+//    });
 }
 
 

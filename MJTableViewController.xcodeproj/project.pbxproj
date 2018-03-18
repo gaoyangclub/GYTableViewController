@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A948E2D3205E28DB005B7606 /* NormalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A948E2D2205E28DB005B7606 /* NormalTableViewController.m */; };
+		A96813B3205EAB8E00BB23D8 /* BannerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A96813B2205EAB8E00BB23D8 /* BannerViewCell.m */; };
+		A96813C4205EB27900BB23D8 /* fundHot09.png in Resources */ = {isa = PBXBuildFile; fileRef = A96813B7205EB27900BB23D8 /* fundHot09.png */; };
+		A96813C5205EB27900BB23D8 /* fundHot08.png in Resources */ = {isa = PBXBuildFile; fileRef = A96813B8205EB27900BB23D8 /* fundHot08.png */; };
+		A96813C6205EB27900BB23D8 /* fundHot03.png in Resources */ = {isa = PBXBuildFile; fileRef = A96813B9205EB27900BB23D8 /* fundHot03.png */; };
+		A96813C7205EB27900BB23D8 /* fundHot02.png in Resources */ = {isa = PBXBuildFile; fileRef = A96813BA205EB27900BB23D8 /* fundHot02.png */; };
+		A96813C8205EB27900BB23D8 /* fundHot01.png in Resources */ = {isa = PBXBuildFile; fileRef = A96813BB205EB27900BB23D8 /* fundHot01.png */; };
+		A96813C9205EB27900BB23D8 /* fundHot05.png in Resources */ = {isa = PBXBuildFile; fileRef = A96813BC205EB27900BB23D8 /* fundHot05.png */; };
+		A96813CA205EB27900BB23D8 /* fundHot11.png in Resources */ = {isa = PBXBuildFile; fileRef = A96813BD205EB27900BB23D8 /* fundHot11.png */; };
+		A96813CB205EB27900BB23D8 /* fundHot10.png in Resources */ = {isa = PBXBuildFile; fileRef = A96813BE205EB27900BB23D8 /* fundHot10.png */; };
+		A96813CC205EB27900BB23D8 /* fundHot04.png in Resources */ = {isa = PBXBuildFile; fileRef = A96813BF205EB27900BB23D8 /* fundHot04.png */; };
+		A96813CD205EB27900BB23D8 /* fundHot12.png in Resources */ = {isa = PBXBuildFile; fileRef = A96813C0205EB27900BB23D8 /* fundHot12.png */; };
+		A96813CE205EB27900BB23D8 /* fundHot06.png in Resources */ = {isa = PBXBuildFile; fileRef = A96813C1205EB27900BB23D8 /* fundHot06.png */; };
+		A96813CF205EB27900BB23D8 /* fundHot07.png in Resources */ = {isa = PBXBuildFile; fileRef = A96813C2205EB27900BB23D8 /* fundHot07.png */; };
+		A96813D0205EB27900BB23D8 /* banner.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A96813C3205EB27900BB23D8 /* banner.jpg */; };
 		A99B7EDA205CC850002FA0D5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A99B7ED9205CC850002FA0D5 /* AppDelegate.m */; };
 		A99B7EDD205CC850002FA0D5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A99B7EDC205CC850002FA0D5 /* ViewController.m */; };
 		A99B7EE2205CC850002FA0D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A99B7EE1205CC850002FA0D5 /* Assets.xcassets */; };
@@ -24,6 +39,23 @@
 /* Begin PBXFileReference section */
 		6802C8B1E0F71DBABEAC6BAD /* Pods-MJTableViewController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJTableViewController.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MJTableViewController/Pods-MJTableViewController.debug.xcconfig"; sourceTree = "<group>"; };
 		9E1D1A2E7306E3200B0BF4C0 /* Pods-MJTableViewController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJTableViewController.release.xcconfig"; path = "Pods/Target Support Files/Pods-MJTableViewController/Pods-MJTableViewController.release.xcconfig"; sourceTree = "<group>"; };
+		A948E2D1205E28DB005B7606 /* NormalTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NormalTableViewController.h; sourceTree = "<group>"; };
+		A948E2D2205E28DB005B7606 /* NormalTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NormalTableViewController.m; sourceTree = "<group>"; };
+		A96813B1205EAB8E00BB23D8 /* BannerViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BannerViewCell.h; sourceTree = "<group>"; };
+		A96813B2205EAB8E00BB23D8 /* BannerViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BannerViewCell.m; sourceTree = "<group>"; };
+		A96813B7205EB27900BB23D8 /* fundHot09.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fundHot09.png; sourceTree = "<group>"; };
+		A96813B8205EB27900BB23D8 /* fundHot08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fundHot08.png; sourceTree = "<group>"; };
+		A96813B9205EB27900BB23D8 /* fundHot03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fundHot03.png; sourceTree = "<group>"; };
+		A96813BA205EB27900BB23D8 /* fundHot02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fundHot02.png; sourceTree = "<group>"; };
+		A96813BB205EB27900BB23D8 /* fundHot01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fundHot01.png; sourceTree = "<group>"; };
+		A96813BC205EB27900BB23D8 /* fundHot05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fundHot05.png; sourceTree = "<group>"; };
+		A96813BD205EB27900BB23D8 /* fundHot11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fundHot11.png; sourceTree = "<group>"; };
+		A96813BE205EB27900BB23D8 /* fundHot10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fundHot10.png; sourceTree = "<group>"; };
+		A96813BF205EB27900BB23D8 /* fundHot04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fundHot04.png; sourceTree = "<group>"; };
+		A96813C0205EB27900BB23D8 /* fundHot12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fundHot12.png; sourceTree = "<group>"; };
+		A96813C1205EB27900BB23D8 /* fundHot06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fundHot06.png; sourceTree = "<group>"; };
+		A96813C2205EB27900BB23D8 /* fundHot07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fundHot07.png; sourceTree = "<group>"; };
+		A96813C3205EB27900BB23D8 /* banner.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = banner.jpg; sourceTree = "<group>"; };
 		A99B7ED5205CC850002FA0D5 /* MJTableViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MJTableViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A99B7ED8205CC850002FA0D5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A99B7ED9205CC850002FA0D5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -68,6 +100,53 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A948E2CF205E28A8005B7606 /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				A948E2D0205E28A8005B7606 /* NormalTable */,
+			);
+			path = Items;
+			sourceTree = "<group>";
+		};
+		A948E2D0205E28A8005B7606 /* NormalTable */ = {
+			isa = PBXGroup;
+			children = (
+				A948E2D1205E28DB005B7606 /* NormalTableViewController.h */,
+				A948E2D2205E28DB005B7606 /* NormalTableViewController.m */,
+				A96813B1205EAB8E00BB23D8 /* BannerViewCell.h */,
+				A96813B2205EAB8E00BB23D8 /* BannerViewCell.m */,
+			);
+			path = NormalTable;
+			sourceTree = "<group>";
+		};
+		A96813B5205EB27900BB23D8 /* assetes */ = {
+			isa = PBXGroup;
+			children = (
+				A96813B6205EB27900BB23D8 /* fundHotIcon */,
+				A96813C3205EB27900BB23D8 /* banner.jpg */,
+			);
+			path = assetes;
+			sourceTree = "<group>";
+		};
+		A96813B6205EB27900BB23D8 /* fundHotIcon */ = {
+			isa = PBXGroup;
+			children = (
+				A96813B7205EB27900BB23D8 /* fundHot09.png */,
+				A96813B8205EB27900BB23D8 /* fundHot08.png */,
+				A96813B9205EB27900BB23D8 /* fundHot03.png */,
+				A96813BA205EB27900BB23D8 /* fundHot02.png */,
+				A96813BB205EB27900BB23D8 /* fundHot01.png */,
+				A96813BC205EB27900BB23D8 /* fundHot05.png */,
+				A96813BD205EB27900BB23D8 /* fundHot11.png */,
+				A96813BE205EB27900BB23D8 /* fundHot10.png */,
+				A96813BF205EB27900BB23D8 /* fundHot04.png */,
+				A96813C0205EB27900BB23D8 /* fundHot12.png */,
+				A96813C1205EB27900BB23D8 /* fundHot06.png */,
+				A96813C2205EB27900BB23D8 /* fundHot07.png */,
+			);
+			path = fundHotIcon;
+			sourceTree = "<group>";
+		};
 		A99B7ECC205CC850002FA0D5 = {
 			isa = PBXGroup;
 			children = (
@@ -89,7 +168,9 @@
 		A99B7ED7205CC850002FA0D5 /* MJTableViewController */ = {
 			isa = PBXGroup;
 			children = (
+				A948E2CF205E28A8005B7606 /* Items */,
 				A99B7EEE205CD32A002FA0D5 /* MJTableView */,
+				A96813B5205EB27900BB23D8 /* assetes */,
 				A99B7ED8205CC850002FA0D5 /* AppDelegate.h */,
 				A99B7ED9205CC850002FA0D5 /* AppDelegate.m */,
 				A99B7EDB205CC850002FA0D5 /* ViewController.h */,
@@ -191,8 +272,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A96813C5205EB27900BB23D8 /* fundHot08.png in Resources */,
+				A96813C8205EB27900BB23D8 /* fundHot01.png in Resources */,
 				A99B7EE5205CC850002FA0D5 /* LaunchScreen.storyboard in Resources */,
+				A96813CE205EB27900BB23D8 /* fundHot06.png in Resources */,
+				A96813C4205EB27900BB23D8 /* fundHot09.png in Resources */,
+				A96813CA205EB27900BB23D8 /* fundHot11.png in Resources */,
+				A96813CC205EB27900BB23D8 /* fundHot04.png in Resources */,
+				A96813CB205EB27900BB23D8 /* fundHot10.png in Resources */,
+				A96813CD205EB27900BB23D8 /* fundHot12.png in Resources */,
+				A96813CF205EB27900BB23D8 /* fundHot07.png in Resources */,
 				A99B7EE2205CC850002FA0D5 /* Assets.xcassets in Resources */,
+				A96813C9205EB27900BB23D8 /* fundHot05.png in Resources */,
+				A96813C7205EB27900BB23D8 /* fundHot02.png in Resources */,
+				A96813C6205EB27900BB23D8 /* fundHot03.png in Resources */,
+				A96813D0205EB27900BB23D8 /* banner.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,7 +353,9 @@
 			files = (
 				A99B7EDD205CC850002FA0D5 /* ViewController.m in Sources */,
 				A99B7F10205CD34C002FA0D5 /* MJRefreshAutoFooterGY.m in Sources */,
+				A948E2D3205E28DB005B7606 /* NormalTableViewController.m in Sources */,
 				A99B7F12205CD34C002FA0D5 /* MJTableViewController.m in Sources */,
+				A96813B3205EAB8E00BB23D8 /* BannerViewCell.m in Sources */,
 				A99B7EE8205CC850002FA0D5 /* main.m in Sources */,
 				A99B7F0D205CD34C002FA0D5 /* MJTableViewSection.m in Sources */,
 				A99B7EDA205CC850002FA0D5 /* AppDelegate.m in Sources */,

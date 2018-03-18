@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
+#import "NormalTableViewController.h"
 
 @interface AppDelegate ()
 
@@ -21,7 +22,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[ViewController alloc] init]];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[NormalTableViewController alloc] init]];
     
 //    NSLog(@"石:%f",1.5 * 480 + 0.5 * 5229);
 //    NSLog(@"木:%f",1.5 * 223 + 0.5 * 5183);

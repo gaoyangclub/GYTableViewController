@@ -131,7 +131,7 @@
     return self.dataArray.count;
 }
 
--(NSUInteger)getTotalCellCount{
+-(NSUInteger)getTotalCellVoCount{
     NSInteger cellCount = 0;
     for (SectionVo* svo in self.dataArray) {
         for (CellVo* cvo in svo.cellVoList) {
@@ -143,7 +143,6 @@
 
 -(void)setRefreshDelegate:(id<MJTableBaseViewDelegate>)refreshDelegate{
     _refreshDelegate = refreshDelegate;
-    
 }
 
 //-(void)setTopEdgeDiverge:(BOOL)topEdgeDiverge{
