@@ -67,7 +67,7 @@
             handler(NO);
             return;
         }
-        NSUInteger startIndex = [lastSectionVo getRealDataCount];
+        NSUInteger startIndex = [lastSectionVo getCellVoCount];
         NSMutableArray* sourceArray = [NSMutableArray array];
         for (NSUInteger i = 0; i < count; i++) {
             [sourceArray addObject:[NSString stringWithFormat:@"数据: %lu",startIndex + i]];

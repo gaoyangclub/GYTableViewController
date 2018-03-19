@@ -27,9 +27,13 @@
 }
 
 -(void)showSubviews{
-    NSString* imageName = self.data;
-    self.bannerImageView.image = [UIImage imageNamed:imageName];
-    self.bannerImageView.frame = self.contentView.bounds;
+    int64_t delay = 0.3 * NSEC_PER_SEC;
+    self.bannerImageView.image = nil;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{
+        NSString* imageName = self.data;
+        self.bannerImageView.image = [UIImage imageNamed:imageName];
+        self.bannerImageView.frame = self.contentView.bounds;
+    });
 }
 
 //- (void)setSelected:(BOOL)selected animated:(BOOL)animated {

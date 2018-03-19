@@ -9,6 +9,27 @@
 #import "MJTableBaseView.h"
 #import "MJRefreshAutoFooterGY.h"
 
+@interface SectionVo()
+
+/** 存储该节包含的cellVo数据列表 注:包含用户数据和gap数据 不能直接对外遍历使用 **/
+@property (nonatomic,retain)NSMutableArray<CellVo*>* cellVoList;
+
+@end
+
+@interface CellVo()
+
+#define CELL_TAG_NORMAL 0 //除头尾中间段的
+#define CELL_TAG_FIRST 1 //小组第一个
+#define CELL_TAG_LAST 2 //小组最后一个
+#define CELL_TAG_SECTION_GAP 10 //section的gap
+#define CELL_TAG_CELL_GAP 11 //cell的gap
+
+@property (nonatomic,assign)NSInteger cellTag;
+
+-(BOOL)isRealCell;
+
+@end
+
 @interface MJTableBaseView()<UITableViewDelegate,UITableViewDataSource>{//
     
 }
@@ -57,7 +78,7 @@
     @synchronized (self) {
         if (instance == nil) {
             instance = [super allocWithZone:zone];
-            instance.refreshAll = YES;
+//            instance.refreshAll = YES;
 //            instance.useCellIdentifer = YES;
 //            instance.showHeader = YES;
 //            instance.showFooter = YES;
@@ -185,12 +206,12 @@
             __weak __typeof(self) weakSelf = self;
             MJRefreshAutoNormalFooter* footer = [MJRefreshAutoFooterGY footerWithRefreshingBlock:^{
                 __strong typeof(weakSelf) strongSelf = weakSelf;
-                if (strongSelf.refreshDelegate && [strongSelf.refreshDelegate respondsToSelector:@selector(footerLoadMore:lastSectionVo:)]){
-                    [strongSelf.refreshDelegate footerLoadMore:^(BOOL hasData){
+                if (strongSelf.refreshDelegate && [strongSelf.refreshDelegate respondsToSelector:@selector(footerLoadMore:endLoadMoreHandler:lastSectionVo:)]){
+                    [strongSelf.refreshDelegate footerLoadMore:strongSelf endLoadMoreHandler:^(BOOL hasData){
 //                        [strongSelf footerLoaded:hasData];
                         if (hasData) {
                             [strongSelf checkGaps];
-                            strongSelf.refreshAll = NO;
+//                            strongSelf.refreshAll = NO;
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 [strongSelf reloadData];
                                 if (strongSelf.refreshDelegate && [strongSelf.refreshDelegate respondsToSelector:@selector(didLoadMoreComplete)]){
@@ -227,9 +248,9 @@
         __weak __typeof(self) weakSelf = self;
         header.refreshingBlock = ^{
             __strong typeof(weakSelf) strongSelf = weakSelf;
-            if (strongSelf.refreshDelegate && [strongSelf.refreshDelegate respondsToSelector:@selector(headerRefresh:)]) {
+            if (strongSelf.refreshDelegate && [strongSelf.refreshDelegate respondsToSelector:@selector(headerRefresh:endRefreshHandler:)]) {
                 [strongSelf clearAllSectionVo];//预先清除数据
-                [strongSelf.refreshDelegate headerRefresh:^(BOOL hasData){
+                [strongSelf.refreshDelegate headerRefresh:strongSelf endRefreshHandler:^(BOOL hasData){
                     strongSelf->_hasFirstRefreshed = YES;
                     [strongSelf reloadMJData];
                     [strongSelf.mj_header endRefreshing];// 结束刷新
@@ -263,7 +284,7 @@
 }
 
 -(void)reloadMJData{
-    self.refreshAll = YES;
+//    self.refreshAll = YES;
     [self checkGaps];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self reloadData];
@@ -286,7 +307,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     SectionVo* sectionVo = [self getSectionVoByIndex:section];
-    return sectionVo ? sectionVo.headerHeight : 0;
+    return sectionVo ? sectionVo.sectionHeight : 0;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -338,17 +359,11 @@
         }
         cell.backgroundColor = [UIColor clearColor];//无色
     }
-    if (isCreate || !cell.isSubviewShow || cell.cellVo != cellVo) {
+    if (isCreate || !cell.isSubviewShow || !cellVo.isUnique || (cellVo.isUnique && cellVo.forceUpdate)) {//cell.cellVo != cellVo
         cell.needRefresh = YES; //需要刷新
     }else{
         cell.needRefresh = NO; //不需要刷新
     }
-//    if(!self.refreshAll && !isCreate)){//上啦加载且非创建阶段
-//        cell.needRefresh = NO; //不需要刷新
-//        return cell; //直接返回无需设置
-//    }else{
-//        cell.needRefresh = YES; //需要刷新
-//    }
     NSObject* data = cellVo.cellData;
     cell.isSingle = sectionVo.cellVoList.count <= 1;
     cell.isFirst = cellVo.cellTag == CELL_TAG_FIRST;
@@ -379,7 +394,7 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     SectionVo* sectionVo = [self getSectionVoByIndex:section];
-    Class headerClass = sectionVo.headerClass;
+    Class headerClass = sectionVo.sectionClass;
     MJTableViewSection* sectionView;
     if (headerClass != NULL) {
         sectionView = [[headerClass alloc]init];
@@ -387,7 +402,7 @@
         sectionView.itemIndex = section;
         sectionView.isFirst = section == 0;
         sectionView.isLast = section == self.dataArray.count - 1;
-        sectionView.data = sectionVo.headerData;
+        sectionView.data = sectionVo.sectionData;
     }
 //    var headerView = nsSectionDic[section]
 //    if headerView == nil{
@@ -525,11 +540,15 @@
 }
 
 -(CellVo*)getSectionGapCellVo{
-    return [CellVo initWithParams:self.sectionGap cellClass:[MJTableViewCell class] cellData:nil cellTag:CELL_TAG_SECTION_GAP isUnique:false];
+    CellVo* cvo = [CellVo initWithParams:self.sectionGap cellClass:[MJTableViewCell class] cellData:nil];
+    cvo.cellTag = CELL_TAG_SECTION_GAP;
+    return cvo;
 }
 
 -(CellVo*)getCellGapCellVo{
-    return [CellVo initWithParams:self.cellGap cellClass:[MJTableViewCell class] cellData:nil cellTag:CELL_TAG_CELL_GAP isUnique:false];
+    CellVo* cvo = [CellVo initWithParams:self.cellGap cellClass:[MJTableViewCell class] cellData:nil];
+    cvo.cellTag = CELL_TAG_CELL_GAP;
+    return cvo;
 }
 
 -(SectionVo*)getLastSectionVo {
@@ -548,32 +567,23 @@
 
 @end
 
-@interface SectionVo()
-
-@property (nonatomic,retain)NSMutableArray<CellVo*>* cellVoList;
-
-@end
-
 @implementation SectionVo
 
 +(instancetype)initWithParams:(void (^)(SectionVo* svo))nextBlock{
-    return [SectionVo initWithParams:0 headerClass:nil headerData:nil nextBlock:nextBlock];
+    return [SectionVo initWithParams:0 sectionClass:nil sectionData:nil nextBlock:nextBlock];
 }
 
-+(instancetype)initWithParams:(CGFloat)headerHeight headerClass:(Class)headerClass headerData:(id)headerData nextBlock:(void (^)(SectionVo* svo))nextBlock{
-    return [SectionVo initWithParams:headerHeight headerClass:headerClass headerData:headerData isUnique:false nextBlock:nextBlock];
-}
-
-+(instancetype)initWithParams:(CGFloat)headerHeight headerClass:(Class)headerClass headerData:(id)headerData isUnique:(BOOL)isUnique nextBlock:(void (^)(SectionVo* svo))nextBlock{
++(instancetype)initWithParams:(CGFloat)sectionHeight sectionClass:(Class)sectionClass sectionData:(id)sectionData nextBlock:(void (^)(SectionVo *))nextBlock
+{
     SectionVo *instance;
     @synchronized (self)    {
         if (instance == nil)
         {
             instance = [[self alloc] init];
-            instance.headerHeight = headerHeight;
-            instance.headerClass = headerClass;
-            instance.headerData = headerData;
-            instance.isUnique = isUnique;
+            instance.sectionHeight = sectionHeight;
+            instance.sectionClass = sectionClass;
+            instance.sectionData = sectionData;
+//            instance.isUnique = isUnique;
             if (nextBlock) {
                 nextBlock(instance);
             }
@@ -589,7 +599,7 @@
     return _cellVoList;
 }
 
--(NSInteger)getRealDataCount {
+-(NSInteger)getCellVoCount {
     if (!self.cellVoList || self.cellVoList.count == 0) {
         return 0;
     }
@@ -612,14 +622,17 @@
 
 @end
 
-
 @implementation CellVo
 
-+ (instancetype)initWithParams:(CGFloat)cellHeight cellClass:(Class)cellClass cellData:(NSObject*)cellData{
-    return [CellVo initWithParams:cellHeight cellClass:cellClass cellData:cellData cellTag:CELL_TAG_NORMAL isUnique:false];
++(instancetype)initWithParams:(CGFloat)cellHeight cellClass:(Class)cellClass cellData:(NSObject*)cellData{
+    return [CellVo initWithParams:cellHeight cellClass:cellClass cellData:cellData isUnique:false];
 }
 
-+ (instancetype)initWithParams:(CGFloat)cellHeight cellClass:(Class)cellClass cellData:(NSObject*)cellData cellTag:(NSInteger)cellTag isUnique:(BOOL)isUnique
++(instancetype)initWithParams:(CGFloat)cellHeight cellClass:(Class)cellClass cellData:(id)cellData isUnique:(BOOL)isUnique{
+    return [CellVo initWithParams:cellHeight cellClass:cellClass cellData:cellData isUnique:isUnique forceUpdate:false];
+}
+
++(instancetype)initWithParams:(CGFloat)cellHeight cellClass:(Class)cellClass cellData:(id)cellData isUnique:(BOOL)isUnique forceUpdate:(BOOL)forceUpdate
 {
     CellVo *instance;
     @synchronized (self)    {
@@ -629,8 +642,9 @@
             instance.cellHeight = cellHeight;
             instance.cellClass = cellClass;
             instance.cellData = cellData;
-            instance.cellTag = cellTag;
+//            instance.cellTag = cellTag;
             instance.isUnique = isUnique;
+            instance.forceUpdate = forceUpdate;
         }
     }
     return instance;

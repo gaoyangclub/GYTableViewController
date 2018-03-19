@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84809A3D205F8F79003B4604 /* HotAreaViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84809A3C205F8F79003B4604 /* HotAreaViewCell.m */; };
+		84809A40205F96CD003B4604 /* ProductViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84809A3F205F96CD003B4604 /* ProductViewCell.m */; };
+		84809A43205F9C70003B4604 /* ProductViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 84809A42205F9C70003B4604 /* ProductViewSection.m */; };
 		A948E2D3205E28DB005B7606 /* NormalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A948E2D2205E28DB005B7606 /* NormalTableViewController.m */; };
 		A96813B3205EAB8E00BB23D8 /* BannerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A96813B2205EAB8E00BB23D8 /* BannerViewCell.m */; };
 		A96813C4205EB27900BB23D8 /* fundHot09.png in Resources */ = {isa = PBXBuildFile; fileRef = A96813B7205EB27900BB23D8 /* fundHot09.png */; };
@@ -38,6 +41,12 @@
 
 /* Begin PBXFileReference section */
 		6802C8B1E0F71DBABEAC6BAD /* Pods-MJTableViewController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJTableViewController.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MJTableViewController/Pods-MJTableViewController.debug.xcconfig"; sourceTree = "<group>"; };
+		84809A3B205F8F79003B4604 /* HotAreaViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HotAreaViewCell.h; sourceTree = "<group>"; };
+		84809A3C205F8F79003B4604 /* HotAreaViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HotAreaViewCell.m; sourceTree = "<group>"; };
+		84809A3E205F96CD003B4604 /* ProductViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductViewCell.h; sourceTree = "<group>"; };
+		84809A3F205F96CD003B4604 /* ProductViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductViewCell.m; sourceTree = "<group>"; };
+		84809A41205F9C70003B4604 /* ProductViewSection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductViewSection.h; sourceTree = "<group>"; };
+		84809A42205F9C70003B4604 /* ProductViewSection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductViewSection.m; sourceTree = "<group>"; };
 		9E1D1A2E7306E3200B0BF4C0 /* Pods-MJTableViewController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJTableViewController.release.xcconfig"; path = "Pods/Target Support Files/Pods-MJTableViewController/Pods-MJTableViewController.release.xcconfig"; sourceTree = "<group>"; };
 		A948E2D1205E28DB005B7606 /* NormalTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NormalTableViewController.h; sourceTree = "<group>"; };
 		A948E2D2205E28DB005B7606 /* NormalTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NormalTableViewController.m; sourceTree = "<group>"; };
@@ -115,6 +124,12 @@
 				A948E2D2205E28DB005B7606 /* NormalTableViewController.m */,
 				A96813B1205EAB8E00BB23D8 /* BannerViewCell.h */,
 				A96813B2205EAB8E00BB23D8 /* BannerViewCell.m */,
+				84809A3B205F8F79003B4604 /* HotAreaViewCell.h */,
+				84809A3C205F8F79003B4604 /* HotAreaViewCell.m */,
+				84809A3E205F96CD003B4604 /* ProductViewCell.h */,
+				84809A3F205F96CD003B4604 /* ProductViewCell.m */,
+				84809A41205F9C70003B4604 /* ProductViewSection.h */,
+				84809A42205F9C70003B4604 /* ProductViewSection.m */,
 			);
 			path = NormalTable;
 			sourceTree = "<group>";
@@ -355,9 +370,12 @@
 				A99B7F10205CD34C002FA0D5 /* MJRefreshAutoFooterGY.m in Sources */,
 				A948E2D3205E28DB005B7606 /* NormalTableViewController.m in Sources */,
 				A99B7F12205CD34C002FA0D5 /* MJTableViewController.m in Sources */,
+				84809A43205F9C70003B4604 /* ProductViewSection.m in Sources */,
 				A96813B3205EAB8E00BB23D8 /* BannerViewCell.m in Sources */,
 				A99B7EE8205CC850002FA0D5 /* main.m in Sources */,
+				84809A40205F96CD003B4604 /* ProductViewCell.m in Sources */,
 				A99B7F0D205CD34C002FA0D5 /* MJTableViewSection.m in Sources */,
+				84809A3D205F8F79003B4604 /* HotAreaViewCell.m in Sources */,
 				A99B7EDA205CC850002FA0D5 /* AppDelegate.m in Sources */,
 				A99B7F0F205CD34C002FA0D5 /* MJRefreshComponent+GY.m in Sources */,
 				A99B7F11205CD34C002FA0D5 /* MJTableViewCell.m in Sources */,

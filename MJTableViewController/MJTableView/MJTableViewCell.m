@@ -66,7 +66,7 @@
 }
 
 -(BOOL)showSelectionStyle{
-    return YES;
+    return NO;
 }
 
 -(CGFloat)getCellHeight:(CGFloat)cellWidth{//坑爹 自动衡量的情况下宽度是不准的 需要获取父容器tableView的宽度衡量

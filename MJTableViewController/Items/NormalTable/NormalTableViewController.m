@@ -8,6 +8,10 @@
 
 #import "NormalTableViewController.h"
 #import "BannerViewCell.h"
+#import "HotAreaViewCell.h"
+#import "ProductViewCell.h"
+#import "ProductViewSection.h"
+
 @interface NormalTableViewController ()
 
 @end
@@ -18,11 +22,47 @@
     return NO;
 }
 
--(void)headerRefresh:(HeaderRefreshHandler)handler{
-    [self.tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
-        [svo addCellVo:[CellVo initWithParams:230 cellClass:BannerViewCell.class cellData:@"banner.jpg"]];
+-(void)headerRefresh:(MJTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
+    [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
+        [svo addCellVo:[CellVo initWithParams:230 cellClass:BannerViewCell.class cellData:@"banner.jpg" isUnique:YES]];
+        [svo addCellVo:[CellVo initWithParams:100 cellClass:HotAreaViewCell.class cellData:@[@"fundHot02",@"fundHot08",@"fundHot05",@"fundHot10"] isUnique:YES]];
+        
+//        [svo addCellVo:[CellVo initWithParams:50 cellClass:ProductViewCell.class cellData:@"老李同志"]];
+//        [svo addCellVo:[CellVo initWithParams:50 cellClass:ProductViewCell.class cellData:@"老刘同志"]];
+//        [svo addCellVo:[CellVo initWithParams:50 cellClass:ProductViewCell.class cellData:@"老郑同志"]];
     }]];
-    handler(YES);
+    
+    [tableView addSectionVo:[SectionVo initWithParams:40 sectionClass:ProductViewSection.class sectionData:@"推荐客户" nextBlock:^(SectionVo *svo) {
+        [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ProductViewCell.class
+                                                     sourceArray:@[
+                                                                   @"老李同志",
+                                                                   @"老刘同志",
+                                                                   @"老郑同志",
+                                                                   @"老陈同志",
+                                                                   @"老王同志",
+                                                                   @"老金同志",
+                                                                   @"老陆同志",
+                                                                   @"老周同志",
+                                                                   @"老包同志"
+                                                                   ]]];
+    }]];
+    [tableView addSectionVo:[SectionVo initWithParams:40 sectionClass:ProductViewSection.class sectionData:@"潜力客户" nextBlock:^(SectionVo *svo) {
+        [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ProductViewCell.class
+                                                     sourceArray:@[
+                                                                   @"老铁同志",
+                                                                   @"老铁同志",
+                                                                   @"老铁同志",
+                                                                   @"老铁同志",
+                                                                   @"老铁同志",
+                                                                   @"老铁同志",
+                                                                   @"老铁同志",
+                                                                   @"老铁同志",
+                                                                   @"老铁同志"
+                                                                   ]]];
+    }]];
+    
+    
+    endRefreshHandler(YES);
 }
 
 - (void)viewDidLoad {
