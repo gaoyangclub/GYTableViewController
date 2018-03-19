@@ -2,9 +2,9 @@
 自定义封装TableView和MJRefresh结合
 
 特点:<br/>
-1.将tableView常用的delegate和dataSource方法封装在内部处理，通过外部包装数据的方式展示相关内容，控制cell状态
-2.cell内部根据传递的数据展示内容
-3.内部自带MJRefresh框架，提供下拉刷新和上拉加载功能，外部暴露接口调用
+1.将tableView常用的delegate和dataSource方法封装在内部处理，通过外部包装数据的方式展示相关内容，控制cell状态<br/>
+2.cell内部根据传递的数据展示内容<br/>
+3.内部自带MJRefresh框架，提供下拉刷新和上拉加载功能，外部暴露接口调用<br/>
 
 用法:<br/>
 此框架基于MJRefresh，所以务必先添加该framework，手动或者pod都可以，使用链接<br/>
