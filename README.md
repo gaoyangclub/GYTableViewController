@@ -1,5 +1,4 @@
-# MJTableViewController
-自定义封装TableView和MJRefresh结合
+# 自定义封装UITableView和MJRefresh相结合
 
 特点:<br/>
 1.将tableView常用的delegate和dataSource方法封装在内部处理，通过外部包装数据的方式展示相关内容，控制cell状态<br/>
@@ -9,20 +8,20 @@
 用法:<br/>
 此框架基于MJRefresh，所以务必先添加该framework，手动或者pod都可以，[使用方法](https://github.com/CoderMJLee/MJRefresh/)<br/>
 请使用该框架中的元素来代替原生列表控件，对应关系如下:<br/>
-MJTableBaseView -> UITableView<br/>
-MJTableViewController -> UITableViewController<br/>
-MJTableViewCell -> UITableViewCell<br/>
-MJTableViewSection 原生使用UIView展示section内容，这里使用MJTableViewSection<br/>
+```
+MJTableBaseView -> UITableView
+MJTableViewController -> UITableViewController
+MJTableViewCell -> UITableViewCell
+MJTableViewSection 原生使用UIView展示section内容，这里使用MJTableViewSection
+```
 
-使用时有列表控件的界面直接继承MJTableViewController，内部重写相关方法控制界面刷新，列表内容层次搭建，以及各种类型的Cell位置如何摆放等
+使用时有列表控件的界面直接继承MJTableViewController，.h示例如下
 ```objc
 #import "MJTableViewController.h"
-
 @interface NormalTableViewController : MJTableViewController
-
 @end
 ```
-.m文件中重写headerRefresh添加元素，当自带的下拉刷新控件下拉时调用
+.m文件中重写headerRefresh添加元素，当自带的下拉刷新控件下拉时调用；从而开始列表内容层次搭建，以及各种类型的Cell位置如何摆放等
 ```objc
 -(void)headerRefresh:(MJTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
     //下拉刷新后开始请求后台提供数据，请求到数据后根据解析的内容展开cell实例和位置等操作，代码结构如下(伪代码)
@@ -256,4 +255,13 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 @end
 ```
 
-
+# 调用示例
+```objc
+-(void)headerRefresh:(MJTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
+    [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
+        //添加一个高度为230，类型为BannerViewCell，展示"banner.jpg"图片的Cell
+        [svo addCellVo:[CellVo initWithParams:230 cellClass:BannerViewCell.class cellData:@"banner.jpg"]];
+    }];
+    endRefreshHandler(YES);//不要忘了结束刷新，否则刷新动画会停留原地
+}
+```
