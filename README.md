@@ -16,7 +16,7 @@ MJTableViewSection 原生使用UIView展示section内容，这里使用MJTableVi
 
 使用时直接创建Controller继承MJTableViewController，在Controller内部重写相关方法控制界面刷新，列表内容层次搭建，以及各种类型的Cell位置如何摆放等
 
-<img src="https://github.com/gaoyangclub/MJTableViewController/tree/master/MJTableViewController/assetes/example/useTableViewController.png" width="200" height="300">
+![(创建自定义控制类)(https://github.com/gaoyangclub/MJTableViewController/tree/master/MJTableViewController/assetes/example/useTableViewController.png)
 
 # MJTableBaseView.h
 ```objc
