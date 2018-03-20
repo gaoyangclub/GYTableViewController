@@ -274,9 +274,10 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 ```
 ### BannerViewCell.m
 ```objc
+//页面元素创建并布局 这里bannerImageView通过懒加载方式创建，具体实现不赘述
 -(void)showSubviews{
-    NSString* imageName = self.data;
-    self.bannerImageView.image = [UIImage imageNamed:imageName];
-    self.bannerImageView.frame = self.contentView.bounds;
+    NSString* imageName = self.data;//获取CellVo中传的cellData（@"banner.jpg"）
+    self.bannerImageView.image = [UIImage imageNamed:imageName];
+    self.bannerImageView.frame = self.contentView.bounds;//占满整个Cell空间
 }
 ```
