@@ -87,3 +87,143 @@ MJTableViewSection 原生使用UIView展示section内容，这里使用MJTableVi
 
 @end
 ```
+# CellVo
+```objc
+@interface CellVo : NSObject
+
+/** 创建CellVo实例并初始化设置cell高度、cell类型、cell数据 **/
++ (instancetype)initWithParams:(CGFloat)cellHeight cellClass:(Class)cellClass cellData:(id)cellData;
+/** 创建CellVo实例并初始化设置cell高度、cell类型、cell数据、cell是否唯一 **/
++ (instancetype)initWithParams:(CGFloat)cellHeight cellClass:(Class)cellClass cellData:(id)cellData isUnique:(BOOL)isUnique;
+/** 创建CellVo实例并初始化设置cell高度、cell类型、cell数据、cell是否唯一、是否强制刷新 **/
++ (instancetype)initWithParams:(CGFloat)cellHeight cellClass:(Class)cellClass cellData:(id)cellData isUnique:(BOOL)isUnique forceUpdate:(BOOL)forceUpdate;
+/** 通过原始数据数组批量创建CellVo并将数据分别对应存入 **/
++(NSArray<CellVo*>*)dividingCellVoBySourceArray:(CGFloat)cellHeight cellClass:(Class)cellClass sourceArray:(NSArray*)sourceArray;
+
+/** MJTableViewCell实例高度 **/
+@property (nonatomic,assign)CGFloat cellHeight;
+/** 用来实例化MJTableViewCell的自定义类型 **/
+@property (nonatomic,retain)Class cellClass;
+/** 传递给MJTableViewCell实例的数据，用来展示界面判断逻辑等，实例内部通过self.data属性获得 **/
+@property (nonatomic,retain)id cellData;
+/** 创建MJTableViewCell实例唯一，相当于单例，就算是相同类型的MJTableViewCell也是各自成为单例，且内容不会刷新(适合内容只初始化一次的界面) **/
+@property (nonatomic,assign)BOOL isUnique;
+/** isUnique设置为true的情况下 forceUpdate可以继续让单例MJTableViewCell中的内容强制刷新 **/
+@property (nonatomic,assign)BOOL forceUpdate;
+/** 自定义保留字段 **/
+@property (nonatomic,copy)NSString* cellName;
+
+@end
+```
+# MJTableViewController.h
+```objc
+@interface MJTableViewController : UIViewController<MJTableBaseViewDelegate>
+
+/** controller包含的tableView实例 **/
+@property(nonatomic,retain)MJTableBaseView* tableView;
+//@property(nonatomic,assign)BOOL contentOffsetRest;
+/** 设置进入该页面是否自动下拉刷新 默认true **/
+@property(nonatomic,assign)BOOL autoRefreshHeader;
+/** 设置选中某个indexPath位置 **/
+@property(nonatomic,retain)NSIndexPath* selectedIndexPath;
+
+/**
+ 以下方法以及MJTableBaseViewDelegate中的所有方法均为子类重写，外部无法更改
+ ***/
+/** 设置TableView的布局位置，默认铺满Controller **/
+-(CGRect)getTableViewFrame;
+/** 设置是否显示下拉刷新控件 默认显示 **/
+-(BOOL)getShowHeader;
+/** 设置是否显示上拉加载控件 默认显示 **/
+-(BOOL)getShowFooter;
+/** 设置是否标记重用cell实例 默认true **/
+-(BOOL)getUseCellIdentifer;
+/** 设置每次进入该页面自动滚动到列表顶部 默认false **/
+-(BOOL)getNeedRestOffset;
+/** 设置自定义下拉刷新控件实例 **/
+-(MJRefreshHeader*)getHeader;
+
+@end
+```
+# MJTableBaseViewDelegate
+```objc
+/** 下拉刷新或上拉加载调用结束Block hasData标注界面是否刷新出了新的数据  **/
+typedef void(^HeaderRefreshHandler)(BOOL hasData);
+typedef void(^FooterLoadMoreHandler)(BOOL hasData);
+
+@protocol MJTableBaseViewDelegate<NSObject>
+
+@optional
+/** 当MJTableBaseView下拉刷新时代理调用 **/
+-(void)headerRefresh:(MJTableBaseView*)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler;
+@optional
+/** 当MJTableBaseView上拉加载时代理调用 **/
+-(void)footerLoadMore:(MJTableBaseView*)tableView endLoadMoreHandler:(FooterLoadMoreHandler)endLoadMoreHandler lastSectionVo:(SectionVo*)lastSectionVo;
+@optional
+/** 当MJTableBaseView某一条MJTableViewCell实例被点击时代理调用 **/
+-(void)didSelectRow:(MJTableBaseView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+@optional
+/** 当MJTableBaseView滚动到某个位置时代理调用 **/
+-(void)didScrollToRow:(MJTableBaseView*)tableView indexPath:(NSIndexPath *)indexPath;
+@optional
+/** 当MJTableBaseView从滚动状态静止时代理调用 **/
+-(void)didEndScrollingAnimation:(MJTableBaseView*)tableView;
+@optional
+/** 当MJTableBaseView下拉刷新完毕后代理调用 **/
+-(void)didRefreshComplete:(MJTableBaseView*)tableView;
+@optional
+/** 当MJTableBaseView上拉加载完毕后代理调用 **/
+-(void)didLoadMoreComplete:(MJTableBaseView*)tableView;
+
+@end
+```
+# MJTableViewCell.h
+```objc
+@interface MJTableViewCell : UITableViewCell
+
+/** 是否在该节中的首位 **/
+@property(nonatomic,assign) BOOL isFirst;
+/** 是否在该节中的末位 **/
+@property(nonatomic,assign) BOOL isLast;
+/** 是否在该节只有此一个MJTableViewCell实例 **/
+@property(nonatomic,assign) BOOL isSingle;
+/** 是否需要刷新界面 **/
+@property(nonatomic,assign) BOOL needRefresh;
+/** 是否初次界面加载完毕 **/
+@property(nonatomic,assign) BOOL isSubviewShow;
+/** 对应的MJTableBaseView实例 **/
+@property(nonatomic,weak) MJTableBaseView* tableView;
+/** 当前所处位置 **/
+@property(nonatomic,retain) NSIndexPath* indexPath;
+/** 对应的CellVo实例 **/
+@property(nonatomic,retain) CellVo *cellVo;
+/** 外部传入的数据 用来布局或交互等（cellVo.cellData） **/
+@property(nonatomic,retain) id data;
+//@property(nonatomic,assign) BOOL isSelected;
+
+/** 页面元素创建并布局 请勿使用layoutSubviews来布局 **/
+-(void)showSubviews;
+/** 是否显示选中的效果样式 默认false **/
+-(BOOL)showSelectionStyle;
+/** 根据内容动态计算高度（适合内容多少高度不定的样式或文案展示） **/
+-(CGFloat)getCellHeight:(CGFloat)cellWidth;
+
+@end
+```
+# MJTableViewSection.h
+```objc
+@interface MJTableViewSection : UIControl
+
+/** tableView所有section总数  **/
+@property(nonatomic,assign)NSInteger sectionCount;
+/** 当前section索引位置  **/
+@property(nonatomic,assign)NSInteger sectionIndex;
+/** 外部传入的数据 用来布局或交互等（sectionVo.sectionData） **/
+@property(nonatomic,retain)id data;
+/** 是否在整个tableView的首位 **/
+@property(nonatomic,assign)BOOL isFirst;
+/** 是否在整个tableView的末位 **/
+@property(nonatomic,assign)BOOL isLast;
+
+@end
+```
