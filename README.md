@@ -256,6 +256,7 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 ```
 
 # 调用示例
+### 列表控制器内部实现
 ```objc
 -(void)headerRefresh:(MJTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
     [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
@@ -263,5 +264,19 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
         [svo addCellVo:[CellVo initWithParams:230 cellClass:BannerViewCell.class cellData:@"banner.jpg"]];
     }];
     endRefreshHandler(YES);//不要忘了结束刷新，否则刷新动画会停留原地
+}
+```
+### BannerViewCell.h 继承MJTableViewCell
+```objc
+#import "MJTableViewCell.h"
+@interface BannerViewCell : MJTableViewCell
+@end
+```
+### BannerViewCell.m
+```objc
+-(void)showSubviews{
+    NSString* imageName = self.data;
+    self.bannerImageView.image = [UIImage imageNamed:imageName];
+    self.bannerImageView.frame = self.contentView.bounds;
 }
 ```
