@@ -63,7 +63,7 @@ MJTableViewSection 原生使用UIView展示section内容，这里使用MJTableVi
 
 @end
 ```
-#SectionVo
+# SectionVo
 ```objc
 @interface SectionVo : NSObject
 
@@ -71,14 +71,12 @@ MJTableViewSection 原生使用UIView展示section内容，这里使用MJTableVi
 + (instancetype)initWithParams:(void(^)(SectionVo* svo))nextBlock;
 /** 创建SectionVo实例并初始化设置section高度、section类型、section数据、下一步回调 **/
 + (instancetype)initWithParams:(CGFloat)sectionHeight sectionClass:(Class)sectionClass sectionData:(id)sectionData nextBlock:(void(^)(SectionVo* svo))nextBlock;
-//+ (instancetype)initWithParams:(CGFloat)sectionHeight sectionClass:(Class)sectionClass sectionData:(id)sectionData isUnique:(BOOL)isUnique nextBlock:(void(^)(SectionVo* svo))nextBlock;
 /** MJTableViewSection实例高度 **/
 @property (nonatomic,assign)CGFloat sectionHeight;
 /** 用来实例化MJTableViewSection的自定义类型 **/
 @property (nonatomic,retain)Class sectionClass;
 /** 传递给MJTableViewSection实例的数据，用来展示界面判断逻辑等，实例内部通过self.data属性获得 **/
 @property (nonatomic,retain)id sectionData;
-//@property (nonatomic,assign)BOOL isUnique;//预留该功能
 
 /** 该节包含的CellVo个数 **/
 -(NSInteger)getCellVoCount;
