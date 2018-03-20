@@ -7,7 +7,7 @@
 3.内部自带MJRefresh框架，提供下拉刷新和上拉加载功能，外部暴露接口调用<br/>
 
 用法:<br/>
-此框架基于MJRefresh，所以务必先添加该framework，手动或者pod都可以，使用链接<br/>
+此框架基于MJRefresh，所以务必先添加该framework，手动或者pod都可以，[使用方法](https://github.com/CoderMJLee/MJRefresh/)<br/>
 请使用该框架中的元素来代替原生列表控件，对应关系如下:<br/>
 MJTableBaseView -> UITableView<br/>
 MJTableViewController -> UITableViewController<br/>
