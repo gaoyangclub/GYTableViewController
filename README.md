@@ -281,3 +281,4 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
     self.bannerImageView.frame = self.contentView.bounds;//占满整个Cell空间
 }
 ```
+![示例效果1](https://github.com/gaoyangclub/MJTableViewController/blob/master/MJTableViewController/assetes/example/demo1.gif)
