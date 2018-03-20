@@ -19,11 +19,9 @@
 
 -(void)showSubviews{
     CGFloat const iconWidth = 40;
-    
-    self.imageView.image = [UIImage imageNamed:@"fundHot12"];
+    self.imageView.image = [UIImage imageNamed:@"fundHot12"];//显示图标 也可以通过data传入
     self.imageView.frame = CGRectMake(30, (CGRectGetHeight(self.contentView.bounds) - iconWidth) / 2., iconWidth, iconWidth);
-    
-    self.textLabel.text = self.data;
+    self.textLabel.text = self.data;//这里data只传入用户姓名
 }
 
 -(BOOL)showSelectionStyle{

@@ -45,10 +45,34 @@
     return NO;
 }
 
+//-(void)headerRefresh:(MJTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
+//    [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
+//        //添加一个高度为230，类型为BannerViewCell，展示"banner.jpg"图片的Cell
+//        [svo addCellVo:[CellVo initWithParams:230 cellClass:BannerViewCell.class cellData:@"banner.jpg"]];
+//    }]];
+//    endRefreshHandler(YES);//不要忘了结束刷新，否则刷新动画会停留原地
+//}
+
+//-(void)headerRefresh:(MJTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
+//    [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
+//        //添加一个高度为230，类型为BannerViewCell，展示"banner.jpg"图片的Cell
+//        [svo addCellVo:[CellVo initWithParams:230 cellClass:BannerViewCell.class cellData:@"banner.jpg"]];
+//        //添加三个高度为50，类型为ProductViewCell，展示用户信息的Cell
+//        [svo addCellVo:[CellVo initWithParams:50 cellClass:ProductViewCell.class cellData:@"老李同志"]];
+//        [svo addCellVo:[CellVo initWithParams:50 cellClass:ProductViewCell.class cellData:@"老刘同志"]];
+//        [svo addCellVo:[CellVo initWithParams:50 cellClass:ProductViewCell.class cellData:@"老郑同志"]];
+//    }]];
+//    endRefreshHandler(YES);//不要忘了结束刷新，否则刷新动画会停留原地
+//}
+
 -(void)headerRefresh:(MJTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
     [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
         //添加一个高度为230，类型为BannerViewCell，展示"banner.jpg"图片的Cell
         [svo addCellVo:[CellVo initWithParams:230 cellClass:BannerViewCell.class cellData:@"banner.jpg"]];
+        
+        NSArray* sourceArray = @[@"老李同志",@"老刘同志",@"老郑同志"];
+        //按照数组结构的数据遍历后批量创建cell实例，数据分别传递给创建的cell实例
+        [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ProductViewCell.class sourceArray:sourceArray]];
     }]];
     endRefreshHandler(YES);//不要忘了结束刷新，否则刷新动画会停留原地
 }
