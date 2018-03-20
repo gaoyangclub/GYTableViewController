@@ -15,8 +15,34 @@ MJTableViewCell -> UITableViewCell<br/>
 MJTableViewSection 原生使用UIView展示section内容，这里使用MJTableViewSection<br/>
 
 使用时直接创建Controller继承MJTableViewController，在Controller内部重写相关方法控制界面刷新，列表内容层次搭建，以及各种类型的Cell位置如何摆放等
+```objc
+#import "MJTableViewController.h"
 
-![创建自定义控制类](https://github.com/gaoyangclub/MJTableViewController/blob/master/MJTableViewController/assetes/example/useTableViewController.png)
+@interface NormalTableViewController : MJTableViewController
+
+@end
+```
+.m文件中重写headerRefresh添加元素 当自带的下拉刷新控件下拉时调用
+```objc
+-(void)headerRefresh:(MJTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
+    //下拉刷新后开始请求后台提供数据，请求到数据后根据解析的内容展开cell实例和位置等操作 代码结构如下
+    //request{
+        tableView{
+            sectionVo{
+                cellVo,
+                cellVo,
+                ...
+            }
+            sectionVo{
+                cellVo,
+                ...
+            }
+            ...
+        }
+        endRefreshHandler();//界面搭建完毕后停止刷新
+    //}
+}
+```
 
 # MJTableBaseView.h
 ```objc
