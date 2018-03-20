@@ -17,7 +17,9 @@ MJTableViewSection 原生使用UIView展示section内容，这里使用MJTableVi
 使用时直接创建Controller继承MJTableViewController，在Controller内部重写相关方法控制界面刷新，列表内容层次搭建，以及各种类型的Cell位置如何摆放等
 
 # MJTableBaseView.h
-```Objective-C
+```objc
+@interface MJTableBaseView : UITableView
+
 /** 点中cell高亮 **/
 @property (nonatomic,assign) BOOL clickCellHighlight;
 /** 点中cell自动居中 **/
@@ -58,4 +60,6 @@ MJTableViewSection 原生使用UIView展示section内容，这里使用MJTableVi
 -(NSUInteger)getSectionVoCount;
 /** 获取CellVo总数 所有SectionVo包含的CellVo总和 **/
 -(NSUInteger)getTotalCellVoCount;
+
+@end
 ```
