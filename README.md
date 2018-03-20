@@ -290,12 +290,34 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
     [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
         //添加一个高度为230，类型为BannerViewCell，展示"banner.jpg"图片的Cell
         [svo addCellVo:[CellVo initWithParams:230 cellClass:BannerViewCell.class cellData:@"banner.jpg"]];
-        
+        //添加三个高度为50，类型为ProductViewCell，展示用户信息的Cell
         [svo addCellVo:[CellVo initWithParams:50 cellClass:ProductViewCell.class cellData:@"老李同志"]];
         [svo addCellVo:[CellVo initWithParams:50 cellClass:ProductViewCell.class cellData:@"老刘同志"]];
         [svo addCellVo:[CellVo initWithParams:50 cellClass:ProductViewCell.class cellData:@"老郑同志"]];
     }]];
     endRefreshHandler(YES);//不要忘了结束刷新，否则刷新动画会停留原地
 }
-
+```
+### ProductViewCell.h 继承MJTableViewCell;ProductViewCell.m如下
+```objc
+-(void)showSubviews{
+    CGFloat const iconWidth = 40;
+    self.imageView.image = [UIImage imageNamed:@"fundHot12"];//显示图标 也可以通过data传入
+    self.imageView.frame = CGRectMake(30, (CGRectGetHeight(self.contentView.bounds) - iconWidth) / 2., iconWidth, iconWidth);
+    self.textLabel.text = self.data;//这里data只传入用户姓名
+}
+```
+### 相同类型的Cell添加可以修改成通过原数组批量添加
+```objc
+-(void)headerRefresh:(MJTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
+    [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
+        //添加一个高度为230，类型为BannerViewCell，展示"banner.jpg"图片的Cell
+        [svo addCellVo:[CellVo initWithParams:230 cellClass:BannerViewCell.class cellData:@"banner.jpg"]];
+        
+        NSArray* sourceArray = @[@"老李同志",@"老刘同志",@"老郑同志"];
+        //按照数组结构的数据遍历后批量创建cell实例，数据分别传递给创建的cell实例
+        [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ProductViewCell.class                                                       sourceArray:sourceArray]];
+    }]];
+    endRefreshHandler(YES);//不要忘了结束刷新，否则刷新动画会停留原地
+}
 ```
