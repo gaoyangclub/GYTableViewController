@@ -255,7 +255,7 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 @end
 ```
 
-# 调用示例
+# 调用示例1
 ### 列表控制器内部实现
 ```objc
 -(void)headerRefresh:(MJTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
@@ -282,3 +282,20 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 }
 ```
 ![示例效果1](https://github.com/gaoyangclub/MJTableViewController/blob/master/MJTableViewController/assetes/example/demo1.gif)
+
+# 调用示例2
+### 列表控制器内部实现
+```objc
+-(void)headerRefresh:(MJTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
+    [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
+        //添加一个高度为230，类型为BannerViewCell，展示"banner.jpg"图片的Cell
+        [svo addCellVo:[CellVo initWithParams:230 cellClass:BannerViewCell.class cellData:@"banner.jpg"]];
+        
+        [svo addCellVo:[CellVo initWithParams:50 cellClass:ProductViewCell.class cellData:@"老李同志"]];
+        [svo addCellVo:[CellVo initWithParams:50 cellClass:ProductViewCell.class cellData:@"老刘同志"]];
+        [svo addCellVo:[CellVo initWithParams:50 cellClass:ProductViewCell.class cellData:@"老郑同志"]];
+    }]];
+    endRefreshHandler(YES);//不要忘了结束刷新，否则刷新动画会停留原地
+}
+
+```
