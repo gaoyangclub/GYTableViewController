@@ -316,7 +316,7 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
         
         NSArray* sourceArray = @[@"老李同志",@"老刘同志",@"老郑同志"];
         //按照数组结构的数据遍历后批量创建cell实例，数据分别传递给创建的cell实例
-        [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ProductViewCell.class                                                       sourceArray:sourceArray]];
+        [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ProductViewCell.class sourceArray:sourceArray]];
     }]];
     endRefreshHandler(YES);//不要忘了结束刷新，否则刷新动画会停留原地
 }
