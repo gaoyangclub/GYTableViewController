@@ -71,57 +71,32 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 
 //@property (nonatomic,assign) BOOL pureTable;
 
-/**
- *  点中cell高亮
- */
+/** 点中cell高亮 **/
 @property (nonatomic,assign) BOOL clickCellHighlight;
-/**
- *  点中cell自动居中
- */
+/** 点中cell自动居中 **/
 @property (nonatomic,assign) BOOL clickCellMoveToCenter;
-/**
- *  每一节间隔
- */
+/** 每一节间隔 **/
 @property (nonatomic,assign) CGFloat sectionGap;
-/**
- *  每个条目间隔
- */
+/** 每个条目间隔 **/
 @property (nonatomic,assign) CGFloat cellGap;
-/**
- *  首次下拉
- */
+/** 首次下拉 **/
 @property (nonatomic,assign,readonly) BOOL hasFirstRefreshed;
-/**
- *  代码下拉刷新
- */
+
+/** 下拉刷新 **/
 -(void)headerBeginRefresh;
-/**
- *  检查数据间隔
- */
+/** 检查数据间隔 **/
 -(void)checkGaps;
-/**
- *  清除所有数据
- */
+/** 清除所有数据 **/
 -(void)clearAllSectionVo;
-/**
- *  添加一节内容
- */
+/** 添加一节内容 **/
 -(void)addSectionVo:(SectionVo*)sectionVo;
-/**
- *  在某个索引插入一节内容
- */
+/** 在某个索引插入一节内容 **/
 -(void)insertSectionVo:(SectionVo*)sectionVo atIndex:(NSInteger)index;
-/**
- *  删除一节内容
- */
+/** 删除一节内容 **/
 -(void)removeSectionVoAt:(NSInteger)index;
-/**
- *  重新刷新全部界面 类似源生的reloadData
- */
+/** 重新刷新全部界面 类似源生的reloadData **/
 -(void)reloadMJData;
-/**
- *  将选中的数据项平滑居中移动
- */
+/** 将选中的数据项平滑居中移动 **/
 -(void)moveSelectedIndexPathToCenter;
 
 /** 获取最后一个SectionVo **/
@@ -141,12 +116,11 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 
 @interface SectionVo : NSObject
 
+/** 创建SectionVo实例并初始化设置下一步回调 **/
 + (instancetype)initWithParams:(void(^)(SectionVo* svo))nextBlock;
-
+/** 创建SectionVo实例并初始化设置section高度、section类型、section数据、下一步回调 **/
 + (instancetype)initWithParams:(CGFloat)sectionHeight sectionClass:(Class)sectionClass sectionData:(id)sectionData nextBlock:(void(^)(SectionVo* svo))nextBlock;
-
 //+ (instancetype)initWithParams:(CGFloat)sectionHeight sectionClass:(Class)sectionClass sectionData:(id)sectionData isUnique:(BOOL)isUnique nextBlock:(void(^)(SectionVo* svo))nextBlock;
-
 /** MJTableViewSection实例高度 **/
 @property (nonatomic,assign)CGFloat sectionHeight;
 /** 用来实例化MJTableViewSection的自定义类型 **/
@@ -157,7 +131,6 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 
 /** 该节包含的CellVo个数 **/
 -(NSInteger)getCellVoCount;
-
 /**  添加单个CellVo **/
 -(void)addCellVo:(CellVo*)cellVo;
 /**  批量添加CellVo **/
@@ -167,10 +140,12 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 
 @interface CellVo : NSObject
 
+/** 创建CellVo实例并初始化设置cell高度、cell类型、cell数据 **/
 + (instancetype)initWithParams:(CGFloat)cellHeight cellClass:(Class)cellClass cellData:(id)cellData;
+/** 创建CellVo实例并初始化设置cell高度、cell类型、cell数据、cell是否唯一 **/
 + (instancetype)initWithParams:(CGFloat)cellHeight cellClass:(Class)cellClass cellData:(id)cellData isUnique:(BOOL)isUnique;
+/** 创建CellVo实例并初始化设置cell高度、cell类型、cell数据、cell是否唯一、是否强制刷新 **/
 + (instancetype)initWithParams:(CGFloat)cellHeight cellClass:(Class)cellClass cellData:(id)cellData isUnique:(BOOL)isUnique forceUpdate:(BOOL)forceUpdate;
-
 /** 通过原始数据数组批量创建CellVo并将数据分别对应存入 **/
 +(NSArray<CellVo*>*)dividingCellVoBySourceArray:(CGFloat)cellHeight cellClass:(Class)cellClass sourceArray:(NSArray*)sourceArray;
 

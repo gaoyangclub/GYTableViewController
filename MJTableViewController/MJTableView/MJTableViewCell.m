@@ -28,7 +28,7 @@
     return self;
 }
 
--(void)setTableView:(UITableView *)tableView{
+-(void)setTableView:(MJTableBaseView *)tableView{
     _tableView = tableView;
     [self setNeedsLayout];
 }

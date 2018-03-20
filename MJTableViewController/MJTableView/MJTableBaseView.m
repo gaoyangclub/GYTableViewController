@@ -214,8 +214,8 @@
 //                            strongSelf.refreshAll = NO;
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 [strongSelf reloadData];
-                                if (strongSelf.refreshDelegate && [strongSelf.refreshDelegate respondsToSelector:@selector(didLoadMoreComplete)]){
-                                    [strongSelf.refreshDelegate didLoadMoreComplete];
+                                if (strongSelf.refreshDelegate && [strongSelf.refreshDelegate respondsToSelector:@selector(didLoadMoreComplete:)]){
+                                    [strongSelf.refreshDelegate didLoadMoreComplete:strongSelf];
                                 }
                             });
                             [strongSelf.mj_footer endRefreshing];
@@ -288,8 +288,8 @@
     [self checkGaps];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self reloadData];
-        if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(didRefreshComplete)]){
-            [self.refreshDelegate didRefreshComplete];
+        if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(didRefreshComplete:)]){
+            [self.refreshDelegate didRefreshComplete:self];
         }
         if (self.selectedIndexPath) {
             [self dispatchSelectRow:self.selectedIndexPath];
@@ -371,7 +371,7 @@
         cell.isLast = cellVo.cellTag == CELL_TAG_LAST;//row == source.data!.count - 1//索引在最后
     }
     cell.indexPath = indexPath;
-    cell.tableView = tableView;
+    cell.tableView = self;
     cell.data = data;
     cell.cellVo = cellVo;
     
@@ -475,16 +475,16 @@
 }
 
 -(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
-    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(didEndScrollingAnimation)]) {
-        [self.refreshDelegate didEndScrollingAnimation];
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(didEndScrollingAnimation:)]) {
+        [self.refreshDelegate didEndScrollingAnimation:self];
     }
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(didScrollToRow:)]) {
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(didSelectRow:didSelectRowAtIndexPath:)]) {
         NSIndexPath *path =  [self indexPathForRowAtPoint:CGPointMake(scrollView.contentOffset.x, scrollView.contentOffset.y)];
 //        NSLog(@"这是第%li栏目",(long)path.section);
-        [self.refreshDelegate didScrollToRow:path];
+        [self.refreshDelegate didSelectRow:self didSelectRowAtIndexPath:path];
     }
 }
 
