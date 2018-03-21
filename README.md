@@ -281,7 +281,7 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
     self.bannerImageView.frame = self.contentView.bounds;//占满整个Cell空间
 }
 ```
-![示例效果1](https://github.com/gaoyangclub/MJTableViewController/blob/master/MJTableViewController/assetes/example/demo1.gif)
+![示例效果:添加一个Cell](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180321134037960-1067699710.gif)
 
 # 批量添加Cell
 ### 列表控制器内部实现
