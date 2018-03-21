@@ -327,13 +327,15 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
     endRefreshHandler(YES);//不要忘了结束刷新，否则刷新动画会停留原地
 }
 ```
+![示例效果:批量添加Cell](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180321151028788-837842877.gif)
+
 # 添加Section
 ### 如果一节内容需要添加section视图，只要在sectionVo实例设置sectionClass即可
 ```objc
 -(void)headerRefresh:(MJTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
     [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
-        [svo addCellVo:[CellVo initWithParams:230 cellClass:BannerViewCell.class cellData:@"banner.jpg" isUnique:YES]];
-        [svo addCellVo:[CellVo initWithParams:100 cellClass:HotAreaViewCell.class cellData:@[@"fundHot02",@"fundHot08",@"fundHot05",@"fundHot10"] isUnique:YES]];
+        [svo addCellVo:[CellVo initWithParams:230 cellClass:BannerViewCell.class cellData:@"banner.jpg"]];
+        [svo addCellVo:[CellVo initWithParams:100 cellClass:HotAreaViewCell.class cellData:@[@"fundHot02",@"fundHot08",@"fundHot05",@"fundHot10"]]];
     }]];
     NSArray* sourceArray1 = @[@"老李同志", @"老刘同志", @"老郑同志", @"老陈同志", @"老王同志", @"老金同志", @"老陆同志", @"老周同志", @"老包同志"];//数据源数组，表示从后台获取的原始数组
     //SectionVo在创建的时候设置section高度为40、section类型为ProductViewSection、sectionData为标题文本，列表上将显示这一节视图
@@ -362,3 +364,4 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
     [self.titleLabel sizeToFit];
 }
 ```
+![示例效果:添加Section](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180321152059520-1844145639.gif)
