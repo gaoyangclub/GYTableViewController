@@ -255,7 +255,7 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 @end
 ```
 
-# 调用示例1
+# 添加Cell
 ### 列表控制器内部实现
 ```objc
 -(void)headerRefresh:(MJTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
@@ -283,13 +283,17 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 ```
 ![示例效果1](https://github.com/gaoyangclub/MJTableViewController/blob/master/MJTableViewController/assetes/example/demo1.gif)
 
-# 调用示例2
+# 批量添加Cell
 ### 列表控制器内部实现
 ```objc
 -(void)headerRefresh:(MJTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
     [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
         //添加一个高度为230，类型为BannerViewCell，展示"banner.jpg"图片的Cell
         [svo addCellVo:[CellVo initWithParams:230 cellClass:BannerViewCell.class cellData:@"banner.jpg"]];
+        
+    }]];
+    //注意banner和用户列表属于不同区域，应存放到各自section中添加，管理section视图会比较方便
+    [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
         //添加三个高度为50，类型为ProductViewCell，展示用户信息的Cell
         [svo addCellVo:[CellVo initWithParams:50 cellClass:ProductViewCell.class cellData:@"老李同志"]];
         [svo addCellVo:[CellVo initWithParams:50 cellClass:ProductViewCell.class cellData:@"老刘同志"]];
@@ -313,11 +317,50 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
     [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
         //添加一个高度为230，类型为BannerViewCell，展示"banner.jpg"图片的Cell
         [svo addCellVo:[CellVo initWithParams:230 cellClass:BannerViewCell.class cellData:@"banner.jpg"]];
-        
-        NSArray* sourceArray = @[@"老李同志",@"老刘同志",@"老郑同志"];
+    }]];
+    //注意banner和用户列表属于不同区域，应存放到各自section中添加，管理section视图会比较方便
+    [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
+        NSArray* sourceArray = @[@"老李同志",@"老刘同志",@"老郑同志"];//数据源数组，表示从后台获取的原始数组
         //按照数组结构的数据遍历后批量创建cell实例，数据分别传递给创建的cell实例
         [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ProductViewCell.class sourceArray:sourceArray]];
     }]];
     endRefreshHandler(YES);//不要忘了结束刷新，否则刷新动画会停留原地
 }
 ```
+# 添加Section
+### 如果一节内容需要添加section视图，只要在sectionVo实例设置sectionClass即可
+```objc
+-(void)headerRefresh:(MJTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
+    [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
+        [svo addCellVo:[CellVo initWithParams:230 cellClass:BannerViewCell.class cellData:@"banner.jpg" isUnique:YES]];
+        [svo addCellVo:[CellVo initWithParams:100 cellClass:HotAreaViewCell.class cellData:@[@"fundHot02",@"fundHot08",@"fundHot05",@"fundHot10"] isUnique:YES]];
+    }]];
+    NSArray* sourceArray1 = @[@"老李同志", @"老刘同志", @"老郑同志", @"老陈同志", @"老王同志", @"老金同志", @"老陆同志", @"老周同志", @"老包同志"];//数据源数组，表示从后台获取的原始数组
+    //SectionVo在创建的时候设置section高度为40、section类型为ProductViewSection、sectionData为标题文本，列表上将显示这一节视图
+    [tableView addSectionVo:[SectionVo initWithParams:40 sectionClass:ProductViewSection.class sectionData:@"推荐客户" nextBlock:^(SectionVo *svo) {
+        [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ProductViewCell.class sourceArray:sourceArray1]];
+    }]];
+    NSArray* sourceArray2 = @[@"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志"];
+    //SectionVo在创建的时候设置section高度为40、section类型为ProductViewSection、sectionData为标题文本，列表上将显示这一节视图
+    [tableView addSectionVo:[SectionVo initWithParams:40 sectionClass:ProductViewSection.class sectionData:@"潜力客户" nextBlock:^(SectionVo *svo) {
+        [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ProductViewCell.class
+                                                     sourceArray:sourceArray2]];
+    }]];
+    endRefreshHandler(YES);
+}
+```
+### ProductViewSection继承MJTableViewSection,ProductViewSection.m如下(请先忽略HotAreaViewCell，可查看源码)
+```objc
+-(void)layoutSubviews{
+    CGFloat const cellHeight = CGRectGetHeight(self.bounds);
+    self.backgroundColor = [UIColor colorWithRed:230/255. green:230/255. blue:230/255. alpha:1];
+    //square用懒加载方式添加一个UIView方块，具体创建方式不赘述
+    self.square.frame = CGRectMake(0, 0, 5, cellHeight);
+    //titleLabel用懒加载方式添加一个普通UILabel，具体创建方式不赘述
+    self.titleLabel.frame = CGRectMake(15, 10, 0, 0);
+    self.titleLabel.text = self.data;//将外部传入的sectionVo.sectionData显示到标题文本上
+    [self.titleLabel sizeToFit];
+}
+```
+
+
