@@ -104,7 +104,7 @@
 }
 
 -(BOOL)getShowFooter {
-    return YES;
+    return NO;
 }
 
 -(BOOL)getUseCellIdentifer {

@@ -24,9 +24,9 @@
  ***/
 /** 设置TableView的布局位置，默认铺满Controller **/
 -(CGRect)getTableViewFrame;
-/** 设置是否显示下拉刷新控件 默认显示 **/
+/** 设置是否显示下拉刷新控件 默认true **/
 -(BOOL)getShowHeader;
-/** 设置是否显示上拉加载控件 默认显示 **/
+/** 设置是否显示上拉加载控件 默认false **/
 -(BOOL)getShowFooter;
 /** 设置是否标记重用cell实例 默认true **/
 -(BOOL)getUseCellIdentifer;
