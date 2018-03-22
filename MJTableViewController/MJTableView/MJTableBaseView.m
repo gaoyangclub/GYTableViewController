@@ -228,7 +228,7 @@
             footer.stateLabel.userInteractionEnabled = NO;//无法点击交互
             [footer setTitle:@"上拉加载更多" forState:MJRefreshStateIdle];
             
-//            footer.ignoredScrollViewContentInsetBottom = 64;
+//            footer.ignoredScrollViewContentInsetBottom = 0;
 //            UIEdgeInsets insets = footer.scrollViewOriginalInset;
 //            insets.bottom = insets.top = 0;
 //            footer.scrollViewOriginalInset = insets;
@@ -419,6 +419,30 @@
 //            nsSectionDic.updateValue(headerView!, forKey: section)
 //        }
 //    }
+    return sectionView;
+}
+
+//后期可能通过SectionVo类型来添加
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    SectionVo* sectionVo = [self getSectionVoByIndex:section];
+    return sectionVo ? sectionVo.sectionHeight : 0;
+}
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section{
+    return [self tableView:tableView heightForFooterInSection:section];
+}
+
+- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    SectionVo* sectionVo = [self getSectionVoByIndex:section];
+    Class headerClass = sectionVo.sectionClass;
+    MJTableViewSection* sectionView;
+    if (headerClass != NULL) {
+        sectionView = [[headerClass alloc]init];
+        sectionView.sectionCount = [self getSectionVoCount];
+        sectionView.sectionIndex = section;
+        sectionView.isFirst = section == 0;
+        sectionView.isLast = section == self.dataArray.count - 1;
+        sectionView.data = sectionVo.sectionData;
+    }
     return sectionView;
 }
 
@@ -613,25 +637,7 @@
         [self.refreshDelegate tableView:tableView didEndDisplayingFooterView:view forSection:section];
     }
 }
-//后期可能通过SectionVo类型来添加
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:heightForFooterInSection:)]) {
-        return [self.refreshDelegate tableView:tableView heightForFooterInSection:section];
-    }
-    return -1;
-}
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section{
-    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:estimatedHeightForFooterInSection:)]) {
-        return [self.refreshDelegate tableView:tableView estimatedHeightForFooterInSection:section];
-    }
-    return -1;
-}
-- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:viewForFooterInSection:)]) {
-        return [self.refreshDelegate tableView:tableView viewForFooterInSection:section];
-    }
-    return nil;
-}
+
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
     if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:accessoryButtonTappedForRowWithIndexPath:)]) {
         [self.refreshDelegate tableView:tableView accessoryButtonTappedForRowWithIndexPath:indexPath];

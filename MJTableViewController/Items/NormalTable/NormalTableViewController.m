@@ -147,6 +147,7 @@
 
 - (void)viewDidLoad {
     self.title = @"常用刷新控制器示例";
+//    self.edgesForExtendedLayout = UIRectEdgeNone;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
