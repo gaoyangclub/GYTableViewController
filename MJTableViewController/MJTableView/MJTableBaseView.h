@@ -22,7 +22,7 @@
 typedef void(^HeaderRefreshHandler)(BOOL hasData);
 typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 
-@protocol MJTableBaseViewDelegate<NSObject>
+@protocol MJTableBaseViewDelegate<UITableViewDelegate,UITableViewDataSource>
 
 @optional
 /** 当MJTableBaseView下拉刷新时代理调用 **/
@@ -31,20 +31,36 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 /** 当MJTableBaseView上拉加载时代理调用 **/
 -(void)footerLoadMore:(MJTableBaseView*)tableView endLoadMoreHandler:(FooterLoadMoreHandler)endLoadMoreHandler lastSectionVo:(SectionVo*)lastSectionVo;
 @optional
+/** 当MJTableBaseView下拉刷新完毕后代理调用 **/
+-(void)didRefreshComplete:(MJTableBaseView*)tableView;
+@optional
+/** 当MJTableBaseView上拉加载完毕后代理调用 **/
+-(void)didLoadMoreComplete:(MJTableBaseView*)tableView;
+
+@optional
 /** 当MJTableBaseView某一条MJTableViewCell实例被点击时代理调用 **/
--(void)didSelectRow:(MJTableBaseView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+-(void)tableView:(MJTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+
 @optional
 /** 当MJTableBaseView滚动到某个位置时代理调用 **/
 -(void)didScrollToRow:(MJTableBaseView*)tableView indexPath:(NSIndexPath *)indexPath;
 @optional
 /** 当MJTableBaseView从滚动状态静止时代理调用 **/
 -(void)didEndScrollingAnimation:(MJTableBaseView*)tableView;
+
+
+/** 以下方法不可代理调用  **/
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView __attribute__((unavailable("Disabled")));
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
 @optional
-/** 当MJTableBaseView下拉刷新完毕后代理调用 **/
--(void)didRefreshComplete:(MJTableBaseView*)tableView;
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
 @optional
-/** 当MJTableBaseView上拉加载完毕后代理调用 **/
--(void)didLoadMoreComplete:(MJTableBaseView*)tableView;
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
 
 @end
 
@@ -114,6 +130,7 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 
 @end
 
+//一节的标题头数据
 @interface SectionVo : NSObject
 
 /** 创建SectionVo实例并初始化设置下一步回调 **/

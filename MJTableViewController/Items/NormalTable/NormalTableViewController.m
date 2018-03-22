@@ -106,40 +106,44 @@
             [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ProductViewCell.class
                                                          sourceArray:sourceArray2]];
         }]];
-        endRefreshHandler(YES);
+        endRefreshHandler(YES);//不要忘了结束上拉加载刷新
     });
 }
 
 //显示上拉加载
--(BOOL)getShowFooter{
+-(BOOL)isShowFooter{
     return YES;
 }
-//endLoadMoreHandler:结束刷新回调block,lastSectionVo:上一节sectionVo数据，即当前列表页最后一节
--(void)footerLoadMore:(MJTableBaseView *)tableView endLoadMoreHandler:(FooterLoadMoreHandler)endLoadMoreHandler lastSectionVo:(SectionVo *)lastSectionVo{
-    NSArray* sourceArray2 = @[@"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志"];
-    //继续添加到上一节
-    [lastSectionVo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ProductViewCell.class
-                                                           sourceArray:sourceArray2]];//将新增的CellVo实例继续添加到上一节SectionVo实例中
-    endLoadMoreHandler(YES);
-}
-
+////endLoadMoreHandler:结束刷新回调block,lastSectionVo:上一节sectionVo数据，即当前列表页最后一节
 //-(void)footerLoadMore:(MJTableBaseView *)tableView endLoadMoreHandler:(FooterLoadMoreHandler)endLoadMoreHandler lastSectionVo:(SectionVo *)lastSectionVo{
-//    int64_t delay = 0.5 * NSEC_PER_SEC;
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//模拟网络请求产生异步加载
-//        NSArray* sourceArray2 = @[@"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志"];
-//        //根据业务需求的不同，可以继续添加到上一节sectionVo，也可以添加到新的一节sectionVo中
-//        if([lastSectionVo getCellVoCount] < 20){//继续添加到上一节
-//            [lastSectionVo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ProductViewCell.class
-//                                                                   sourceArray:sourceArray2]];//将新增的CellVo实例继续添加到上一节SectionVo实例中
-//        }else{//上一节超了 添加到下一节中
-//            [tableView addSectionVo:[SectionVo initWithParams:40 sectionClass:ProductViewSection.class sectionData:@"潜力客户新" nextBlock:^(SectionVo *svo) {
-//                [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ProductViewCell.class
-//                                                             sourceArray:sourceArray2]];
-//            }]];
-//        }
-//        endLoadMoreHandler(YES);
-//    });
+//    NSArray* sourceArray2 = @[@"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志"];
+//    //继续添加到上一节
+//    [lastSectionVo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ProductViewCell.class
+//                                                           sourceArray:sourceArray2]];//将新增的CellVo实例继续添加到上一节SectionVo实例中
+//    endLoadMoreHandler(YES);
 //}
+
+-(void)footerLoadMore:(MJTableBaseView *)tableView endLoadMoreHandler:(FooterLoadMoreHandler)endLoadMoreHandler lastSectionVo:(SectionVo *)lastSectionVo{
+    int64_t delay = 0.5 * NSEC_PER_SEC;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//模拟网络请求产生异步加载
+        if([tableView getTotalCellVoCount] > 30){//总共超出30条数据不添加数据
+            endLoadMoreHandler(NO);//直接结束上拉加载刷新，并显示"已经全部加载完毕"
+            return;
+        }
+        NSArray* sourceArray2 = @[@"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志"];
+        //根据业务需求的不同，可以继续添加到上一节sectionVo，也可以添加到新的一节sectionVo中
+        if([lastSectionVo getCellVoCount] < 10){//上一节少于10条继续添加到上一节
+            [lastSectionVo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ProductViewCell.class
+                                                                   sourceArray:sourceArray2]];//将新增的CellVo实例继续添加到上一节SectionVo实例中
+        }else{//上一节超了 添加到下一节中
+            [tableView addSectionVo:[SectionVo initWithParams:40 sectionClass:ProductViewSection.class sectionData:@"潜力客户新" nextBlock:^(SectionVo *svo) {
+                [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ProductViewCell.class
+                                                             sourceArray:sourceArray2]];
+            }]];
+        }
+        endLoadMoreHandler(YES);//不要忘了结束上拉加载刷新
+    });
+}
 
 - (void)viewDidLoad {
     self.title = @"常用刷新控制器示例";

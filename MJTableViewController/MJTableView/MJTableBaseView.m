@@ -310,6 +310,10 @@
     return sectionVo ? sectionVo.sectionHeight : 0;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section{
+    return [self tableView:tableView heightForHeaderInSection:section];
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     SectionVo* sectionVo = [self getSectionVoByIndex:section];
     return sectionVo && sectionVo.cellVoList ? sectionVo.cellVoList.count : 0;
@@ -392,6 +396,10 @@
     return 0;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return [self tableView:tableView heightForRowAtIndexPath:indexPath];
+}
+
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     SectionVo* sectionVo = [self getSectionVoByIndex:section];
     Class headerClass = sectionVo.sectionClass;
@@ -451,9 +459,12 @@
 }
 
 -(void)dispatchSelectRow:(NSIndexPath *)indexPath{
-    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(didSelectRow:didSelectRowAtIndexPath:)]) {
-        [self.refreshDelegate didSelectRow:self didSelectRowAtIndexPath:indexPath];
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]){
+        [self.refreshDelegate tableView:self didSelectRowAtIndexPath:indexPath];
     }
+//    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(didSelectRow:didSelectRowAtIndexPath:)]) {
+//        [self.refreshDelegate didSelectRow:self didSelectRowAtIndexPath:indexPath];
+//    }
 }
 
 -(void)setSelectedIndexPath:(NSIndexPath *)selectedIndexPath{
@@ -480,13 +491,20 @@
     }
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(didSelectRow:didSelectRowAtIndexPath:)]) {
-        NSIndexPath *path =  [self indexPathForRowAtPoint:CGPointMake(scrollView.contentOffset.x, scrollView.contentOffset.y)];
-//        NSLog(@"这是第%li栏目",(long)path.section);
-        [self.refreshDelegate didSelectRow:self didSelectRowAtIndexPath:path];
+-(void)scrollToRowAtIndexPath:(NSIndexPath *)indexPath atScrollPosition:(UITableViewScrollPosition)scrollPosition animated:(BOOL)animated{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(didScrollToRow:indexPath:)]) {
+        //        NSLog(@"这是第%li栏目",(long)path.section);
+        [self.refreshDelegate didScrollToRow:self indexPath:indexPath];
     }
 }
+
+//-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+//    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(didScrollToRow:indexPath:)]) {
+//        NSIndexPath *path =  [self indexPathForRowAtPoint:CGPointMake(scrollView.contentOffset.x, scrollView.contentOffset.y)];
+////        NSLog(@"这是第%li栏目",(long)path.section);
+//        [self.refreshDelegate didScrollToRow:self indexPath:path];
+//    }
+//}
 
 -(void)checkGaps {
     //遍历整个数据链 判断头尾标记和gap是否存在
@@ -563,6 +581,174 @@
         return self.dataArray.firstObject;
     }
     return NULL;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:willDisplayCell:forRowAtIndexPath:)]) {
+        [self.refreshDelegate tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
+    }
+}
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:willDisplayHeaderView:forSection:)]) {
+        [self.refreshDelegate tableView:tableView willDisplayHeaderView:view forSection:section];
+    }
+}
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:willDisplayFooterView:forSection:)]) {
+        [self.refreshDelegate tableView:tableView willDisplayFooterView:view forSection:section];
+    }
+}
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath*)indexPath{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:didEndDisplayingCell:forRowAtIndexPath:)]) {
+        [self.refreshDelegate tableView:tableView didEndDisplayingCell:cell forRowAtIndexPath:indexPath];
+    }
+}
+- (void)tableView:(UITableView *)tableView didEndDisplayingHeaderView:(UIView *)view forSection:(NSInteger)section{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:didEndDisplayingHeaderView:forSection:)]) {
+        [self.refreshDelegate tableView:tableView didEndDisplayingHeaderView:view forSection:section];
+    }
+}
+- (void)tableView:(UITableView *)tableView didEndDisplayingFooterView:(UIView *)view forSection:(NSInteger)section{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:didEndDisplayingFooterView:forSection:)]) {
+        [self.refreshDelegate tableView:tableView didEndDisplayingFooterView:view forSection:section];
+    }
+}
+//后期可能通过SectionVo类型来添加
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:heightForFooterInSection:)]) {
+        return [self.refreshDelegate tableView:tableView heightForFooterInSection:section];
+    }
+    return -1;
+}
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:estimatedHeightForFooterInSection:)]) {
+        return [self.refreshDelegate tableView:tableView estimatedHeightForFooterInSection:section];
+    }
+    return -1;
+}
+- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:viewForFooterInSection:)]) {
+        return [self.refreshDelegate tableView:tableView viewForFooterInSection:section];
+    }
+    return nil;
+}
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:accessoryButtonTappedForRowWithIndexPath:)]) {
+        [self.refreshDelegate tableView:tableView accessoryButtonTappedForRowWithIndexPath:indexPath];
+    }
+}
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:didHighlightRowAtIndexPath:)]) {
+        [self.refreshDelegate tableView:tableView didHighlightRowAtIndexPath:indexPath];
+    }
+}
+- (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:didUnhighlightRowAtIndexPath:)]) {
+        [self.refreshDelegate tableView:tableView didUnhighlightRowAtIndexPath:indexPath];
+    }
+}
+- (nullable NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:willSelectRowAtIndexPath:)]) {
+        return [self.refreshDelegate tableView:tableView willSelectRowAtIndexPath:indexPath];
+    }
+    return indexPath;
+}
+- (nullable NSIndexPath *)tableView:(UITableView *)tableView willDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:willDeselectRowAtIndexPath:)]) {
+        return [self.refreshDelegate tableView:tableView willDeselectRowAtIndexPath:indexPath];
+    }
+    return indexPath;
+}
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:didDeselectRowAtIndexPath:)]) {
+        return [self.refreshDelegate tableView:tableView didDeselectRowAtIndexPath:indexPath];
+    }
+}
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:editingStyleForRowAtIndexPath:)]) {
+        return [self.refreshDelegate tableView:tableView editingStyleForRowAtIndexPath:indexPath];
+    }
+    return UITableViewCellEditingStyleNone;
+}
+- (nullable NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:titleForDeleteConfirmationButtonForRowAtIndexPath:)]) {
+        return [self.refreshDelegate tableView:tableView titleForDeleteConfirmationButtonForRowAtIndexPath:indexPath];
+    }
+    return nil;
+}
+- (nullable NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:editActionsForRowAtIndexPath:)]) {
+        return [self.refreshDelegate tableView:tableView editActionsForRowAtIndexPath:indexPath];
+    }
+    return nil;
+}
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:shouldIndentWhileEditingRowAtIndexPath:)]) {
+        return [self.refreshDelegate tableView:tableView shouldIndentWhileEditingRowAtIndexPath:indexPath];
+    }
+    return false;
+}
+- (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:willBeginEditingRowAtIndexPath:)]) {
+        [self.refreshDelegate tableView:tableView willBeginEditingRowAtIndexPath:indexPath];
+    }
+}
+- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(nullable NSIndexPath *)indexPath{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:didEndEditingRowAtIndexPath:)]) {
+        [self.refreshDelegate tableView:tableView didEndEditingRowAtIndexPath:indexPath];
+    }
+}
+- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:targetIndexPathForMoveFromRowAtIndexPath:toProposedIndexPath:)]) {
+        [self.refreshDelegate tableView:tableView targetIndexPathForMoveFromRowAtIndexPath:sourceIndexPath toProposedIndexPath:proposedDestinationIndexPath];
+    }
+    return nil;
+}
+- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:indentationLevelForRowAtIndexPath:)]) {
+        return [self.refreshDelegate tableView:tableView indentationLevelForRowAtIndexPath:indexPath];
+    }
+    return 0;
+}
+- (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:shouldShowMenuForRowAtIndexPath:)]) {
+        return [self.refreshDelegate tableView:tableView shouldShowMenuForRowAtIndexPath:indexPath];
+    }
+    return false;
+}
+- (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(nullable id)sender{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:canPerformAction:forRowAtIndexPath:withSender:)]) {
+        return [self.refreshDelegate tableView:tableView canPerformAction:action forRowAtIndexPath:indexPath withSender:sender];
+    }
+    return false;
+}
+- (void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(nullable id)sender{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:performAction:forRowAtIndexPath:withSender:)]) {
+        [self.refreshDelegate tableView:tableView performAction:action forRowAtIndexPath:indexPath withSender:sender];
+    }
+}
+- (BOOL)tableView:(UITableView *)tableView canFocusRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:canFocusRowAtIndexPath:)]) {
+        [self.refreshDelegate tableView:tableView canFocusRowAtIndexPath:indexPath];
+    }
+    return YES;
+}
+- (BOOL)tableView:(UITableView *)tableView shouldUpdateFocusInContext:(UITableViewFocusUpdateContext *)context{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:shouldUpdateFocusInContext:)]) {
+        [self.refreshDelegate tableView:tableView shouldUpdateFocusInContext:context];
+    }
+    return YES;
+}
+- (void)tableView:(UITableView *)tableView didUpdateFocusInContext:(UITableViewFocusUpdateContext *)context withAnimationCoordinator:(UIFocusAnimationCoordinator *)coordinator{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:didUpdateFocusInContext:withAnimationCoordinator:)]) {
+        [self.refreshDelegate tableView:tableView didUpdateFocusInContext:context withAnimationCoordinator:coordinator];
+    }
+}
+- (nullable NSIndexPath *)indexPathForPreferredFocusedViewInTableView:(UITableView *)tableView{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(indexPathForPreferredFocusedViewInTableView:)]) {
+        [self.refreshDelegate indexPathForPreferredFocusedViewInTableView:tableView];
+    }
+    return nil;
 }
 
 @end

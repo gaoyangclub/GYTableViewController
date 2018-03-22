@@ -9,11 +9,18 @@
 
 #import "MJTableViewController.h"
 
-@interface MJTableViewController ()//<UITableViewDataSource,UITableViewDelegate>
+@interface MJTableViewController ()
 
 @end
 
 @implementation MJTableViewController
+
+//-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+//    return 0;
+//}
+//-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    return nil;
+//}
 
 -(void)setSelectedIndexPath:(NSIndexPath *)selectedIndexPath{
     self.tableView.selectedIndexPath = selectedIndexPath;
@@ -22,7 +29,10 @@
 -(void)loadView{
     [super loadView];
     self.autoRefreshHeader = YES;
-//    self.contentOffsetRest = YES;
+    self.useCellIdentifer = YES;
+    self.autoRestOffset = YES;
+    self.isShowHeader = YES;
+    
 //    self.automaticallyAdjustsScrollViewInsets = NO;//YES表示自动测量导航栏高度占用的Insets偏移
 //    self.navigationController.navigationBar.translucent = NO;//    Bar的高斯模糊效果，默认为YES
 //    self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
@@ -39,7 +49,7 @@
         
 //        BOOL translucent = (self.tabBarController != NULL && self.tabBarController.navigationController != NULL && !self.tabBarController.navigationController.navigationBar.translucent);
         
-        self.tableView = [[MJTableBaseView alloc]initWithFrameAndParams:self.view.frame showHeader:[self getShowHeader] showFooter:[self getShowFooter] useCellIdentifer:[self getUseCellIdentifer]
+        self.tableView = [[MJTableBaseView alloc]initWithFrameAndParams:self.view.frame showHeader:self.isShowHeader showFooter:self.isShowFooter useCellIdentifer:self.useCellIdentifer
                                                          topEdgeDiverge:
 //                          (self.navigationController != NULL && !self.navigationController.navigationBar.translucent)
                           NO
@@ -47,16 +57,20 @@
 //        self.tableView.alpha = 0.3;
         self.tableView.refreshDelegate = self;
         [self.view addSubview:self.tableView];
-        MJRefreshHeader* header = [self getHeader];
+        MJRefreshHeader* header = [self getRefreshHeader];
         if (header) {
             self.tableView.header = header;
         }
+//        MJRefreshFooter* footer = [self getRefreshFooter];
+//        if (footer) {
+//            self.tableView.mj_footer = footer;
+//        }
     }
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    if([self getNeedRestOffset]){// && self.contentOffsetRest
+    if(self.autoRestOffset){// && self.contentOffsetRest
         CGPoint contentOffset = self.tableView.contentOffset;
         contentOffset.y = 0;//滚轮位置恢复
         self.tableView.contentOffset = contentOffset;
@@ -98,25 +112,12 @@
     // Pass the selected object to the new view controller.
 }
 */
-
--(BOOL)getShowHeader {
-    return YES;
+-(MJRefreshHeader *)getRefreshHeader{
+    return nil;
 }
 
--(BOOL)getShowFooter {
-    return NO;
-}
-
--(BOOL)getUseCellIdentifer {
-    return YES;
-}
-
--(BOOL)getNeedRestOffset{
-    return NO;
-}
-
--(MJRefreshHeader*)getHeader {
-    return NULL;
+-(MJRefreshFooter *)getRefreshFooter{
+    return nil;
 }
 
 @end
