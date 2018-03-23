@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		84809A3D205F8F79003B4604 /* HotAreaViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84809A3C205F8F79003B4604 /* HotAreaViewCell.m */; };
-		84809A40205F96CD003B4604 /* ProductViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84809A3F205F96CD003B4604 /* ProductViewCell.m */; };
-		84809A43205F9C70003B4604 /* ProductViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 84809A42205F9C70003B4604 /* ProductViewSection.m */; };
-		A948E2D3205E28DB005B7606 /* NormalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A948E2D2205E28DB005B7606 /* NormalTableViewController.m */; };
-		A96813B3205EAB8E00BB23D8 /* BannerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A96813B2205EAB8E00BB23D8 /* BannerViewCell.m */; };
+		842E2F502064F84A00099842 /* BannerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E2F462064F84A00099842 /* BannerViewCell.m */; };
+		842E2F512064F84A00099842 /* HotAreaViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E2F482064F84A00099842 /* HotAreaViewCell.m */; };
+		842E2F522064F84A00099842 /* NormalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E2F4A2064F84A00099842 /* NormalTableViewController.m */; };
+		842E2F532064F84A00099842 /* ProductViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E2F4C2064F84A00099842 /* ProductViewCell.m */; };
+		842E2F542064F84A00099842 /* ProductViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E2F4E2064F84A00099842 /* ProductViewSection.m */; };
+		842E2F572064F87000099842 /* RefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E2F562064F87000099842 /* RefreshTableViewController.m */; };
+		842E2F5A2064FA0C00099842 /* RefreshBannerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E2F592064FA0C00099842 /* RefreshBannerViewCell.m */; };
 		A96813C4205EB27900BB23D8 /* fundHot09.png in Resources */ = {isa = PBXBuildFile; fileRef = A96813B7205EB27900BB23D8 /* fundHot09.png */; };
 		A96813C5205EB27900BB23D8 /* fundHot08.png in Resources */ = {isa = PBXBuildFile; fileRef = A96813B8205EB27900BB23D8 /* fundHot08.png */; };
 		A96813C6205EB27900BB23D8 /* fundHot03.png in Resources */ = {isa = PBXBuildFile; fileRef = A96813B9205EB27900BB23D8 /* fundHot03.png */; };
@@ -41,17 +43,21 @@
 
 /* Begin PBXFileReference section */
 		6802C8B1E0F71DBABEAC6BAD /* Pods-MJTableViewController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJTableViewController.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MJTableViewController/Pods-MJTableViewController.debug.xcconfig"; sourceTree = "<group>"; };
-		84809A3B205F8F79003B4604 /* HotAreaViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HotAreaViewCell.h; sourceTree = "<group>"; };
-		84809A3C205F8F79003B4604 /* HotAreaViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HotAreaViewCell.m; sourceTree = "<group>"; };
-		84809A3E205F96CD003B4604 /* ProductViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductViewCell.h; sourceTree = "<group>"; };
-		84809A3F205F96CD003B4604 /* ProductViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductViewCell.m; sourceTree = "<group>"; };
-		84809A41205F9C70003B4604 /* ProductViewSection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductViewSection.h; sourceTree = "<group>"; };
-		84809A42205F9C70003B4604 /* ProductViewSection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductViewSection.m; sourceTree = "<group>"; };
+		842E2F452064F84A00099842 /* BannerViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerViewCell.h; sourceTree = "<group>"; };
+		842E2F462064F84A00099842 /* BannerViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerViewCell.m; sourceTree = "<group>"; };
+		842E2F472064F84A00099842 /* HotAreaViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotAreaViewCell.h; sourceTree = "<group>"; };
+		842E2F482064F84A00099842 /* HotAreaViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotAreaViewCell.m; sourceTree = "<group>"; };
+		842E2F492064F84A00099842 /* NormalTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NormalTableViewController.h; sourceTree = "<group>"; };
+		842E2F4A2064F84A00099842 /* NormalTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NormalTableViewController.m; sourceTree = "<group>"; };
+		842E2F4B2064F84A00099842 /* ProductViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductViewCell.h; sourceTree = "<group>"; };
+		842E2F4C2064F84A00099842 /* ProductViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductViewCell.m; sourceTree = "<group>"; };
+		842E2F4D2064F84A00099842 /* ProductViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductViewSection.h; sourceTree = "<group>"; };
+		842E2F4E2064F84A00099842 /* ProductViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductViewSection.m; sourceTree = "<group>"; };
+		842E2F552064F87000099842 /* RefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshTableViewController.h; sourceTree = "<group>"; };
+		842E2F562064F87000099842 /* RefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshTableViewController.m; sourceTree = "<group>"; };
+		842E2F582064FA0C00099842 /* RefreshBannerViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshBannerViewCell.h; sourceTree = "<group>"; };
+		842E2F592064FA0C00099842 /* RefreshBannerViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshBannerViewCell.m; sourceTree = "<group>"; };
 		9E1D1A2E7306E3200B0BF4C0 /* Pods-MJTableViewController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJTableViewController.release.xcconfig"; path = "Pods/Target Support Files/Pods-MJTableViewController/Pods-MJTableViewController.release.xcconfig"; sourceTree = "<group>"; };
-		A948E2D1205E28DB005B7606 /* NormalTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NormalTableViewController.h; sourceTree = "<group>"; };
-		A948E2D2205E28DB005B7606 /* NormalTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NormalTableViewController.m; sourceTree = "<group>"; };
-		A96813B1205EAB8E00BB23D8 /* BannerViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BannerViewCell.h; sourceTree = "<group>"; };
-		A96813B2205EAB8E00BB23D8 /* BannerViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BannerViewCell.m; sourceTree = "<group>"; };
 		A96813B7205EB27900BB23D8 /* fundHot09.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fundHot09.png; sourceTree = "<group>"; };
 		A96813B8205EB27900BB23D8 /* fundHot08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fundHot08.png; sourceTree = "<group>"; };
 		A96813B9205EB27900BB23D8 /* fundHot03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fundHot03.png; sourceTree = "<group>"; };
@@ -109,29 +115,41 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		A948E2CF205E28A8005B7606 /* Items */ = {
+		842E2F432064F84A00099842 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				A948E2D0205E28A8005B7606 /* NormalTable */,
+				842E2F442064F84A00099842 /* NormalTabel */,
+				842E2F4F2064F84A00099842 /* RefreshDemo */,
 			);
-			path = Items;
+			path = Demo;
 			sourceTree = "<group>";
 		};
-		A948E2D0205E28A8005B7606 /* NormalTable */ = {
+		842E2F442064F84A00099842 /* NormalTabel */ = {
 			isa = PBXGroup;
 			children = (
-				A948E2D1205E28DB005B7606 /* NormalTableViewController.h */,
-				A948E2D2205E28DB005B7606 /* NormalTableViewController.m */,
-				A96813B1205EAB8E00BB23D8 /* BannerViewCell.h */,
-				A96813B2205EAB8E00BB23D8 /* BannerViewCell.m */,
-				84809A3B205F8F79003B4604 /* HotAreaViewCell.h */,
-				84809A3C205F8F79003B4604 /* HotAreaViewCell.m */,
-				84809A3E205F96CD003B4604 /* ProductViewCell.h */,
-				84809A3F205F96CD003B4604 /* ProductViewCell.m */,
-				84809A41205F9C70003B4604 /* ProductViewSection.h */,
-				84809A42205F9C70003B4604 /* ProductViewSection.m */,
+				842E2F452064F84A00099842 /* BannerViewCell.h */,
+				842E2F462064F84A00099842 /* BannerViewCell.m */,
+				842E2F472064F84A00099842 /* HotAreaViewCell.h */,
+				842E2F482064F84A00099842 /* HotAreaViewCell.m */,
+				842E2F492064F84A00099842 /* NormalTableViewController.h */,
+				842E2F4A2064F84A00099842 /* NormalTableViewController.m */,
+				842E2F4B2064F84A00099842 /* ProductViewCell.h */,
+				842E2F4C2064F84A00099842 /* ProductViewCell.m */,
+				842E2F4D2064F84A00099842 /* ProductViewSection.h */,
+				842E2F4E2064F84A00099842 /* ProductViewSection.m */,
 			);
-			path = NormalTable;
+			path = NormalTabel;
+			sourceTree = "<group>";
+		};
+		842E2F4F2064F84A00099842 /* RefreshDemo */ = {
+			isa = PBXGroup;
+			children = (
+				842E2F552064F87000099842 /* RefreshTableViewController.h */,
+				842E2F562064F87000099842 /* RefreshTableViewController.m */,
+				842E2F582064FA0C00099842 /* RefreshBannerViewCell.h */,
+				842E2F592064FA0C00099842 /* RefreshBannerViewCell.m */,
+			);
+			path = RefreshDemo;
 			sourceTree = "<group>";
 		};
 		A96813B5205EB27900BB23D8 /* assetes */ = {
@@ -183,7 +201,7 @@
 		A99B7ED7205CC850002FA0D5 /* MJTableViewController */ = {
 			isa = PBXGroup;
 			children = (
-				A948E2CF205E28A8005B7606 /* Items */,
+				842E2F432064F84A00099842 /* Demo */,
 				A99B7EEE205CD32A002FA0D5 /* MJTableView */,
 				A96813B5205EB27900BB23D8 /* assetes */,
 				A99B7ED8205CC850002FA0D5 /* AppDelegate.h */,
@@ -366,17 +384,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				842E2F502064F84A00099842 /* BannerViewCell.m in Sources */,
 				A99B7EDD205CC850002FA0D5 /* ViewController.m in Sources */,
+				842E2F5A2064FA0C00099842 /* RefreshBannerViewCell.m in Sources */,
 				A99B7F10205CD34C002FA0D5 /* MJRefreshAutoFooterGY.m in Sources */,
-				A948E2D3205E28DB005B7606 /* NormalTableViewController.m in Sources */,
 				A99B7F12205CD34C002FA0D5 /* MJTableViewController.m in Sources */,
-				84809A43205F9C70003B4604 /* ProductViewSection.m in Sources */,
-				A96813B3205EAB8E00BB23D8 /* BannerViewCell.m in Sources */,
+				842E2F542064F84A00099842 /* ProductViewSection.m in Sources */,
+				842E2F512064F84A00099842 /* HotAreaViewCell.m in Sources */,
 				A99B7EE8205CC850002FA0D5 /* main.m in Sources */,
-				84809A40205F96CD003B4604 /* ProductViewCell.m in Sources */,
+				842E2F532064F84A00099842 /* ProductViewCell.m in Sources */,
+				842E2F522064F84A00099842 /* NormalTableViewController.m in Sources */,
 				A99B7F0D205CD34C002FA0D5 /* MJTableViewSection.m in Sources */,
-				84809A3D205F8F79003B4604 /* HotAreaViewCell.m in Sources */,
 				A99B7EDA205CC850002FA0D5 /* AppDelegate.m in Sources */,
+				842E2F572064F87000099842 /* RefreshTableViewController.m in Sources */,
 				A99B7F0F205CD34C002FA0D5 /* MJRefreshComponent+GY.m in Sources */,
 				A99B7F11205CD34C002FA0D5 /* MJTableViewCell.m in Sources */,
 				A99B7F0E205CD34C002FA0D5 /* MJTableBaseView.m in Sources */,

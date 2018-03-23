@@ -18,6 +18,7 @@
 @implementation ProductViewCell
 
 -(void)showSubviews{
+    self.backgroundColor = [UIColor whiteColor];
     CGFloat const iconWidth = 40;
     self.imageView.image = [UIImage imageNamed:@"fundHot12"];//显示图标 也可以通过data传入
     self.imageView.frame = CGRectMake(30, (CGRectGetHeight(self.contentView.bounds) - iconWidth) / 2., iconWidth, iconWidth);

@@ -93,16 +93,21 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//模拟网络请求产生异步加载
         [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
             [svo addCellVo:[CellVo initWithParams:230 cellClass:BannerViewCell.class cellData:@"banner.jpg" isUnique:YES]];
+        }]];
+        [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
             [svo addCellVo:[CellVo initWithParams:100 cellClass:HotAreaViewCell.class cellData:@[@"fundHot02",@"fundHot08",@"fundHot05",@"fundHot10"] isUnique:YES]];
         }]];
         NSArray* sourceArray1 = @[@"老李同志", @"老刘同志", @"老郑同志", @"老陈同志", @"老王同志", @"老金同志", @"老陆同志", @"老周同志", @"老包同志"];//数据源数组，表示从后台获取的原始数组
         //SectionVo在创建的时候设置section高度为40、section类型为ProductViewSection、sectionData为标题文本，列表上将显示这一节视图
-        [tableView addSectionVo:[SectionVo initWithParams:40 sectionClass:ProductViewSection.class sectionData:@"推荐客户" nextBlock:^(SectionVo *svo) {
+        [tableView addSectionVo:[SectionVo initWithParams:40 sectionHeaderClass:ProductViewSection.class sectionHeaderData:@"推荐客户"
+                                 sectionFooterHeight:40 sectionFooterClass:ProductViewSection.class sectionFooterData:@"页脚"
+                                                nextBlock:^(SectionVo *svo) {
             [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ProductViewCell.class sourceArray:sourceArray1]];
         }]];
         NSArray* sourceArray2 = @[@"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志"];
         //SectionVo在创建的时候设置section高度为40、section类型为ProductViewSection、sectionData为标题文本，列表上将显示这一节视图
-        [tableView addSectionVo:[SectionVo initWithParams:40 sectionClass:ProductViewSection.class sectionData:@"潜力客户" nextBlock:^(SectionVo *svo) {
+        [tableView addSectionVo:[SectionVo initWithParams:40 sectionHeaderClass:ProductViewSection.class sectionHeaderData:@"潜力客户"
+                                                sectionFooterHeight:40 sectionFooterClass:ProductViewSection.class sectionFooterData:@"页脚"nextBlock:^(SectionVo *svo) {
             [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ProductViewCell.class
                                                          sourceArray:sourceArray2]];
         }]];
@@ -111,9 +116,9 @@
 }
 
 //显示上拉加载
--(BOOL)isShowFooter{
-    return YES;
-}
+//-(BOOL)isShowFooter{
+//    return YES;
+//}
 ////endLoadMoreHandler:结束刷新回调block,lastSectionVo:上一节sectionVo数据，即当前列表页最后一节
 //-(void)footerLoadMore:(MJTableBaseView *)tableView endLoadMoreHandler:(FooterLoadMoreHandler)endLoadMoreHandler lastSectionVo:(SectionVo *)lastSectionVo{
 //    NSArray* sourceArray2 = @[@"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志", @"老铁同志"];
@@ -136,7 +141,7 @@
             [lastSectionVo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ProductViewCell.class
                                                                    sourceArray:sourceArray2]];//将新增的CellVo实例继续添加到上一节SectionVo实例中
         }else{//上一节超了 添加到下一节中
-            [tableView addSectionVo:[SectionVo initWithParams:40 sectionClass:ProductViewSection.class sectionData:@"潜力客户新" nextBlock:^(SectionVo *svo) {
+            [tableView addSectionVo:[SectionVo initWithParams:40 sectionHeaderClass:ProductViewSection.class sectionHeaderData:@"潜力客户新" nextBlock:^(SectionVo *svo) {
                 [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ProductViewCell.class
                                                              sourceArray:sourceArray2]];
             }]];
@@ -147,6 +152,9 @@
 
 - (void)viewDidLoad {
     self.title = @"常用刷新控制器示例";
+    self.view.backgroundColor = [UIColor lightGrayColor];
+    self.tableView.cellGap = 2;
+    self.tableView.sectionGap = 10;
 //    self.edgesForExtendedLayout = UIRectEdgeNone;
     [super viewDidLoad];
     // Do any additional setup after loading the view.

@@ -4,4 +4,7 @@ target 'MJTableViewController' do
 
 pod 'MJRefresh'
 
+pod 'SDCycleScrollView'
+pod 'SDWebImage'
+
 end

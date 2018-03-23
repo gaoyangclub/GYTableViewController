@@ -36,11 +36,9 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 @optional
 /** 当MJTableBaseView上拉加载完毕后代理调用 **/
 -(void)didLoadMoreComplete:(MJTableBaseView*)tableView;
-
 @optional
 /** 当MJTableBaseView某一条MJTableViewCell实例被点击时代理调用 **/
 -(void)tableView:(MJTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
-
 @optional
 /** 当MJTableBaseView滚动到某个位置时代理调用 **/
 -(void)didScrollToRow:(MJTableBaseView*)tableView indexPath:(NSIndexPath *)indexPath;
@@ -52,15 +50,19 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 /** 以下方法不可代理调用  **/
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView __attribute__((unavailable("Disabled")));
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
 @optional
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
 @optional
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
+
 
 @end
 
@@ -135,16 +137,24 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 
 /** 创建SectionVo实例并初始化设置下一步回调 **/
 + (instancetype)initWithParams:(void(^)(SectionVo* svo))nextBlock;
-/** 创建SectionVo实例并初始化设置section高度、section类型、section数据、下一步回调 **/
-+ (instancetype)initWithParams:(CGFloat)sectionHeight sectionClass:(Class)sectionClass sectionData:(id)sectionData nextBlock:(void(^)(SectionVo* svo))nextBlock;
-//+ (instancetype)initWithParams:(CGFloat)sectionHeight sectionClass:(Class)sectionClass sectionData:(id)sectionData isUnique:(BOOL)isUnique nextBlock:(void(^)(SectionVo* svo))nextBlock;
-/** MJTableViewSection实例高度 **/
-@property (nonatomic,assign)CGFloat sectionHeight;
-/** 用来实例化MJTableViewSection的自定义类型 **/
-@property (nonatomic,retain)Class sectionClass;
-/** 传递给MJTableViewSection实例的数据，用来展示界面判断逻辑等，实例内部通过self.data属性获得 **/
-@property (nonatomic,retain)id sectionData;
-//@property (nonatomic,assign)BOOL isUnique;//预留该功能
+/** 创建SectionVo实例并初始化设置section页眉高度、section页眉类型、section页眉数据、下一步回调 **/
++ (instancetype)initWithParams:(CGFloat)sectionHeaderHeight sectionHeaderClass:(Class)sectionHeaderClass sectionHeaderData:(id)sectionHeaderData nextBlock:(void(^)(SectionVo* svo))nextBlock;
+/** 创建SectionVo实例并初始化设置section页眉高度、section页眉类型、section页眉数据、section页脚高度、section页脚类型、section页脚数据、下一步回调 **/
++ (instancetype)initWithParams:(CGFloat)sectionHeaderHeight sectionHeaderClass:(Class)sectionHeaderClass sectionHeaderData:(id)sectionHeaderData sectionFooterHeight:(CGFloat)sectionFooterHeight sectionFooterClass:(Class)sectionFooterClass sectionFooterData:(id)sectionFooterData nextBlock:(void(^)(SectionVo* svo))nextBlock;
+
+/** MJTableViewSection页眉实例高度 **/
+@property (nonatomic,assign)CGFloat sectionHeaderHeight;
+/** 用来实例化MJTableViewSection页眉的自定义类型 **/
+@property (nonatomic,retain)Class sectionHeaderClass;
+/** 传递给MJTableViewSection页眉实例的数据，用来展示界面判断逻辑等，实例内部通过self.data属性获得 **/
+@property (nonatomic,retain)id sectionHeaderData;
+
+/** MJTableViewSection页脚实例高度 **/
+@property (nonatomic,assign)CGFloat sectionFooterHeight;
+/** 用来实例化MJTableViewSection页脚的自定义类型 **/
+@property (nonatomic,retain)Class sectionFooterClass;
+/** 传递给MJTableViewSection页脚实例的数据，用来展示界面判断逻辑等，实例内部通过self.data属性获得 **/
+@property (nonatomic,retain)id sectionFooterData;
 
 /** 该节包含的CellVo个数 **/
 -(NSInteger)getCellVoCount;

@@ -11,6 +11,7 @@
 @implementation HotAreaViewCell
 
 -(void)showSubviews{
+    self.backgroundColor = [UIColor whiteColor];
     CGFloat const cellWidth = CGRectGetWidth(self.contentView.bounds);
     CGFloat const cellHeight = CGRectGetHeight(self.contentView.bounds);
     CGFloat const iconWidth = 60;

@@ -13,7 +13,6 @@
 
 /** controller包含的tableView实例 **/
 @property(nonatomic,retain)MJTableBaseView* tableView;
-//@property(nonatomic,assign)BOOL contentOffsetRest;
 /** 设置进入该页面是否自动下拉刷新 默认true **/
 @property(nonatomic,assign)BOOL autoRefreshHeader;
 /** 设置选中某个indexPath位置 **/

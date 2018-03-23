@@ -9,22 +9,31 @@
 #import "MJTableBaseView.h"
 #import "MJRefreshAutoFooterGY.h"
 
+typedef enum {
+    CellTypeNormal,//除头尾中间段的
+    CellTypeFirst,//小组第一个
+    CellTypeLast,//小组最后一个
+    CellTypeSectionGap,//section的gap
+    CellTypeCellGap //cell的gap
+} CellType;
+
 @interface SectionVo()
 
 /** 存储该节包含的cellVo数据列表 注:包含用户数据和gap数据 不能直接对外遍历使用 **/
 @property (nonatomic,retain)NSMutableArray<CellVo*>* cellVoList;
+//@property (nonatomic,assign)BOOL isSectionGap;//作为间隔容器存在
 
 @end
 
 @interface CellVo()
 
-#define CELL_TAG_NORMAL 0 //除头尾中间段的
-#define CELL_TAG_FIRST 1 //小组第一个
-#define CELL_TAG_LAST 2 //小组最后一个
-#define CELL_TAG_SECTION_GAP 10 //section的gap
-#define CELL_TAG_CELL_GAP 11 //cell的gap
+//#define CELL_TAG_NORMAL 0 //除头尾中间段的
+//#define CELL_TAG_FIRST 1 //小组第一个
+//#define CELL_TAG_LAST 2 //小组最后一个
+//#define CELL_TAG_SECTION_GAP 10 //section的gap
+//#define CELL_TAG_CELL_GAP 11 //cell的gap
 
-@property (nonatomic,assign)NSInteger cellTag;
+@property (nonatomic,assign)CellType cellType;
 
 -(BOOL)isRealCell;
 
@@ -307,11 +316,20 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     SectionVo* sectionVo = [self getSectionVoByIndex:section];
-    return sectionVo ? sectionVo.sectionHeight : 0;
+    return sectionVo ? sectionVo.sectionHeaderHeight : 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section{
     return [self tableView:tableView heightForHeaderInSection:section];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    SectionVo* sectionVo = [self getSectionVoByIndex:section];
+    return sectionVo ? sectionVo.sectionFooterHeight : 0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section{
+    return [self tableView:tableView heightForFooterInSection:section];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -370,9 +388,9 @@
     }
     NSObject* data = cellVo.cellData;
     cell.isSingle = sectionVo.cellVoList.count <= 1;
-    cell.isFirst = cellVo.cellTag == CELL_TAG_FIRST;
+    cell.isFirst = cellVo.cellType == CellTypeFirst;
     if(sectionVo.cellVoList != NULL){
-        cell.isLast = cellVo.cellTag == CELL_TAG_LAST;//row == source.data!.count - 1//索引在最后
+        cell.isLast = cellVo.cellType == CellTypeLast;//row == source.data!.count - 1//索引在最后
     }
     cell.indexPath = indexPath;
     cell.tableView = self;
@@ -402,7 +420,7 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     SectionVo* sectionVo = [self getSectionVoByIndex:section];
-    Class headerClass = sectionVo.sectionClass;
+    Class headerClass = sectionVo.sectionHeaderClass;
     MJTableViewSection* sectionView;
     if (headerClass != NULL) {
         sectionView = [[headerClass alloc]init];
@@ -410,7 +428,7 @@
         sectionView.sectionIndex = section;
         sectionView.isFirst = section == 0;
         sectionView.isLast = section == self.dataArray.count - 1;
-        sectionView.data = sectionVo.sectionData;
+        sectionView.data = sectionVo.sectionHeaderData;
     }
 //    var headerView = nsSectionDic[section]
 //    if headerView == nil{
@@ -422,26 +440,17 @@
     return sectionView;
 }
 
-//后期可能通过SectionVo类型来添加
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    SectionVo* sectionVo = [self getSectionVoByIndex:section];
-    return sectionVo ? sectionVo.sectionHeight : 0;
-}
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section{
-    return [self tableView:tableView heightForFooterInSection:section];
-}
-
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     SectionVo* sectionVo = [self getSectionVoByIndex:section];
-    Class headerClass = sectionVo.sectionClass;
+    Class footerClass = sectionVo.sectionFooterClass;
     MJTableViewSection* sectionView;
-    if (headerClass != NULL) {
-        sectionView = [[headerClass alloc]init];
+    if (footerClass != NULL) {
+        sectionView = [[footerClass alloc]init];
         sectionView.sectionCount = [self getSectionVoCount];
         sectionView.sectionIndex = section;
         sectionView.isFirst = section == 0;
         sectionView.isLast = section == self.dataArray.count - 1;
-        sectionView.data = sectionVo.sectionData;
+        sectionView.data = sectionVo.sectionFooterData;
     }
     return sectionView;
 }
@@ -532,47 +541,58 @@
 
 -(void)checkGaps {
     //遍历整个数据链 判断头尾标记和gap是否存在
-    for (NSInteger i = 0; i < self.dataArray.count; i ++) {
+//    for (SectionVo* svo in self.dataArray) {
+    for (NSInteger i = [self getSectionVoCount] - 1; i >= 0; i --) {
         SectionVo* svo = [self getSectionVoByIndex:i];
         if (svo && svo.cellVoList != nil && svo.cellVoList.count > 0) {
             BOOL hasFirst = NO;
             BOOL hasLast = NO;
+//            if (svo.isSectionGap) {
+//                if (svo.cellVoList.count <= 0) {//已全部清除
+//                    [self removeSectionVoAt:i];//sectionVo也移除
+//                }else{
+//                    svo.isSectionGap = NO;
+//                }
+//            }
             for (NSInteger j = svo.cellVoList.count - 1; j >= 0; j --) {
                 CellVo* cvo = svo.cellVoList[j];
-                if (cvo.cellTag == CELL_TAG_FIRST) {
+                if (cvo.cellType == CellTypeFirst) {
                     hasFirst = YES;
-                }else if(cvo.cellTag == CELL_TAG_LAST){
+                }else if(cvo.cellType == CellTypeLast){
                     hasLast = YES;
-                }else if(cvo.cellTag == CELL_TAG_SECTION_GAP){
-                    //                        if sectionGap <= 0{//已经不需要
-                    [svo.cellVoList removeObjectAtIndex:j]; //先全部清除
-                    //                            continue
-                    //                        }
-                }else if(cvo.cellTag == CELL_TAG_CELL_GAP){
-                    //                        if cellGap <= 0{//已经不需要
-                    [svo.cellVoList removeObjectAtIndex:j];//先全部清除
-                    //                            continue
-                    //                        }
+                }
+                else if(cvo.cellType == CellTypeSectionGap){
+                    [svo.cellVoList removeObjectAtIndex:j]; //先清除
+                    if (svo.cellVoList.count <= 0) {//已全部清除
+                        [self removeSectionVoAt:i];//sectionVo也移除
+                    }
+                }
+                else if(cvo.cellType == CellTypeCellGap){
+                    [svo.cellVoList removeObjectAtIndex:j];//先清除
                 }
             }
             if(!hasFirst){//不存在
-                ((CellVo*)svo.cellVoList[0]).cellTag = CELL_TAG_FIRST;//标记第一个就是
+                ((CellVo*)svo.cellVoList[0]).cellType = CellTypeFirst;//标记第一个就是
             }
             if(!hasLast){
-                ((CellVo*)svo.cellVoList[svo.cellVoList.count - 1]).cellTag = CELL_TAG_LAST;//标记最后一个就是
+                ((CellVo*)svo.cellVoList[svo.cellVoList.count - 1]).cellType = CellTypeLast;//标记最后一个就是
             }
         }
     }
     
     if(self.sectionGap > 0 || self.cellGap > 0){
-        for (NSInteger i = 0; i < self.dataArray.count; i ++) {
+        for (NSInteger i = [self getSectionVoCount] - 1; i >= 0; i --) {
             SectionVo* svo = [self getSectionVoByIndex:i];
             //            var preCellVo:CellVo? = nil
-            if(svo && svo.cellVoList != nil && svo.cellVoList.count > 0){
+            if(self.sectionGap > 0 && [self getSectionVoByIndex:i - 1]){//有间隔且前一个存在
+                [self insertSectionVo:[self getSectionGapVo] atIndex:i];//直接插入一条
+            }
+            if(self.cellGap > 0 && svo && svo.cellVoList != nil && svo.cellVoList.count > 0){
                 for (NSInteger j = svo.cellVoList.count - 1; j >= 0; j --) {
-                    if(self.sectionGap > 0 && j == svo.cellVoList.count - 1 && i != self.dataArray.count - 1){//非最后一节 且最后一个实体存到最后
-                        [svo.cellVoList addObject:[self getSectionGapCellVo]];
-                    }else if(self.cellGap > 0 && j != svo.cellVoList.count - 1){//不是最后一个直接插入
+//                    if(self.sectionGap > 0 && j == svo.cellVoList.count - 1 && i != self.dataArray.count - 1 && [self getSectionVoByIndex:i + 1].sectionHeaderHeight > 0){//非最后一节 且最后一个实体存到最后 且下一个section有高度
+//                        [svo.cellVoList addObject:[self getSectionGapCellVo]];
+//                    }else
+                    if(j != svo.cellVoList.count - 1){//不是最后一个直接插入
                         [svo.cellVoList insertObject:[self getCellGapCellVo] atIndex:j + 1];
                     }
                 }
@@ -581,15 +601,22 @@
     }
 }
 
--(CellVo*)getSectionGapCellVo{
-    CellVo* cvo = [CellVo initWithParams:self.sectionGap cellClass:[MJTableViewCell class] cellData:nil];
-    cvo.cellTag = CELL_TAG_SECTION_GAP;
-    return cvo;
+-(SectionVo*)getSectionGapVo{
+//    if (svo != nil) {
+//        svo.sectionHeaderHeight = self.sectionGap;
+//    }else{
+    SectionVo* svo = [SectionVo initWithParams:0 sectionHeaderClass:nil sectionHeaderData:nil nextBlock:^(SectionVo *svo) {
+        CellVo* cvo = [CellVo initWithParams:self.sectionGap cellClass:[MJTableViewCell class] cellData:nil];
+        cvo.cellType = CellTypeSectionGap;
+        [svo addCellVo:cvo];
+    }];
+//    }
+    return svo;
 }
 
 -(CellVo*)getCellGapCellVo{
     CellVo* cvo = [CellVo initWithParams:self.cellGap cellClass:[MJTableViewCell class] cellData:nil];
-    cvo.cellTag = CELL_TAG_CELL_GAP;
+    cvo.cellType = CellTypeCellGap;
     return cvo;
 }
 
@@ -762,20 +789,25 @@
 @implementation SectionVo
 
 +(instancetype)initWithParams:(void (^)(SectionVo* svo))nextBlock{
-    return [SectionVo initWithParams:0 sectionClass:nil sectionData:nil nextBlock:nextBlock];
+    return [SectionVo initWithParams:0 sectionHeaderClass:nil sectionHeaderData:nil nextBlock:nextBlock];
 }
 
-+(instancetype)initWithParams:(CGFloat)sectionHeight sectionClass:(Class)sectionClass sectionData:(id)sectionData nextBlock:(void (^)(SectionVo *))nextBlock
-{
++(instancetype)initWithParams:(CGFloat)sectionHeaderHeight sectionHeaderClass:(Class)sectionHeaderClass sectionHeaderData:(id)sectionHeaderData nextBlock:(void (^)(SectionVo *))nextBlock{
+    return [SectionVo initWithParams:sectionHeaderHeight sectionHeaderClass:sectionHeaderClass sectionHeaderData:sectionHeaderData sectionFooterHeight:0 sectionFooterClass:nil sectionFooterData:nil nextBlock:nextBlock];
+}
+
++(instancetype)initWithParams:(CGFloat)sectionHeaderHeight sectionHeaderClass:(Class)sectionHeaderClass sectionHeaderData:(id)sectionHeaderData sectionFooterHeight:(CGFloat)sectionFooterHeight sectionFooterClass:(Class)sectionFooterClass sectionFooterData:(id)sectionFooterData nextBlock:(void (^)(SectionVo *))nextBlock{
     SectionVo *instance;
     @synchronized (self)    {
         if (instance == nil)
         {
             instance = [[self alloc] init];
-            instance.sectionHeight = sectionHeight;
-            instance.sectionClass = sectionClass;
-            instance.sectionData = sectionData;
-//            instance.isUnique = isUnique;
+            instance.sectionHeaderHeight = sectionHeaderHeight;
+            instance.sectionHeaderClass = sectionHeaderClass;
+            instance.sectionHeaderData = sectionHeaderData;
+            instance.sectionFooterHeight = sectionFooterHeight;
+            instance.sectionFooterClass = sectionFooterClass;
+            instance.sectionFooterData = sectionFooterData;
             if (nextBlock) {
                 nextBlock(instance);
             }
@@ -855,7 +887,7 @@
 }
 
 -(BOOL)isRealCell{
-    return self.cellTag == CELL_TAG_NORMAL || self.cellTag == CELL_TAG_FIRST || self.cellTag == CELL_TAG_LAST;
+    return self.cellType == CellTypeNormal || self.cellType == CellTypeFirst || self.cellType == CellTypeLast;
 }
 
 @end
