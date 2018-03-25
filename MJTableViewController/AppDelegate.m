@@ -8,8 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
-#import "NormalTableViewController.h"
-#import "RefreshTableViewController.h"
+#import "MainViewController.h"
 
 @interface AppDelegate ()
 
@@ -23,7 +22,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[RefreshTableViewController alloc] init]];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[MainViewController alloc] init]];
     
 //    NSLog(@"石:%f",1.5 * 480 + 0.5 * 5229);
 //    NSLog(@"木:%f",1.5 * 223 + 0.5 * 5183);
@@ -31,7 +30,6 @@
 //    NSLog(@"金:%f",6 * 9 + 2 * 51 + 0.6 * 432 + 0.2 * 3000);
     return YES;
 }
-
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
