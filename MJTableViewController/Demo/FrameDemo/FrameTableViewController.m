@@ -25,6 +25,8 @@
 
 @implementation FrameTableViewController
 
+//----------  start ----------
+/** 以下作为前端mock的数据，模拟从后台返回的数据结构，真实操作为触发刷新后请求后台获取 **/
 
 -(NSArray<DishesModel *> *)dishesModels{
     if (!_dishesModels) {
@@ -37,12 +39,22 @@
                           
                           [DishesModel initWithParams:@"苹果iphone 7Plus" iconName:@"https://img10.360buyimg.com/n7/jfs/t3250/72/1629247361/133742/e0c6726d/57d11c72N093250ec.jpg" des:@"银白色 32G 铁通网络" price:@"4999" linkUrl:@"https://item.jd.com/3133853.html"],
                           
+                          [DishesModel initWithParams:@"苹果iphone 7" iconName:@"https://img12.360buyimg.com/n7/jfs/t3298/58/1622979569/120892/64989235/57d0d400Nfd249af4.jpg" des:@"黑色 32G 移动联通电信三网" price:@"4799" linkUrl:@"https://item.jd.com/3133827.html"],
                           
+                          [DishesModel initWithParams:@"苹果iphone 6sPlus" iconName:@"https://img14.360buyimg.com/n7/jfs/t5140/192/441974492/110823/74933487/590006eeN1b438869.jpg" des:@"玫瑰金 32G 全网通" price:@"3488" linkUrl:@"https://item.jd.com/10889864874.html"],
+                          
+                          [DishesModel initWithParams:@"苹果iphone 6s" iconName:@"https://img10.360buyimg.com/n7/jfs/t8542/157/1597800234/74065/167610de/59bca2d3N524ff9a0.jpg" des:@"深空灰 16G 全网通" price:@"3568" linkUrl:@"https://item.jd.com/10523877650.html"],
+                          
+                          [DishesModel initWithParams:@"苹果iphone 6" iconName:@"https://img12.360buyimg.com/n7/jfs/t10171/45/2516117655/281637/4283887d/59f8519dN09f49351.jpg" des:@"土豪金 16G 移动网络" price:@"2135" linkUrl:@"https://item.jd.com/19036593197.html"],
+                          
+                          [DishesModel initWithParams:@"苹果iphone 5s" iconName:@"https://img11.360buyimg.com/n7/jfs/t10246/79/382654964/320569/45768bfc/59cdf9ebNbba2edac.jpg" des:@"金色 16G 电信网络" price:@"2135" linkUrl:@"https://item.jd.com/11464031106.html"],
                           
                           ];
     }
     return _dishesModels;
 }
+
+//----------  end ----------
 
 -(UIView*)noticeBack{
     if (!_noticeBack) {
@@ -88,7 +100,7 @@
     
     self.submitButton.x = 0;
     self.submitButton.width = self.view.width;
-    self.submitButton.height = 60;
+    self.submitButton.height = 50;
     self.submitButton.maxY = self.view.height;
     
     return CGRectMake(0, self.noticeBack.height, self.view.width, self.view.height - self.noticeBack.height - self.submitButton.height);

@@ -18,6 +18,9 @@
 
 #define COLOR_RIMARY_DISHES rgb(45,155,235)
 
+#define COLOR_RIMARY_PRAISE rgb(253,98,54)
+
+
 #define COLOR_NOTICE_BACK rgb(108,179,233)
 
 
@@ -41,6 +44,8 @@
 #define ICON_CHUANG_XIN @"\U0000e6de"
 #define ICON_DUAN_QI @"\U0000e67c"
 #define ICON_HUO_BI @"\U0000e663"
+
+#define ICON_DING_WEI @"\U0000e640"
 
 #define ICON_GONG_GAO @"\U0000e608"
 

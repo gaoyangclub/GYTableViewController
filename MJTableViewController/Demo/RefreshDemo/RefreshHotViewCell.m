@@ -16,7 +16,7 @@
 @property(nonatomic,retain) HotModel* hotModel;
 //@property(nonatomic,copy) NSString* title;
 //@property(nonatomic,copy) NSString* iconName;
-@property(nonatomic,retain) UIColor* iconColor;
+//@property(nonatomic,retain) UIColor* iconColor;
 
 
 

@@ -9,6 +9,7 @@
 #import "RefreshTableViewController.h"
 #import "FrameTableViewController.h"
 #import "MainViewController.h"
+#import "GapTableViewController.h"
 
 @interface ControllerVo:NSObject
 
@@ -66,6 +67,7 @@
         _controllers = @[
                          [ControllerVo initWithTitle:@"下拉刷新上拉加载示例" andClass:RefreshTableViewController.class],
                          [ControllerVo initWithTitle:@"TableView位置调整和点击跳转示例" andClass:FrameTableViewController.class],
+                         [ControllerVo initWithTitle:@"Section或Cell间隔示例" andClass:GapTableViewController.class],
                          ];
     }
     return _controllers;
@@ -79,9 +81,9 @@
     self.navigationController.navigationBar.translucent = NO;//    Bar的高斯模糊效果，默认为YES
 }
 
-//-(BOOL)autoRestOffset{
-//    return NO;
-//}
+-(BOOL)autoRestOffset{
+    return NO;
+}
 
 -(void)headerRefresh:(MJTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
     int64_t delay = 0.5 * NSEC_PER_SEC;

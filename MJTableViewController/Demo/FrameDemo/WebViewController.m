@@ -12,7 +12,7 @@
 @interface WebViewController()
 
 @property(nonatomic,retain)WKWebView* webView;
-//@property(nonatomic,retain)UIProgressView* progressView;
+@property(nonatomic,retain)UIProgressView* progressView;
 
 @end
 
@@ -33,17 +33,18 @@
     return _webView;
 }
 
-//-(UIProgressView *)progressView{
-//    if (!_progressView) {
-//        _progressView = [[UIProgressView alloc]init];
-//        [self.view addSubview:_progressView];
-//    }
-//    return _progressView;
-//}
+-(UIProgressView *)progressView{
+    if (!_progressView) {
+        _progressView = [[UIProgressView alloc]init];
+        _progressView.trackTintColor= [UIColor clearColor];//设置未过进度部分的颜
+        [self.view addSubview:_progressView];
+    }
+    return _progressView;
+}
 
 -(void)viewDidLayoutSubviews{
     self.webView.frame = CGRectMake(0, 0, self.view.width, self.view.height);
-//    self.progressView.frame = CGRectMake(0, 0, self.view.width, 3);
+    self.progressView.frame = CGRectMake(0, 0, self.view.width, 3);
 }
 
 -(void)popToPrevController{
@@ -58,6 +59,21 @@
     self.webView.frame = self.view.bounds;
     
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.linkUrl]]];
+    
+    [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+-(void)dealloc{
+    [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
+    if ([keyPath isEqualToString:@"estimatedProgress"]) {
+        self.progressView.hidden = self.webView.estimatedProgress == 1;
+        [self.progressView setProgress:self.webView.estimatedProgress animated:YES];
+    }else{
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 @end

@@ -14,6 +14,9 @@
 		842E2F542064F84A00099842 /* ProductViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E2F4E2064F84A00099842 /* ProductViewSection.m */; };
 		842E2F572064F87000099842 /* RefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E2F562064F87000099842 /* RefreshTableViewController.m */; };
 		842E2F5A2064FA0C00099842 /* RefreshBannerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E2F592064FA0C00099842 /* RefreshBannerViewCell.m */; };
+		847BF9B42068CE87007DC83D /* GapTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847BF9B32068CE87007DC83D /* GapTableViewController.m */; };
+		847BF9B720690E0C007DC83D /* GapPraiseGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 847BF9B620690E0C007DC83D /* GapPraiseGroupCell.m */; };
+		847BF9BA20691413007DC83D /* PraiseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 847BF9B920691413007DC83D /* PraiseModel.m */; };
 		A91F908F2067400400DF5B54 /* RefreshFundViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = A91F908E2067400300DF5B54 /* RefreshFundViewSection.m */; };
 		A91F909220674DB600DF5B54 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A91F909120674DB600DF5B54 /* MainViewController.m */; };
 		A921C70A20668C77009370E0 /* RefreshFundViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A921C70920668C77009370E0 /* RefreshFundViewCell.m */; };
@@ -73,6 +76,12 @@
 		842E2F562064F87000099842 /* RefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshTableViewController.m; sourceTree = "<group>"; };
 		842E2F582064FA0C00099842 /* RefreshBannerViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshBannerViewCell.h; sourceTree = "<group>"; };
 		842E2F592064FA0C00099842 /* RefreshBannerViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshBannerViewCell.m; sourceTree = "<group>"; };
+		847BF9B22068CE87007DC83D /* GapTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GapTableViewController.h; sourceTree = "<group>"; };
+		847BF9B32068CE87007DC83D /* GapTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GapTableViewController.m; sourceTree = "<group>"; };
+		847BF9B520690E0C007DC83D /* GapPraiseGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GapPraiseGroupCell.h; sourceTree = "<group>"; };
+		847BF9B620690E0C007DC83D /* GapPraiseGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GapPraiseGroupCell.m; sourceTree = "<group>"; };
+		847BF9B820691413007DC83D /* PraiseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PraiseModel.h; sourceTree = "<group>"; };
+		847BF9B920691413007DC83D /* PraiseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PraiseModel.m; sourceTree = "<group>"; };
 		9E1D1A2E7306E3200B0BF4C0 /* Pods-MJTableViewController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJTableViewController.release.xcconfig"; path = "Pods/Target Support Files/Pods-MJTableViewController/Pods-MJTableViewController.release.xcconfig"; sourceTree = "<group>"; };
 		A91F908D2067400300DF5B54 /* RefreshFundViewSection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RefreshFundViewSection.h; sourceTree = "<group>"; };
 		A91F908E2067400300DF5B54 /* RefreshFundViewSection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RefreshFundViewSection.m; sourceTree = "<group>"; };
@@ -168,6 +177,7 @@
 				A982587F206638660030B2B3 /* Utils */,
 				A98258792066356A0030B2B3 /* Config */,
 				842E2F442064F84A00099842 /* NormalTabel */,
+				847BF9B12068CE66007DC83D /* GapDemo */,
 				A925BF1E20679C66003F423C /* FrameDemo */,
 				842E2F4F2064F84A00099842 /* RefreshDemo */,
 			);
@@ -206,6 +216,17 @@
 				A91F908E2067400300DF5B54 /* RefreshFundViewSection.m */,
 			);
 			path = RefreshDemo;
+			sourceTree = "<group>";
+		};
+		847BF9B12068CE66007DC83D /* GapDemo */ = {
+			isa = PBXGroup;
+			children = (
+				847BF9B22068CE87007DC83D /* GapTableViewController.h */,
+				847BF9B32068CE87007DC83D /* GapTableViewController.m */,
+				847BF9B520690E0C007DC83D /* GapPraiseGroupCell.h */,
+				847BF9B620690E0C007DC83D /* GapPraiseGroupCell.m */,
+			);
+			path = GapDemo;
 			sourceTree = "<group>";
 		};
 		A925BF1E20679C66003F423C /* FrameDemo */ = {
@@ -297,6 +318,8 @@
 				A921C70C20668FD9009370E0 /* FundModel.m */,
 				A9868C822067D82C00D13C9C /* DishesModel.h */,
 				A9868C832067D82C00D13C9C /* DishesModel.m */,
+				847BF9B820691413007DC83D /* PraiseModel.h */,
+				847BF9B920691413007DC83D /* PraiseModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -531,6 +554,7 @@
 				A925BF2120679C89003F423C /* FrameTableViewController.m in Sources */,
 				842E2F522064F84A00099842 /* NormalTableViewController.m in Sources */,
 				A921C70A20668C77009370E0 /* RefreshFundViewCell.m in Sources */,
+				847BF9B42068CE87007DC83D /* GapTableViewController.m in Sources */,
 				A9868C812067D55300D13C9C /* FrameDishesViewCell.m in Sources */,
 				A99B7F0D205CD34C002FA0D5 /* MJTableViewSection.m in Sources */,
 				A99B7EDA205CC850002FA0D5 /* AppDelegate.m in Sources */,
@@ -539,6 +563,8 @@
 				A99B7F11205CD34C002FA0D5 /* MJTableViewCell.m in Sources */,
 				A9825882206638760030B2B3 /* UICreationUtils.m in Sources */,
 				A982588B20663F760030B2B3 /* UIView+GY.m in Sources */,
+				847BF9BA20691413007DC83D /* PraiseModel.m in Sources */,
+				847BF9B720690E0C007DC83D /* GapPraiseGroupCell.m in Sources */,
 				A99B7F0E205CD34C002FA0D5 /* MJTableBaseView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
