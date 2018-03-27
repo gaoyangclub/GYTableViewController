@@ -58,10 +58,10 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
 -(CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
-- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
+-(BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
 
 
 @end

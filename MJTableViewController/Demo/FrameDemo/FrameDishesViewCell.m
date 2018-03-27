@@ -29,6 +29,7 @@
 -(UIImageView *)iconView{
     if (!_iconView) {
         _iconView = [[UIImageView alloc]init];
+        _iconView.contentMode = UIViewContentModeScaleAspectFill;
         [self.contentView addSubview:_iconView];
     }
     return _iconView;
@@ -52,7 +53,7 @@
 
 -(UILabel *)priceLabel{
     if (!_priceLabel) {
-        _priceLabel = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_RIMARY_FUND];
+        _priceLabel = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_PRIMARY_FUND];
         [self.contentView addSubview:_priceLabel];
     }
     return _priceLabel;

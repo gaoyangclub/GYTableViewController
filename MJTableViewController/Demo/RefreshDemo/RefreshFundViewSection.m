@@ -32,7 +32,7 @@
 -(UIView *)square{
     if (!_square) {
         _square = [[UIView alloc] init];
-        _square.backgroundColor = COLOR_RIMARY_FUND;
+        _square.backgroundColor = COLOR_PRIMARY_FUND;
         _square.size = CGSizeMake(5, 18);
         [self addSubview:_square];
     }

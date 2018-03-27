@@ -477,7 +477,7 @@ typedef enum {
     CGRect rectInTableView = [self rectForRowAtIndexPath:indexPath];
     CGRect btnToSelf = [self convertRect:rectInTableView toView:self.superview];
 //    CGRect btnToSelf = [self convertRect:clickCell.frame toView:self.superview];
-    CGFloat moveY = btnToSelf.origin.y - CGRectGetHeight(self.bounds) / 2. + btnToSelf.size.height / 2. - self.contentInset.top;
+    CGFloat moveY = btnToSelf.origin.y - CGRectGetHeight(self.bounds) / 2. - btnToSelf.size.height / 2. - self.contentInset.top;
     CGPoint contentOffset = self.contentOffset;
     //    self.bottomAreaView.contentSize.width
     CGFloat maxOffsetY = self.contentSize.height - CGRectGetHeight(self.bounds) - self.contentInset.top;

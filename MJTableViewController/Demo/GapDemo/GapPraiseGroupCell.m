@@ -33,7 +33,7 @@
     if(!_iconView){
         _iconView = [[UIImageView alloc]init];
         _iconView.contentMode = UIViewContentModeScaleAspectFill;
-        _iconView.layer.masksToBounds = YES;
+//        _iconView.layer.masksToBounds = YES;
         [self addSubview:_iconView];
     }
     return _iconView;
@@ -65,7 +65,7 @@
 
 -(UILabel *)groupIconView{
     if (!_groupIconView) {
-        _groupIconView = [UICreationUtils createLabel:ICON_FONT_NAME size:20 color:COLOR_RIMARY_PRAISE];
+        _groupIconView = [UICreationUtils createLabel:ICON_FONT_NAME size:20 color:COLOR_PRIMARY_PRAISE];
         [self.contentView addSubview:_groupIconView];
     }
     return _groupIconView;
@@ -73,7 +73,7 @@
 
 -(UILabel *)groupTitleLable{
     if (!_groupTitleLable) {
-        _groupTitleLable = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_RIMARY_PRAISE];
+        _groupTitleLable = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_PRIMARY_PRAISE];
         [self addSubview:_groupTitleLable];
     }
     return _groupTitleLable;
@@ -88,7 +88,7 @@
     CGFloat const padding = 15;
     CGFloat const gap = 5;
     
-    self.groupIconView.text = ICON_DING_WEI;
+    self.groupIconView.text = ICON_GUAN_ZHU;
     [self.groupIconView sizeToFit];
     
     self.groupTitleLable.text = praiseModel.groupTitle;

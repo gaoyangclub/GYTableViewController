@@ -82,7 +82,7 @@
 -(UIButton *)submitButton{
     if (!_submitButton) {
         _submitButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        _submitButton.backgroundColor = COLOR_RIMARY_DISHES;
+        _submitButton.backgroundColor = COLOR_PRIMARY_DISHES;
         [_submitButton setTitle:@"结   算" forState:UIControlStateNormal];
         [_submitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _submitButton.titleLabel.font = [UIFont systemFontOfSize:20];

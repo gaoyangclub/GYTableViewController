@@ -27,7 +27,7 @@
 
 -(UILabel *)iconView{
     if (!_iconView) {
-        _iconView = [UICreationUtils createLabel:ICON_FONT_NAME size:30 color:COLOR_RIMARY_FUND];
+        _iconView = [UICreationUtils createLabel:ICON_FONT_NAME size:30 color:COLOR_PRIMARY_FUND];
         [self.contentView addSubview:_iconView];
     }
     return _iconView;

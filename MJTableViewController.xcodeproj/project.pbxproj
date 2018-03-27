@@ -14,6 +14,12 @@
 		842E2F542064F84A00099842 /* ProductViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E2F4E2064F84A00099842 /* ProductViewSection.m */; };
 		842E2F572064F87000099842 /* RefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E2F562064F87000099842 /* RefreshTableViewController.m */; };
 		842E2F5A2064FA0C00099842 /* RefreshBannerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E2F592064FA0C00099842 /* RefreshBannerViewCell.m */; };
+		843D9A8B2069DF4F00AB5F39 /* GapStoreHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 843D9A8A2069DF4F00AB5F39 /* GapStoreHeaderCell.m */; };
+		843D9A8E2069E25000AB5F39 /* GapStoreViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 843D9A8D2069E25000AB5F39 /* GapStoreViewCell.m */; };
+		843D9A912069E5F700AB5F39 /* StoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 843D9A902069E5F700AB5F39 /* StoreModel.m */; };
+		843D9A95206A07BC00AB5F39 /* RelateTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843D9A94206A07BC00AB5F39 /* RelateTableViewController.m */; };
+		843D9A98206A145400AB5F39 /* RelateExpressViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 843D9A97206A145400AB5F39 /* RelateExpressViewCell.m */; };
+		843D9A9B206A1A4500AB5F39 /* ExpressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 843D9A9A206A1A4500AB5F39 /* ExpressModel.m */; };
 		847BF9B42068CE87007DC83D /* GapTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847BF9B32068CE87007DC83D /* GapTableViewController.m */; };
 		847BF9B720690E0C007DC83D /* GapPraiseGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 847BF9B620690E0C007DC83D /* GapPraiseGroupCell.m */; };
 		847BF9BA20691413007DC83D /* PraiseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 847BF9B920691413007DC83D /* PraiseModel.m */; };
@@ -76,6 +82,18 @@
 		842E2F562064F87000099842 /* RefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshTableViewController.m; sourceTree = "<group>"; };
 		842E2F582064FA0C00099842 /* RefreshBannerViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshBannerViewCell.h; sourceTree = "<group>"; };
 		842E2F592064FA0C00099842 /* RefreshBannerViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshBannerViewCell.m; sourceTree = "<group>"; };
+		843D9A892069DF4F00AB5F39 /* GapStoreHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GapStoreHeaderCell.h; sourceTree = "<group>"; };
+		843D9A8A2069DF4F00AB5F39 /* GapStoreHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GapStoreHeaderCell.m; sourceTree = "<group>"; };
+		843D9A8C2069E25000AB5F39 /* GapStoreViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GapStoreViewCell.h; sourceTree = "<group>"; };
+		843D9A8D2069E25000AB5F39 /* GapStoreViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GapStoreViewCell.m; sourceTree = "<group>"; };
+		843D9A8F2069E5F700AB5F39 /* StoreModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreModel.h; sourceTree = "<group>"; };
+		843D9A902069E5F700AB5F39 /* StoreModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreModel.m; sourceTree = "<group>"; };
+		843D9A93206A07BC00AB5F39 /* RelateTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RelateTableViewController.h; sourceTree = "<group>"; };
+		843D9A94206A07BC00AB5F39 /* RelateTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RelateTableViewController.m; sourceTree = "<group>"; };
+		843D9A96206A145400AB5F39 /* RelateExpressViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RelateExpressViewCell.h; sourceTree = "<group>"; };
+		843D9A97206A145400AB5F39 /* RelateExpressViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RelateExpressViewCell.m; sourceTree = "<group>"; };
+		843D9A99206A1A4500AB5F39 /* ExpressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpressModel.h; sourceTree = "<group>"; };
+		843D9A9A206A1A4500AB5F39 /* ExpressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressModel.m; sourceTree = "<group>"; };
 		847BF9B22068CE87007DC83D /* GapTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GapTableViewController.h; sourceTree = "<group>"; };
 		847BF9B32068CE87007DC83D /* GapTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GapTableViewController.m; sourceTree = "<group>"; };
 		847BF9B520690E0C007DC83D /* GapPraiseGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GapPraiseGroupCell.h; sourceTree = "<group>"; };
@@ -177,6 +195,7 @@
 				A982587F206638660030B2B3 /* Utils */,
 				A98258792066356A0030B2B3 /* Config */,
 				842E2F442064F84A00099842 /* NormalTabel */,
+				843D9A92206A067B00AB5F39 /* RelateDemo */,
 				847BF9B12068CE66007DC83D /* GapDemo */,
 				A925BF1E20679C66003F423C /* FrameDemo */,
 				842E2F4F2064F84A00099842 /* RefreshDemo */,
@@ -218,6 +237,17 @@
 			path = RefreshDemo;
 			sourceTree = "<group>";
 		};
+		843D9A92206A067B00AB5F39 /* RelateDemo */ = {
+			isa = PBXGroup;
+			children = (
+				843D9A93206A07BC00AB5F39 /* RelateTableViewController.h */,
+				843D9A94206A07BC00AB5F39 /* RelateTableViewController.m */,
+				843D9A96206A145400AB5F39 /* RelateExpressViewCell.h */,
+				843D9A97206A145400AB5F39 /* RelateExpressViewCell.m */,
+			);
+			path = RelateDemo;
+			sourceTree = "<group>";
+		};
 		847BF9B12068CE66007DC83D /* GapDemo */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,6 +255,10 @@
 				847BF9B32068CE87007DC83D /* GapTableViewController.m */,
 				847BF9B520690E0C007DC83D /* GapPraiseGroupCell.h */,
 				847BF9B620690E0C007DC83D /* GapPraiseGroupCell.m */,
+				843D9A892069DF4F00AB5F39 /* GapStoreHeaderCell.h */,
+				843D9A8A2069DF4F00AB5F39 /* GapStoreHeaderCell.m */,
+				843D9A8C2069E25000AB5F39 /* GapStoreViewCell.h */,
+				843D9A8D2069E25000AB5F39 /* GapStoreViewCell.m */,
 			);
 			path = GapDemo;
 			sourceTree = "<group>";
@@ -320,6 +354,10 @@
 				A9868C832067D82C00D13C9C /* DishesModel.m */,
 				847BF9B820691413007DC83D /* PraiseModel.h */,
 				847BF9B920691413007DC83D /* PraiseModel.m */,
+				843D9A8F2069E5F700AB5F39 /* StoreModel.h */,
+				843D9A902069E5F700AB5F39 /* StoreModel.m */,
+				843D9A99206A1A4500AB5F39 /* ExpressModel.h */,
+				843D9A9A206A1A4500AB5F39 /* ExpressModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -534,6 +572,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				843D9A8B2069DF4F00AB5F39 /* GapStoreHeaderCell.m in Sources */,
 				842E2F502064F84A00099842 /* BannerViewCell.m in Sources */,
 				A9868C842067D82C00D13C9C /* DishesModel.m in Sources */,
 				A98258922066442B0030B2B3 /* HotModel.m in Sources */,
@@ -541,12 +580,14 @@
 				A99B7EDD205CC850002FA0D5 /* ViewController.m in Sources */,
 				A91F909220674DB600DF5B54 /* MainViewController.m in Sources */,
 				842E2F5A2064FA0C00099842 /* RefreshBannerViewCell.m in Sources */,
+				843D9A98206A145400AB5F39 /* RelateExpressViewCell.m in Sources */,
 				A99B7F10205CD34C002FA0D5 /* MJRefreshAutoFooterGY.m in Sources */,
 				A99B7F12205CD34C002FA0D5 /* MJTableViewController.m in Sources */,
 				A982587C206635940030B2B3 /* Config.m in Sources */,
 				A91F908F2067400400DF5B54 /* RefreshFundViewSection.m in Sources */,
 				842E2F542064F84A00099842 /* ProductViewSection.m in Sources */,
 				842E2F512064F84A00099842 /* HotAreaViewCell.m in Sources */,
+				843D9A95206A07BC00AB5F39 /* RelateTableViewController.m in Sources */,
 				A99B7EE8205CC850002FA0D5 /* main.m in Sources */,
 				842E2F532064F84A00099842 /* ProductViewCell.m in Sources */,
 				A921C70D20668FD9009370E0 /* FundModel.m in Sources */,
@@ -556,10 +597,13 @@
 				A921C70A20668C77009370E0 /* RefreshFundViewCell.m in Sources */,
 				847BF9B42068CE87007DC83D /* GapTableViewController.m in Sources */,
 				A9868C812067D55300D13C9C /* FrameDishesViewCell.m in Sources */,
+				843D9A912069E5F700AB5F39 /* StoreModel.m in Sources */,
 				A99B7F0D205CD34C002FA0D5 /* MJTableViewSection.m in Sources */,
 				A99B7EDA205CC850002FA0D5 /* AppDelegate.m in Sources */,
 				842E2F572064F87000099842 /* RefreshTableViewController.m in Sources */,
 				A99B7F0F205CD34C002FA0D5 /* MJRefreshComponent+GY.m in Sources */,
+				843D9A9B206A1A4500AB5F39 /* ExpressModel.m in Sources */,
+				843D9A8E2069E25000AB5F39 /* GapStoreViewCell.m in Sources */,
 				A99B7F11205CD34C002FA0D5 /* MJTableViewCell.m in Sources */,
 				A9825882206638760030B2B3 /* UICreationUtils.m in Sources */,
 				A982588B20663F760030B2B3 /* UIView+GY.m in Sources */,

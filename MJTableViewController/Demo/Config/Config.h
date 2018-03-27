@@ -10,15 +10,19 @@
 
 #define rgb(r,g,b) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:1.0]
 
-#define COLOR_BACKGROUND rgb(243,243,243)//FlatWhite
+#define COLOR_BACKGROUND rgb(243,243,243)
 #define COLOR_LINE rgb(218,218,218)
 #define LINE_WIDTH 0.5
 
-#define COLOR_RIMARY_FUND rgb(232,50,85)
+#define COLOR_PRIMARY_FUND rgb(232,50,85)
 
-#define COLOR_RIMARY_DISHES rgb(45,155,235)
+#define COLOR_PRIMARY_DISHES rgb(45,155,235)
 
-#define COLOR_RIMARY_PRAISE rgb(253,98,54)
+#define COLOR_PRIMARY_PRAISE rgb(253,98,54)
+
+#define COLOR_PRIMARY_STORE rgb(232,32,71)
+
+#define COLOR_PRIMARY_EXPRESS rgb(45,155,235)
 
 
 #define COLOR_NOTICE_BACK rgb(108,179,233)
@@ -30,7 +34,7 @@
 #define SIZE_NAVI_TITLE 18
 
 #define COLOR_TEXT_PRIMARY rgb(95,95,95)
-#define COLOR_TEXT_SECONDARY rgb(155,155,155)//rgb(95,95,95)
+#define COLOR_TEXT_SECONDARY rgb(155,155,155)
 
 #define ICON_FONT_NAME @"iconfont"
 
@@ -45,7 +49,8 @@
 #define ICON_DUAN_QI @"\U0000e67c"
 #define ICON_HUO_BI @"\U0000e663"
 
-#define ICON_DING_WEI @"\U0000e640"
+#define ICON_GUAN_ZHU @"\U0000e6bb"
+#define ICON_DIAN_ZAN @"\U0000e629"
 
 #define ICON_GONG_GAO @"\U0000e608"
 

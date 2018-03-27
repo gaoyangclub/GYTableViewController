@@ -10,6 +10,7 @@
 #import "FrameTableViewController.h"
 #import "MainViewController.h"
 #import "GapTableViewController.h"
+#import "RelateTableViewController.h"
 
 @interface ControllerVo:NSObject
 
@@ -67,7 +68,8 @@
         _controllers = @[
                          [ControllerVo initWithTitle:@"下拉刷新上拉加载示例" andClass:RefreshTableViewController.class],
                          [ControllerVo initWithTitle:@"TableView位置调整和点击跳转示例" andClass:FrameTableViewController.class],
-                         [ControllerVo initWithTitle:@"Section或Cell间隔示例" andClass:GapTableViewController.class],
+                         [ControllerVo initWithTitle:@"Section或Cell间距示例" andClass:GapTableViewController.class],
+                         [ControllerVo initWithTitle:@"Cell上下关系和选中高亮示例" andClass:RelateTableViewController.class],
                          ];
     }
     return _controllers;
