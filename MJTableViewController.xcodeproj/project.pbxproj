@@ -20,6 +20,10 @@
 		843D9A95206A07BC00AB5F39 /* RelateTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843D9A94206A07BC00AB5F39 /* RelateTableViewController.m */; };
 		843D9A98206A145400AB5F39 /* RelateExpressViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 843D9A97206A145400AB5F39 /* RelateExpressViewCell.m */; };
 		843D9A9B206A1A4500AB5F39 /* ExpressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 843D9A9A206A1A4500AB5F39 /* ExpressModel.m */; };
+		84665BF2206B45DD008A486B /* DiyRotateRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 84665BF1206B45DD008A486B /* DiyRotateRefreshHeader.m */; };
+		84665BF6206B852E008A486B /* AutoHeightTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84665BF5206B852E008A486B /* AutoHeightTableViewController.m */; };
+		84665BF9206B8992008A486B /* AutoHeightWeiboCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84665BF8206B8992008A486B /* AutoHeightWeiboCell.m */; };
+		84665BFC206B8B98008A486B /* WeiboModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84665BFB206B8B98008A486B /* WeiboModel.m */; };
 		847BF9B42068CE87007DC83D /* GapTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847BF9B32068CE87007DC83D /* GapTableViewController.m */; };
 		847BF9B720690E0C007DC83D /* GapPraiseGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 847BF9B620690E0C007DC83D /* GapPraiseGroupCell.m */; };
 		847BF9BA20691413007DC83D /* PraiseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 847BF9B920691413007DC83D /* PraiseModel.m */; };
@@ -94,6 +98,14 @@
 		843D9A97206A145400AB5F39 /* RelateExpressViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RelateExpressViewCell.m; sourceTree = "<group>"; };
 		843D9A99206A1A4500AB5F39 /* ExpressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpressModel.h; sourceTree = "<group>"; };
 		843D9A9A206A1A4500AB5F39 /* ExpressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressModel.m; sourceTree = "<group>"; };
+		84665BF0206B45DD008A486B /* DiyRotateRefreshHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiyRotateRefreshHeader.h; sourceTree = "<group>"; };
+		84665BF1206B45DD008A486B /* DiyRotateRefreshHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiyRotateRefreshHeader.m; sourceTree = "<group>"; };
+		84665BF4206B852E008A486B /* AutoHeightTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoHeightTableViewController.h; sourceTree = "<group>"; };
+		84665BF5206B852E008A486B /* AutoHeightTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoHeightTableViewController.m; sourceTree = "<group>"; };
+		84665BF7206B8992008A486B /* AutoHeightWeiboCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoHeightWeiboCell.h; sourceTree = "<group>"; };
+		84665BF8206B8992008A486B /* AutoHeightWeiboCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoHeightWeiboCell.m; sourceTree = "<group>"; };
+		84665BFA206B8B98008A486B /* WeiboModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboModel.h; sourceTree = "<group>"; };
+		84665BFB206B8B98008A486B /* WeiboModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeiboModel.m; sourceTree = "<group>"; };
 		847BF9B22068CE87007DC83D /* GapTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GapTableViewController.h; sourceTree = "<group>"; };
 		847BF9B32068CE87007DC83D /* GapTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GapTableViewController.m; sourceTree = "<group>"; };
 		847BF9B520690E0C007DC83D /* GapPraiseGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GapPraiseGroupCell.h; sourceTree = "<group>"; };
@@ -195,6 +207,7 @@
 				A982587F206638660030B2B3 /* Utils */,
 				A98258792066356A0030B2B3 /* Config */,
 				842E2F442064F84A00099842 /* NormalTabel */,
+				84665BF3206B84ED008A486B /* AutoHeightDemo */,
 				843D9A92206A067B00AB5F39 /* RelateDemo */,
 				847BF9B12068CE66007DC83D /* GapDemo */,
 				A925BF1E20679C66003F423C /* FrameDemo */,
@@ -248,6 +261,17 @@
 			path = RelateDemo;
 			sourceTree = "<group>";
 		};
+		84665BF3206B84ED008A486B /* AutoHeightDemo */ = {
+			isa = PBXGroup;
+			children = (
+				84665BF4206B852E008A486B /* AutoHeightTableViewController.h */,
+				84665BF5206B852E008A486B /* AutoHeightTableViewController.m */,
+				84665BF7206B8992008A486B /* AutoHeightWeiboCell.h */,
+				84665BF8206B8992008A486B /* AutoHeightWeiboCell.m */,
+			);
+			path = AutoHeightDemo;
+			sourceTree = "<group>";
+		};
 		847BF9B12068CE66007DC83D /* GapDemo */ = {
 			isa = PBXGroup;
 			children = (
@@ -270,6 +294,8 @@
 				A925BF2020679C89003F423C /* FrameTableViewController.m */,
 				A9868C7F2067D55300D13C9C /* FrameDishesViewCell.h */,
 				A9868C802067D55300D13C9C /* FrameDishesViewCell.m */,
+				84665BF0206B45DD008A486B /* DiyRotateRefreshHeader.h */,
+				84665BF1206B45DD008A486B /* DiyRotateRefreshHeader.m */,
 				A9868C852067EEB400D13C9C /* WebViewController.h */,
 				A9868C862067EEB400D13C9C /* WebViewController.m */,
 			);
@@ -358,6 +384,8 @@
 				843D9A902069E5F700AB5F39 /* StoreModel.m */,
 				843D9A99206A1A4500AB5F39 /* ExpressModel.h */,
 				843D9A9A206A1A4500AB5F39 /* ExpressModel.m */,
+				84665BFA206B8B98008A486B /* WeiboModel.h */,
+				84665BFB206B8B98008A486B /* WeiboModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -582,6 +610,7 @@
 				842E2F5A2064FA0C00099842 /* RefreshBannerViewCell.m in Sources */,
 				843D9A98206A145400AB5F39 /* RelateExpressViewCell.m in Sources */,
 				A99B7F10205CD34C002FA0D5 /* MJRefreshAutoFooterGY.m in Sources */,
+				84665BFC206B8B98008A486B /* WeiboModel.m in Sources */,
 				A99B7F12205CD34C002FA0D5 /* MJTableViewController.m in Sources */,
 				A982587C206635940030B2B3 /* Config.m in Sources */,
 				A91F908F2067400400DF5B54 /* RefreshFundViewSection.m in Sources */,
@@ -599,12 +628,15 @@
 				A9868C812067D55300D13C9C /* FrameDishesViewCell.m in Sources */,
 				843D9A912069E5F700AB5F39 /* StoreModel.m in Sources */,
 				A99B7F0D205CD34C002FA0D5 /* MJTableViewSection.m in Sources */,
+				84665BF6206B852E008A486B /* AutoHeightTableViewController.m in Sources */,
 				A99B7EDA205CC850002FA0D5 /* AppDelegate.m in Sources */,
 				842E2F572064F87000099842 /* RefreshTableViewController.m in Sources */,
 				A99B7F0F205CD34C002FA0D5 /* MJRefreshComponent+GY.m in Sources */,
 				843D9A9B206A1A4500AB5F39 /* ExpressModel.m in Sources */,
+				84665BF9206B8992008A486B /* AutoHeightWeiboCell.m in Sources */,
 				843D9A8E2069E25000AB5F39 /* GapStoreViewCell.m in Sources */,
 				A99B7F11205CD34C002FA0D5 /* MJTableViewCell.m in Sources */,
+				84665BF2206B45DD008A486B /* DiyRotateRefreshHeader.m in Sources */,
 				A9825882206638760030B2B3 /* UICreationUtils.m in Sources */,
 				A982588B20663F760030B2B3 /* UIView+GY.m in Sources */,
 				847BF9BA20691413007DC83D /* PraiseModel.m in Sources */,

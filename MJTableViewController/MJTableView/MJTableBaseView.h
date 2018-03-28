@@ -165,6 +165,8 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 
 @end
 
+#define CELL_AUTO_HEIGHT 0
+
 @interface CellVo : NSObject
 
 /** 创建CellVo实例并初始化设置cell高度、cell类型、cell数据 **/
@@ -188,5 +190,7 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 @property (nonatomic,assign)BOOL forceUpdate;
 /** 自定义保留字段 **/
 @property (nonatomic,copy)NSString* cellName;
+
+@property (nonatomic,assign)BOOL isAutoHeight;
 
 @end

@@ -10,6 +10,7 @@
 #import "DishesModel.h"
 #import "FrameDishesViewCell.h"
 #import "WebViewController.h"
+#import "DiyRotateRefreshHeader.h"
 
 @interface FrameTableViewController ()
 
@@ -94,6 +95,11 @@
     }
     return _submitButton;
 }
+
+-(MJRefreshHeader *)getRefreshHeader{
+    return [[DiyRotateRefreshHeader alloc]init];
+}
+
 
 -(CGRect)getTableViewFrame{
     self.noticeBack.frame = CGRectMake(0, 0, self.view.width, 30);

@@ -234,6 +234,7 @@ typedef enum {
                     } lastSectionVo:[strongSelf getLastSectionVo]];
                 }
             }];
+//            footer.automaticallyHidden = YES;
             footer.stateLabel.userInteractionEnabled = NO;//无法点击交互
             [footer setTitle:@"上拉加载更多" forState:MJRefreshStateIdle];
             
@@ -474,13 +475,10 @@ typedef enum {
 }
 
 -(void)moveCellToCenter:(NSIndexPath *)indexPath{
-    CGRect rectInTableView = [self rectForRowAtIndexPath:indexPath];
-    CGRect btnToSelf = [self convertRect:rectInTableView toView:self.superview];
-//    CGRect btnToSelf = [self convertRect:clickCell.frame toView:self.superview];
-    CGFloat moveY = btnToSelf.origin.y - CGRectGetHeight(self.bounds) / 2. - btnToSelf.size.height / 2. - self.contentInset.top;
+    CGRect btnToSelf = [self rectForRowAtIndexPath:indexPath];
     CGPoint contentOffset = self.contentOffset;
-    //    self.bottomAreaView.contentSize.width
-    CGFloat maxOffsetY = self.contentSize.height - CGRectGetHeight(self.bounds) - self.contentInset.top;
+    CGFloat moveY = btnToSelf.origin.y + btnToSelf.size.height / 2. - contentOffset.y - CGRectGetHeight(self.bounds) / 2.;// - self.contentInset.top
+    CGFloat maxOffsetY = self.contentSize.height - CGRectGetHeight(self.bounds);// - self.contentInset.top;
     maxOffsetY = maxOffsetY > 0 ? maxOffsetY : 0;
     CGFloat moveOffsetY = contentOffset.y + moveY;
     if (moveOffsetY < 0) {
@@ -863,6 +861,10 @@ typedef enum {
         if (instance == nil)
         {
             instance = [[self alloc] init];
+            if (cellHeight == CELL_AUTO_HEIGHT) {
+                instance.isAutoHeight = YES;
+                cellHeight = 10;
+            }
             instance.cellHeight = cellHeight;
             instance.cellClass = cellClass;
             instance.cellData = cellData;

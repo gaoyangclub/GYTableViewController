@@ -40,9 +40,14 @@
 
 -(void)setCellVo:(CellVo *)cellVo{
     _cellVo = cellVo;
-    CGFloat cellHeight = [self getCellHeight:CGRectGetWidth(self.tableView.bounds)];
-    if (cellHeight > 0) {
-        cellVo.cellHeight = cellHeight;
+    if (cellVo.isAutoHeight) {
+        cellVo.isAutoHeight = NO;
+        CGFloat cellHeight = [self getCellHeight:CGRectGetWidth(self.tableView.bounds)];
+        if (cellHeight > 0) {
+            cellVo.cellHeight = cellHeight;
+        }else{
+            [self setNeedsLayout];
+        }
     }else{
         [self setNeedsLayout];
     }

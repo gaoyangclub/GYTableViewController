@@ -11,6 +11,7 @@
 #import "MainViewController.h"
 #import "GapTableViewController.h"
 #import "RelateTableViewController.h"
+#import "AutoHeightTableViewController.h"
 
 @interface ControllerVo:NSObject
 
@@ -67,9 +68,10 @@
     if (!_controllers) {
         _controllers = @[
                          [ControllerVo initWithTitle:@"下拉刷新上拉加载示例" andClass:RefreshTableViewController.class],
-                         [ControllerVo initWithTitle:@"TableView位置调整和点击跳转示例" andClass:FrameTableViewController.class],
+                         [ControllerVo initWithTitle:@"Table位置、自定义刷新、点击跳转示例" andClass:FrameTableViewController.class],
                          [ControllerVo initWithTitle:@"Section或Cell间距示例" andClass:GapTableViewController.class],
                          [ControllerVo initWithTitle:@"Cell上下关系和选中高亮示例" andClass:RelateTableViewController.class],
+                         [ControllerVo initWithTitle:@"Cell自动调整高度" andClass:AutoHeightTableViewController.class],
                          ];
     }
     return _controllers;
@@ -77,10 +79,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.title = @"主页";
     self.automaticallyAdjustsScrollViewInsets = NO;//YES表示自动测量导航栏高度占用的Insets偏移
-    self.navigationController.navigationBar.translucent = NO;//    Bar的高斯模糊效果，默认为YES
+    self.navigationController.navigationBar.translucent = NO;//Bar的高斯模糊效果，默认为YES
 }
 
 -(BOOL)autoRestOffset{
