@@ -19,7 +19,6 @@ MJTableViewSection 原生使用UIView展示section内容，这里使用MJTableVi
 ```objc
 #import "MJTableViewController.h"
 @interface NormalTableViewController : MJTableViewController
-@end
 ```
 .m文件中重写headerRefresh添加元素，当自带的下拉刷新控件下拉时调用；从而开始列表内容层次搭建，以及各种类型的Cell位置如何摆放等
 ```objc
@@ -332,8 +331,8 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 }
 ```
 ### 分类结构如下
-![静态图](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180329191308248-1915487102.png)
-![案例1-3](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180329193811600-825530680.gif)
+![静态图](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180329191308248-1915487102.png) <br/>
+![案例1-3](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330113229571-424878319.gif)
 
 # isUnique唯一性
 默认所有相同Class的Cell实例都是相互复用，每次下拉刷新或者table设置reloadData，被复用的Cell实例都会重新触发刷新调用showSubviews，从而根据传递的data展开；然而，一些特殊的Cell不需要复用或只实例化一次，比如标签按钮区域的Cell或者banner区域的Cell，每次下拉都是只用这个实例，可以设置为isUnique作为唯一Cell实例优化提高性能
@@ -366,26 +365,21 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 ```
 ### 根据需求添加到列表页最后一节，或者添加到新的一节数据中，并设置添加上限
 ```objc
--(void)footerLoadMore:(MJTableBaseView *)tableView endLoadMoreHandler:(FooterLoadMoreHandler)endLoadMoreHandler lastSectionVo:(SectionVo *)lastSectionVo{
-    int64_t delay = 0.5 * NSEC_PER_SEC;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//模拟网络请求产生异步加载
-        if([tableView getTotalCellVoCount] > 30){//总共超出30条数据不添加数据
-            endLoadMoreHandler(NO);//直接结束上拉加载刷新，并显示"已经全部加载完毕"
-            return;
-        }
-        //根据业务需求的不同，可以继续添加到上一节sectionVo，也可以添加到新的一节sectionVo中
-        if([lastSectionVo getCellVoCount] < 15){//上一节少于15条继续添加到上一节sectionVo
-            [lastSectionVo addCellVoByList:[CellVo dividingCellVoBySourceArray:80 cellClass:RefreshFundViewCell.class sourceArray:self.fundNewModels]];
-        }else{//上一节超了 添加到新的一节sectionVo
-            [tableView addSectionVo:[SectionVo initWithParams:36 sectionHeaderClass:RefreshFundViewSection.class sectionHeaderData:@"推荐专区" nextBlock:^(SectionVo *svo) {
-                [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:80 cellClass:RefreshFundViewCell.class sourceArray:self.fundNewModels]];
-            }]];
-        }
-        endLoadMoreHandler(YES);//不要忘了结束上拉加载刷新
-    });
+if([tableView getTotalCellVoCount] > 30){//总共超出30条数据不添加数据
+    endLoadMoreHandler(NO);//直接结束上拉加载刷新，并显示"已经全部加载完毕"
+    return;
 }
+//根据业务需求的不同，可以继续添加到上一节sectionVo，也可以添加到新的一节sectionVo中
+if([lastSectionVo getCellVoCount] < 15){//上一节少于15条继续添加到上一节sectionVo
+    [lastSectionVo addCellVoByList:[CellVo dividingCellVoBySourceArray:80 cellClass:RefreshFundViewCell.class sourceArray:self.fundNewModels]];
+}else{//上一节超了 添加到新的一节sectionVo
+    [tableView addSectionVo:[SectionVo initWithParams:36 sectionHeaderClass:RefreshFundViewSection.class sectionHeaderData:@"推荐专区" nextBlock:^(SectionVo *svo) {
+        [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:80 cellClass:RefreshFundViewCell.class sourceArray:self.fundNewModels]];
+    }]];
+}
+endLoadMoreHandler(YES);//不要忘了结束上拉加载刷新
 ```
-![案例1-4](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180329193911471-692345037.gif)
+![案例1-4](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330113250468-1567004043.gif)
 
 # 更改UITableView的frame
 ### 列表控制器内部重写getTableViewFrame
@@ -398,7 +392,7 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
     return CGRectMake(0, self.noticeBack.height, self.view.width, self.view.height - self.noticeBack.height - self.submitButton.height);
 }
 ```
-![案例2-1](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180329202418745-521734009.gif)
+![案例2-1](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330112734383-1952844163.gif)
 
 # 自定义下拉刷新控件
 ### 列表控制器内部重写getRefreshHeader
@@ -407,7 +401,7 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
     return [[DiyRotateRefreshHeader alloc]init];
 }
 ```
-![案例2-2](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180329202435610-1220973934.gif)
+![案例2-2](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330112718771-789334939.gif)
 
 # 点击某一行Cell后处理
 ### 列表控制器内部实现代理，原生的方法一致
@@ -423,7 +417,7 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
     return YES;
 }
 ```
-![案例2-3](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180329202454762-42970566.gif)
+![案例2-3](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330112705665-822050745.gif)
 
 # 设置Cell或Section元素间距
 ### 列表控制器内部设置tableView属性cellGap或sectionGap
@@ -433,7 +427,7 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
     self.tableView.cellGap = 3;//设置每个Cell之间间距(包含每一节区域)
 }
 ```
-![案例3-1](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180329202512457-1882086820.gif)
+![案例3-1](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330112649683-1245547985.gif)
 
 # 设置选中某个位置的Cell
 ### 当刷新完成后设置，列表控制器内部设置tableView属性selectedIndexPath
@@ -473,7 +467,7 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
     self.tableView.clickCellHighlight = YES;
 }
 ```
-![案例4-2](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180329202635727-1653930654.gif)
+![案例4-2](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330112522619-639478026.gif)
 
 # 设置点击Cell自动居中
 ```objc
@@ -505,4 +499,4 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
     return TOPIC_AREA_HEIGHT + contentSize.size.height + IMAGE_AREA_HEIGHT + BOTTOM_PADDING * 2;//返回计算后的最终高度
 }
 ```
-![案例5-1](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180329202713967-901517420.gif)
+![案例5-1](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330112358454-747467009.gif)
