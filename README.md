@@ -1,28 +1,28 @@
 * 如何开始
-    *  [项目技术特点](#技术特点)
-    *  [框架用法](#框架用法)
+    *  [项目技术特点](#技术特点)<br/>
+    *  [框架用法](#框架用法)<br/>
 * 代码结构
-    *  [MJTableBaseView.h](#mjtablebaseview.h)
-    *  [MJTableViewController.h](#MJTableViewController.h)
-    *  [MJTableViewCell.h](#MJTableViewCell.h)
-    *  [MJTableViewSection.h](#MJTableViewSection.h)
-    *  [SectionVo](#SectionVo)
-    *  [CellVo](#CellVo)
-    *  [MJTableBaseViewDelegate](#MJTableBaseViewDelegate)
+    *  [MJTableBaseView.h](#mjtable-base-view)
+    *  [MJTableViewController.h](#mjtable-view-controller)
+    *  [MJTableViewCell.h](#mjtable-view-cell)
+    *  [MJTableViewSection.h](#mjtable-view-section)
+    *  [SectionVo](#section-vo)
+    *  [CellVo](#cell-vo)
+    *  [MJTableBaseViewDelegate](#mjtable-base-view-delegate)
 * 使用示例
-    *  [如何添加Cell](#添加Cell)
-    *  [批量添加Cell](#批量添加Celll)
-    *  [如何添加Section](#添加Section)
-    *  [如何让Cell不刷新](#isUnique唯一性)
+    *  [如何添加Cell](#添加cell)
+    *  [批量添加Cell](#批量添加cell)
+    *  [如何添加Section](#添加section)
+    *  [如何让Cell不刷新](#isunique唯一性)
     *  [如何上拉加载更多](#调用上拉加载)
-    *  [如何修改UITableView位置](#更改UITableView的frame)
+    *  [如何修改UITableView位置](#更改ui-tableView的frame)
     *  [如何修改下拉刷新控件](#自定义下拉刷新控件)
-    *  [如何侦听选中的Cell](#点击某一行Cell后处理)
-    *  [如何设置Cell间距](#设置Cell或Section元素间距)
-    *  [如何代码设置选中位置并高亮](#设置选中某个位置的Cell)
-    *  [如何交互点击选中位置并高亮](#设置交互点击某个位置Cell并高亮)
-    *  [如何交互点击选中位置并自动居中](#设置点击Cell自动居中)
-    *  [如何根据动态内容调整Cell高度](#Cell自动调整高度)
+    *  [如何侦听选中的Cell](#侦听选中的cell)
+    *  [如何设置Cell间距](#设置cell或section元素间距)
+    *  [如何代码设置选中位置并高亮](#设置选中某个位置的cell)
+    *  [如何交互点击选中位置并高亮](#设置交互点击某个位置cell并高亮)
+    *  [如何交互点击选中位置并自动居中](#设置点击cell自动居中)
+    *  [如何根据动态内容调整Cell高度](#cell自动调整高度)
 
 
 # 技术特点
@@ -84,8 +84,8 @@ Cell控件直接继承MJTableViewCell，.h示例如下
     //开始界面布局...
 }
 ```
-
-# mjtablebaseview.h
+<a name="mjtable-base-view"></a>
+# MJTableBaseView.h
 ```objc
 @interface MJTableBaseView : UITableView
 
@@ -134,6 +134,7 @@ Cell控件直接继承MJTableViewCell，.h示例如下
 
 @end
 ```
+<a name="section-vo"></a>
 # SectionVo
 ```objc
 @interface SectionVo : NSObject
@@ -168,6 +169,7 @@ Cell控件直接继承MJTableViewCell，.h示例如下
 
 @end
 ```
+<a name="cell-vo"></a>
 # CellVo
 ```objc
 @interface CellVo : NSObject
@@ -196,6 +198,7 @@ Cell控件直接继承MJTableViewCell，.h示例如下
 
 @end
 ```
+<a name="mjtable-view-controller"></a>
 # MJTableViewController.h
 ```objc
 @interface MJTableViewController : UIViewController<MJTableBaseViewDelegate>
@@ -224,6 +227,7 @@ Cell控件直接继承MJTableViewCell，.h示例如下
 
 @end
 ```
+<a name="mjtable-base-view-delegate"></a>
 # MJTableBaseViewDelegate
 ```objc
 /** 下拉刷新或上拉加载调用结束Block hasData标注界面是否刷新出了新的数据  **/
@@ -256,6 +260,7 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 
 @end
 ```
+<a name="mjtable-view-cell"></a>
 # MJTableViewCell.h
 ```objc
 @interface MJTableViewCell : UITableViewCell
@@ -290,6 +295,7 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 
 @end
 ```
+<a name="mjtable-view-section"></a>
 # MJTableViewSection.h
 ```objc
 @interface MJTableViewSection : UIControl
@@ -307,7 +313,7 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 
 @end
 ```
-
+<a name="添加cell"></a>
 # 添加Cell
 ### 列表控制器内部实现
 ```objc
@@ -321,6 +327,7 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 ```
 ![案例1-1](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180329193706057-540438886.gif)
 
+<a name="批量添加cell"></a>
 # 批量添加Cell
 ### 列表控制器内部实现
 ```objc
@@ -349,6 +356,7 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 ```
 ![案例1-2](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180329193736678-1640767410.gif)
 
+<a name="添加section"></a>
 # 添加Section
 ### 如果一节内容需要添加section页眉视图，只要在sectionVo实例设置sectionHeaderClass即可，同理section页脚设置sectionFooterClass
 ```objc
@@ -363,6 +371,7 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 ![静态图](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180329191308248-1915487102.png) <br/>
 ![案例1-3](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330113229571-424878319.gif)
 
+<a name="isunique唯一性"></a>
 # isUnique唯一性
 默认所有相同Class的Cell实例都是相互复用，每次下拉刷新或者table设置reloadData，被复用的Cell实例都会重新触发刷新调用showSubviews，从而根据传递的data展开；然而，一些特殊的Cell不需要复用或只实例化一次，比如标签按钮区域的Cell或者banner区域的Cell，每次下拉都是只用这个实例，可以设置为isUnique作为唯一Cell实例优化提高性能
 ```objc
@@ -410,6 +419,7 @@ endLoadMoreHandler(YES);//不要忘了结束上拉加载刷新
 ```
 ![案例1-4](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330125420770-895910655.gif)
 
+<a name="更改ui-tableView的frame"></a>
 # 更改UITableView的frame
 ### 列表控制器内部重写getTableViewFrame
 如存在和容器底部对齐的元素，请在此方法对齐底部位置(默认占满controller边界)；autoLayerout无需重写此方法，自行设置tableView和其他元素布局关系
@@ -432,7 +442,8 @@ endLoadMoreHandler(YES);//不要忘了结束上拉加载刷新
 ```
 ![案例2-2](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330112718771-789334939.gif)
 
-# 点击某一行Cell后处理
+<a name="侦听选中的cell"></a>
+# 侦听选中的Cell
 ### 列表控制器内部实现代理，原生的方法一致
 ```objc
 -(void)tableView:(MJTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -448,6 +459,7 @@ endLoadMoreHandler(YES);//不要忘了结束上拉加载刷新
 ```
 ![案例2-3](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330112705665-822050745.gif)
 
+<a name="设置cell或section元素间距"></a>
 # 设置Cell或Section元素间距
 ### 列表控制器内部设置tableView属性cellGap或sectionGap
 ```objc
@@ -458,6 +470,7 @@ endLoadMoreHandler(YES);//不要忘了结束上拉加载刷新
 ```
 ![案例3-1](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330125032511-1083797657.gif)
 
+<a name="设置选中某个位置的cell"></a>
 # 设置选中某个位置的Cell
 ### 当刷新完成后设置，列表控制器内部设置tableView属性selectedIndexPath
 ```objc
@@ -490,6 +503,7 @@ endLoadMoreHandler(YES);//不要忘了结束上拉加载刷新
 ```
 ![案例4-1](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180329202557199-79046014.gif)
 
+<a name="设置交互点击某个位置cell并高亮"></a>
 # 设置交互点击某个位置Cell并高亮
 ```objc
 - (void)viewDidLoad {
@@ -498,6 +512,7 @@ endLoadMoreHandler(YES);//不要忘了结束上拉加载刷新
 ```
 ![案例4-2](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330125441581-812210708.gif)
 
+<a name="设置点击cell自动居中"></a>
 # 设置点击Cell自动居中
 ```objc
 - (void)viewDidLoad {
@@ -506,6 +521,7 @@ endLoadMoreHandler(YES);//不要忘了结束上拉加载刷新
 ```
 ![案例4-3](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180329202654311-1573826271.gif)
 
+<a name="cell自动调整高度"></a>
 # Cell自动调整高度
 ### 列表控制器内部设置CellVo传入高度CELL_AUTO_HEIGHT
 ```objc
