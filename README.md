@@ -427,7 +427,7 @@ endLoadMoreHandler(YES);//不要忘了结束上拉加载刷新
     self.tableView.cellGap = 3;//设置每个Cell之间间距(包含每一节区域)
 }
 ```
-![案例3-1](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330112649683-1245547985.gif)
+![案例3-1](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330125032511-1083797657.gif)
 
 # 设置选中某个位置的Cell
 ### 当刷新完成后设置，列表控制器内部设置tableView属性selectedIndexPath
