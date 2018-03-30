@@ -30,7 +30,7 @@
     [super loadView];
     self.autoRefreshHeader = YES;
     self.useCellIdentifer = YES;
-    self.autoRestOffset = YES;
+//    self.autoRestOffset = YES;
     self.isShowHeader = YES;
     
 //    self.automaticallyAdjustsScrollViewInsets = NO;//YES表示自动测量导航栏高度占用的Insets偏移
