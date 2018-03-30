@@ -379,7 +379,7 @@ if([lastSectionVo getCellVoCount] < 15){//上一节少于15条继续添加到上
 }
 endLoadMoreHandler(YES);//不要忘了结束上拉加载刷新
 ```
-![案例1-4](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330113250468-1567004043.gif)
+![案例1-4](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330125420770-895910655.gif)
 
 # 更改UITableView的frame
 ### 列表控制器内部重写getTableViewFrame
@@ -467,7 +467,7 @@ endLoadMoreHandler(YES);//不要忘了结束上拉加载刷新
     self.tableView.clickCellHighlight = YES;
 }
 ```
-![案例4-2](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330112522619-639478026.gif)
+![案例4-2](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330125441581-812210708.gif)
 
 # 设置点击Cell自动居中
 ```objc
