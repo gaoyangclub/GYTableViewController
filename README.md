@@ -1,13 +1,38 @@
-# 自定义封装UITableView，更加简洁高效，无需为了实现delegate增加胶水代码，自带下拉刷新上拉加载控件
+* 如何开始
+    *  [项目技术特点](#技术特点)
+    *  [框架用法](#框架用法)
+* 代码结构
+    *  [MJTableBaseView.h](#MJTableBaseView.h)
+    *  [MJTableViewController.h](#MJTableViewController.h)
+    *  [MJTableViewCell.h](#MJTableViewCell.h)
+    *  [MJTableViewSection.h](#MJTableViewSection.h)
+    *  [SectionVo](#SectionVo)
+    *  [CellVo](#CellVo)
+    *  [MJTableBaseViewDelegate](#MJTableBaseViewDelegate)
+* 使用示例
+    *  [如何添加Cell](#添加Cell)
+    *  [批量添加Cell](#批量添加Celll)
+    *  [如何添加Section](#添加Section)
+    *  [如何让Cell不刷新](#isUnique唯一性)
+    *  [如何上拉加载更多](#调用上拉加载)
+    *  [如何修改UITableView位置](#更改UITableView的frame)
+    *  [如何修改下拉刷新控件](#自定义下拉刷新控件)
+    *  [如何侦听选中的Cell](#点击某一行Cell后处理)
+    *  [如何设置Cell间距](#设置Cell或Section元素间距)
+    *  [如何代码设置选中位置并高亮](#设置选中某个位置的Cell)
+    *  [如何交互点击选中位置并高亮](#设置交互点击某个位置Cell并高亮)
+    *  [如何交互点击选中位置并自动居中](#设置点击Cell自动居中)
+    *  [如何根据动态内容调整Cell高度](#Cell自动调整高度)
 
-特点:<br/>
+
+# 技术特点
 1.Section和Cell层次更加清晰，根据传入的Section数据结构内部已经全部实现Section和Cell相关delegate方法<br/>
 2.Cell实例可获得外部动态数据，索引位置，上下关系，选中状态等，随时更换样式<br/>
 3.Controller自带MJRefresh框架，提供下拉刷新和上拉加载功能，外部暴露接口调用<br/>
 4.提供Cell，Section间距设置，提供选中行高亮、选中行自动居中，提供设置Cell动态高度设置等API<br/>
 5.框架中的元素全部继承于原生的tableView相关元素，除部分代理方法外，其他原生方法扔然可以使用<br/>
 
-用法:<br/>
+# 框架用法
 此框架基于MJRefresh，所以务必先添加该framework，手动或者pod都可以，<a href="https://github.com/CoderMJLee/MJRefresh/" target="_blank">使用方法</a><br/>
 请使用该框架中的元素来代替原生列表控件，对应关系如下:<br/>
 ```
