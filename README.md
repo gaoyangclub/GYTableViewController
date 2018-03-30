@@ -13,7 +13,7 @@
     *  [如何添加Cell](#添加cell)
     *  [批量添加Cell](#批量添加cell)
     *  [如何添加Section](#添加section)
-    *  [如何让Cell实例唯一](#isunique唯一性)
+    *  [如何让Cell实例唯一](#isunique唯一性)
     *  [如何上拉加载更多](#调用上拉加载)
     *  [如何修改UITableView位置](#更改ui-tableView的frame)
     *  [如何修改下拉刷新控件](#自定义下拉刷新控件)
