@@ -2,8 +2,8 @@
 //  MJTableBaseView.m
 //  MJRefreshTest
 //
-//  Created by admin on 16/10/13.
-//  Copyright © 2016年 admin. All rights reserved.
+//  Created by 高扬 on 16/10/13.
+//  Copyright © 2016年 高扬. All rights reserved.
 //
 
 #import "MJTableBaseView.h"
@@ -21,7 +21,7 @@ typedef enum {
 
 /** 存储该节包含的cellVo数据列表 注:包含用户数据和gap数据 不能直接对外遍历使用 **/
 @property (nonatomic,retain)NSMutableArray<CellVo*>* cellVoList;
-//@property (nonatomic,assign)BOOL isSectionGap;//作为间隔容器存在
+//@property (nonatomic,assign)BOOL isSectionGap;//作为间距容器存在
 
 @end
 
@@ -395,7 +395,7 @@ typedef enum {
     }
     cell.indexPath = indexPath;
     cell.tableView = self;
-    cell.data = data;
+//    cell.data = data;
     cell.cellVo = cellVo;
     
     cell.selected = [indexPath isEqual:self.selectedIndexPath];
@@ -582,7 +582,7 @@ typedef enum {
         for (NSInteger i = [self getSectionVoCount] - 1; i >= 0; i --) {
             SectionVo* svo = [self getSectionVoByIndex:i];
             //            var preCellVo:CellVo? = nil
-            if(self.sectionGap > 0 && [self getSectionVoByIndex:i - 1]){//有间隔且前一个存在
+            if(self.sectionGap > 0 && [self getSectionVoByIndex:i - 1]){//有间距且前一个存在
                 [self insertSectionVo:[self getSectionGapVo] atIndex:i];//直接插入一条
             }
             if(self.cellGap > 0 && svo && svo.cellVoList != nil && svo.cellVoList.count > 0){
@@ -863,7 +863,7 @@ typedef enum {
             instance = [[self alloc] init];
             if (cellHeight == CELL_AUTO_HEIGHT) {
                 instance.isAutoHeight = YES;
-                cellHeight = 10;
+                cellHeight = [UIScreen mainScreen].bounds.size.height;
             }
             instance.cellHeight = cellHeight;
             instance.cellClass = cellClass;

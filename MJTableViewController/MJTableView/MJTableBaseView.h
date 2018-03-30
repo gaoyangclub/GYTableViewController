@@ -2,7 +2,7 @@
 //  MJTableBaseView.h
 //  MJRefreshTest
 //
-//  Created by admin on 16/10/13.
+//  Created by 高扬 on 16/10/13.
 //  Copyright © 2016年 admin. All rights reserved.
 //
 
@@ -82,27 +82,24 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 
 @property (nonatomic, weak) id<MJTableBaseViewDelegate> refreshDelegate;
 //@property (nonatomic,assign) BOOL refreshAll;
-
 @property(nonatomic,retain) MJRefreshHeader* header;
 
+/** 设置选中位置 **/
 @property(nonatomic,retain) NSIndexPath* selectedIndexPath;
-
-//@property (nonatomic,assign) BOOL pureTable;
-
 /** 点中cell高亮 **/
 @property (nonatomic,assign) BOOL clickCellHighlight;
 /** 点中cell自动居中 **/
 @property (nonatomic,assign) BOOL clickCellMoveToCenter;
-/** 每一节间隔 **/
+/** 每一节间距 **/
 @property (nonatomic,assign) CGFloat sectionGap;
-/** 每个条目间隔 **/
+/** 每个cell间距 **/
 @property (nonatomic,assign) CGFloat cellGap;
 /** 首次下拉 **/
 @property (nonatomic,assign,readonly) BOOL hasFirstRefreshed;
 
 /** 下拉刷新 **/
 -(void)headerBeginRefresh;
-/** 检查数据间隔 **/
+/** 检查数据间距 **/
 -(void)checkGaps;
 /** 清除所有数据 **/
 -(void)clearAllSectionVo;

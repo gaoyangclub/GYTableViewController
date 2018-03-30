@@ -2,7 +2,7 @@
 //  AutoHeightWeiboCell.m
 //  MJTableViewController
 //
-//  Created by admin on 2018/3/28.
+//  Created by 高扬 on 2018/3/28.
 //  Copyright © 2018年 高扬. All rights reserved.
 //
 
@@ -93,22 +93,21 @@
     return _bottomLine;
 }
 
--(CGFloat)getCellHeight:(CGFloat)cellWidth{
 //    NSLog(@"getCellHeight被调用！");
-    
-    WeiboModel* weiboModel = self.data;
-    NSString* content = weiboModel.content;
+-(CGFloat)getCellHeight:(CGFloat)cellWidth{
+    WeiboModel* weiboModel = GET_CELL_DATA(WeiboModel.class);//获取Model
+    NSString* content = weiboModel.content;//获取动态内容字符串
     CGRect contentSize = [content boundingRectWithSize:CGSizeMake(cellWidth - LEFT_PADDING - RIGHT_PADDING, FLT_MAX)
                              options:NSStringDrawingUsesLineFragmentOrigin
                           attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:SIZE_TEXT_SECONDARY]}
-                             context:nil];
-    return TOPIC_AREA_HEIGHT + contentSize.size.height + IMAGE_AREA_HEIGHT + BOTTOM_PADDING * 2;
+                             context:nil];//计算给定范围内最佳尺寸
+    return TOPIC_AREA_HEIGHT + contentSize.size.height + IMAGE_AREA_HEIGHT + BOTTOM_PADDING * 2;//返回计算后的最终高度
 }
 
 -(void)showSubviews{
     self.backgroundColor = [UIColor whiteColor];
     
-    WeiboModel* weiboModel = self.data;
+    WeiboModel* weiboModel = GET_CELL_DATA(WeiboModel.class);
     
     [self.iconView sd_setImageWithURL:[NSURL URLWithString:weiboModel.iconName]];
     self.iconView.centerX = LEFT_PADDING / 2.;

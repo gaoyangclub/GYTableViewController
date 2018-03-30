@@ -2,7 +2,7 @@
 //  RelateExpressViewCell.m
 //  MJTableViewController
 //
-//  Created by admin on 2018/3/27.
+//  Created by 高扬 on 2018/3/27.
 //  Copyright © 2018年 高扬. All rights reserved.
 //
 
@@ -70,7 +70,7 @@
 -(void)showSubviews{
     self.backgroundColor = [UIColor whiteColor];
     
-    ExpressModel* expressModel = self.data;
+    ExpressModel* expressModel = GET_CELL_DATA(ExpressModel.class);
     
     self.titleLabel.text = expressModel.title;
     [self.titleLabel sizeToFit];

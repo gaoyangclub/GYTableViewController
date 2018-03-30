@@ -2,7 +2,7 @@
 //  GapStoreViewCell.m
 //  MJTableViewController
 //
-//  Created by admin on 2018/3/27.
+//  Created by 高扬 on 2018/3/27.
 //  Copyright © 2018年 高扬. All rights reserved.
 //
 
@@ -82,7 +82,7 @@
 -(void)showSubviews{
     self.backgroundColor = [UIColor whiteColor];
     
-    StoreModel* storeModel = self.data;
+    StoreModel* storeModel = GET_CELL_DATA(StoreModel.class);
     CGFloat const padding = 20;
     CGFloat const iconHeight = self.contentView.height - padding * 2;
     [self.iconView sd_setImageWithURL:[NSURL URLWithString:storeModel.iconName]];

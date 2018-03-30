@@ -2,7 +2,7 @@
 //  GapPraiseGroupCell.m
 //  MJTableViewController
 //
-//  Created by admin on 2018/3/26.
+//  Created by 高扬 on 2018/3/26.
 //  Copyright © 2018年 高扬. All rights reserved.
 //
 
@@ -82,7 +82,7 @@
 -(void)showSubviews{
     self.backgroundColor = [UIColor whiteColor];
     
-    PraiseModel* praiseModel = self.data;
+    PraiseModel* praiseModel = GET_CELL_DATA(PraiseModel.class);
     
     CGFloat const toppadding = 50;
     CGFloat const padding = 15;

@@ -2,7 +2,7 @@
 //  RefreshTableViewController.m
 //  MJTableViewController
 //
-//  Created by admin on 2018/3/23.
+//  Created by 高扬 on 2018/3/23.
 //  Copyright © 2018年 高扬. All rights reserved.
 //
 
@@ -87,11 +87,13 @@
     int64_t delay = 0.5 * NSEC_PER_SEC;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//模拟网络请求产生异步加载
         [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
+            //添加一个高度为230，类型为BannerViewCell，展示banner图片列表的Cell
             [svo addCellVo:[CellVo initWithParams:230 cellClass:RefreshBannerViewCell.class cellData:self.bannerUrlGroup isUnique:YES]];
-            
+            //添加一个高度为90，类型为RefreshHotViewCell，展示banner图片列表的Cell
             [svo addCellVo:[CellVo initWithParams:90 cellClass:RefreshHotViewCell.class cellData:self.hotModels isUnique:YES]];
         }]];
         [tableView addSectionVo:[SectionVo initWithParams:36 sectionHeaderClass:RefreshFundViewSection.class sectionHeaderData:@"精品专区" nextBlock:^(SectionVo *svo) {
+            //添加多个高度为80，类型为RefreshFundViewCell，展示基金信息的Cell
             [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:80 cellClass:RefreshFundViewCell.class sourceArray:self.fundModels]];
         }]];
         endRefreshHandler(YES);
@@ -110,9 +112,9 @@
             return;
         }
         //根据业务需求的不同，可以继续添加到上一节sectionVo，也可以添加到新的一节sectionVo中
-        if([lastSectionVo getCellVoCount] < 15){//上一节少于15条继续添加到上一节
-            [lastSectionVo addCellVoByList:[CellVo dividingCellVoBySourceArray:80 cellClass:RefreshFundViewCell.class sourceArray:self.fundNewModels]];//将新增的CellVo实例继续添加到上一节SectionVo实例中
-        }else{//上一节超了 添加到下一节中
+        if([lastSectionVo getCellVoCount] < 15){//上一节少于15条继续添加到上一节sectionVo
+            [lastSectionVo addCellVoByList:[CellVo dividingCellVoBySourceArray:80 cellClass:RefreshFundViewCell.class sourceArray:self.fundNewModels]];
+        }else{//上一节超了 添加到新的一节sectionVo
             [tableView addSectionVo:[SectionVo initWithParams:36 sectionHeaderClass:RefreshFundViewSection.class sectionHeaderData:@"推荐专区" nextBlock:^(SectionVo *svo) {
                 [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:80 cellClass:RefreshFundViewCell.class sourceArray:self.fundNewModels]];
             }]];

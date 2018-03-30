@@ -2,8 +2,8 @@
 //  MJTableViewController.h
 //  MJRefreshTest
 //
-//  Created by admin on 16/10/17.
-//  Copyright © 2016年 admin. All rights reserved.
+//  Created by 高扬 on 16/10/17.
+//  Copyright © 2016年 高扬. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -26,11 +26,13 @@
 /** 设置是否显示上拉加载控件 默认false **/
 @property(nonatomic,assign)BOOL isShowFooter;
 
-/**
- 以下方法以及MJTableBaseViewDelegate中的所有方法均为子类重写，外部无法更改
- ***/
 /** 设置TableView的布局位置，默认铺满Controller **/
 -(CGRect)getTableViewFrame;
+/** 设置自定义下拉刷新控件实例 **/
+-(MJRefreshHeader*)getRefreshHeader;
+/** 设置自定义上拉加载控件实例 **/
+-(MJRefreshFooter*)getRefreshFooter;
+
 /** 设置是否显示下拉刷新控件 默认true **/
 //-(BOOL)getShowHeader;
 /** 设置是否显示上拉加载控件 默认false **/
@@ -39,9 +41,6 @@
 //-(BOOL)getUseCellIdentifer;
 /** 设置每次进入该页面自动滚动到列表顶部 默认false **/
 //-(BOOL)getNeedRestOffset;
-/** 设置自定义下拉刷新控件实例 **/
--(MJRefreshHeader*)getRefreshHeader;
-/** 设置自定义上拉加载控件实例 **/
--(MJRefreshFooter*)getRefreshFooter;
+
 
 @end

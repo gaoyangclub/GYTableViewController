@@ -72,7 +72,7 @@
 -(void)showSubviews{
     self.backgroundColor = [UIColor whiteColor];
     
-    DishesModel* dishesModel = self.data;
+    DishesModel* dishesModel = GET_CELL_DATA(DishesModel.class);
     CGFloat const padding = 10;
     CGFloat const iconHeight = self.contentView.height - padding * 2;
     [self.iconView sd_setImageWithURL:[NSURL URLWithString:dishesModel.iconName]];

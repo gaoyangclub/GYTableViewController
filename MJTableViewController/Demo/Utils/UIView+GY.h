@@ -2,8 +2,8 @@
 //  UIView+GY.h
 //  BestDriverTitan
 //
-//  Created by admin on 17/3/1.
-//  Copyright © 2017年 admin. All rights reserved.
+//  Created by 高扬 on 17/3/1.
+//  Copyright © 2017年 高扬. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

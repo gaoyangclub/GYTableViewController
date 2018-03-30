@@ -68,9 +68,10 @@
 }
 
 -(void)showSubviews{
+    
     self.backgroundColor = [UIColor whiteColor];
     
-    FundModel* fundModel = self.data;
+    FundModel* fundModel = GET_CELL_DATA(FundModel.class);//self.data;
     
     self.iconView.text = fundModel.iconName;
     [self.iconView sizeToFit];

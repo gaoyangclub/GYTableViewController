@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
 #import "MainViewController.h"
 
 @interface AppDelegate ()
@@ -24,10 +23,6 @@
     [self.window makeKeyAndVisible];
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[MainViewController alloc] init]];
     
-//    NSLog(@"石:%f",1.5 * 480 + 0.5 * 5229);
-//    NSLog(@"木:%f",1.5 * 223 + 0.5 * 5183);
-//    NSLog(@"铁:%f",1.5 * 299 + 0.5 * 5196);
-//    NSLog(@"金:%f",6 * 9 + 2 * 51 + 0.6 * 432 + 0.2 * 3000);
     return YES;
 }
 

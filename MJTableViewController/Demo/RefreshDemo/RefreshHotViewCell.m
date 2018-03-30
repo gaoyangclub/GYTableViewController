@@ -79,8 +79,8 @@
 
 -(void)showSubviews{
     self.backgroundColor = [UIColor whiteColor];
-
-    NSArray<HotModel*>* hotModels = self.data;
+    
+    NSArray<HotModel*>* hotModels = GET_CELL_ARRAY_DATA(HotModel.class); //self.data;
     CGFloat const itemWidth = self.contentView.width / hotModels.count;
     for (NSInteger i = 0; i < hotModels.count; i++) {
         HotModel* hotModel = hotModels[i];

@@ -3,8 +3,8 @@
 //  UICreationUtils.m
 //  BestDriverTitan
 //
-//  Created by admin on 16/12/7.
-//  Copyright © 2016年 admin. All rights reserved.
+//  Created by 高扬 on 16/12/7.
+//  Copyright © 2016年 高扬. All rights reserved.
 //
 
 #import "UICreationUtils.h"

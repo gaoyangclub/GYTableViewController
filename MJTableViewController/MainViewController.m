@@ -46,7 +46,7 @@
 @implementation ControllerDemoViewCell
 
 -(void)showSubviews{
-    self.textLabel.text = ((ControllerVo*)self.data).title;
+    self.textLabel.text = ((ControllerVo*)GET_CELL_DATA(ControllerVo.class)).title;
 }
 
 -(BOOL)showSelectionStyle{
@@ -71,7 +71,7 @@
                          [ControllerVo initWithTitle:@"Table位置、自定义刷新、点击跳转示例" andClass:FrameTableViewController.class],
                          [ControllerVo initWithTitle:@"Section或Cell间距示例" andClass:GapTableViewController.class],
                          [ControllerVo initWithTitle:@"Cell上下关系和选中高亮示例" andClass:RelateTableViewController.class],
-                         [ControllerVo initWithTitle:@"Cell自动调整高度" andClass:AutoHeightTableViewController.class],
+                         [ControllerVo initWithTitle:@"Cell自动调整高度示例" andClass:AutoHeightTableViewController.class],
                          ];
     }
     return _controllers;

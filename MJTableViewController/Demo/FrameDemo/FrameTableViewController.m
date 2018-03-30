@@ -90,7 +90,6 @@
         
         [self.view addSubview:_submitButton];
         
-//        [_submitButton setShowTouch:YES];
 //        [_submitButton addTarget:self action:@selector(clickSubmitButton:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _submitButton;
@@ -100,15 +99,13 @@
     return [[DiyRotateRefreshHeader alloc]init];
 }
 
-
+//如存在和容器底部对齐的元素，请在此方法对齐底部位置(默认占满controller边界)；autoLayerout无需重写此方法，自行设置tableView和其他元素布局关系
 -(CGRect)getTableViewFrame{
     self.noticeBack.frame = CGRectMake(0, 0, self.view.width, 30);
     
-    self.submitButton.x = 0;
-    self.submitButton.width = self.view.width;
-    self.submitButton.height = 50;
     self.submitButton.maxY = self.view.height;
     
+    //返回设置好的tableView位置frame 高度=总高度-公告区高-底部按钮高
     return CGRectMake(0, self.noticeBack.height, self.view.width, self.view.height - self.noticeBack.height - self.submitButton.height);
 }
 
@@ -143,6 +140,10 @@
     self.noticeLabel.centerY = self.noticeIcon.centerY = self.noticeBack.height / 2.;
     self.noticeIcon.x = leftMargin;
     self.noticeLabel.x = self.noticeIcon.maxX + leftMargin;
+    
+    self.submitButton.x = 0;
+    self.submitButton.width = self.view.width;
+    self.submitButton.height = 50;
 }
 
 

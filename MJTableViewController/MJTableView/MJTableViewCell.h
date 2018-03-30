@@ -2,8 +2,8 @@
 //  MJTableViewCell.h
 //  MJRefreshTest
 //
-//  Created by admin on 16/10/14.
-//  Copyright © 2016年 admin. All rights reserved.
+//  Created by 高扬 on 16/10/14.
+//  Copyright © 2016年 高扬. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -11,6 +11,9 @@
 
 @class MJTableBaseView;
 @class CellVo;
+
+#define GET_CELL_DATA(targetClass) [self checkCellDataClass:targetClass]
+#define GET_CELL_ARRAY_DATA(arrayMemberClass) [self checkCellArrayDataClass:arrayMemberClass]
 
 @interface MJTableViewCell : UITableViewCell
 
@@ -30,9 +33,6 @@
 @property(nonatomic,retain) NSIndexPath* indexPath;
 /** 对应的CellVo实例 **/
 @property(nonatomic,retain) CellVo *cellVo;
-/** 外部传入的数据 用来布局或交互等（cellVo.cellData） **/
-@property(nonatomic,retain) id data;
-//@property(nonatomic,assign) BOOL isSelected;
 
 /** 页面元素创建并布局 请勿使用layoutSubviews来布局 **/
 -(void)showSubviews;
@@ -40,5 +40,14 @@
 -(BOOL)showSelectionStyle;
 /** 根据内容动态计算高度（适合内容多少高度不定的样式或文案展示） **/
 -(CGFloat)getCellHeight:(CGFloat)cellWidth;
+/** 检查cellData的类型是否是目标类型 并返回cellData **/
+-(id)checkCellDataClass:(Class)targetClass;
+/** 检查cellData类型为NSArray中的子元素类型是否是目标类型 并返回cellData **/
+-(NSArray*)checkCellArrayDataClass:(Class)arrayMemberClass;
+
+/** 外部传入的数据 用来布局或交互等（cellVo.cellData） **/
+//@property(nonatomic,retain) id data;
+
+-(void)layoutSubviews __attribute__((unavailable("Disabled")));
 
 @end
