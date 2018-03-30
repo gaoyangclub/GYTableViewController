@@ -499,4 +499,4 @@ endLoadMoreHandler(YES);//不要忘了结束上拉加载刷新
     return TOPIC_AREA_HEIGHT + contentSize.size.height + IMAGE_AREA_HEIGHT + BOTTOM_PADDING * 2;//返回计算后的最终高度
 }
 ```
-![案例5-1](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330112358454-747467009.gif)
+![案例5-1](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330124629331-180933660.gif)
