@@ -1,18 +1,22 @@
-# 自定义封装UITableView和MJRefresh相结合
+# 自定义封装UITableView，更加简洁高效，无需为了实现delegate增加胶水代码，自带下拉刷新上拉加载控件
 
 特点:<br/>
-1.将tableView常用的delegate和dataSource方法封装在内部处理，通过外部包装数据的方式展示相关内容，控制cell状态<br/>
-2.cell内部根据传递的数据展示内容<br/>
-3.内部自带MJRefresh框架，提供下拉刷新和上拉加载功能，外部暴露接口调用<br/>
+1.Section和Cell层次更加清晰，根据传入的Section数据结构内部已经全部实现Section和Cell相关delegate方法<br/>
+2.Cell实例可获得外部动态数据，索引位置，上下关系，选中状态等，随时更换样式<br/>
+3.Controller自带MJRefresh框架，提供下拉刷新和上拉加载功能，外部暴露接口调用<br/>
+4.提供Cell，Section间距设置，提供选中行高亮、选中行自动居中，提供设置Cell动态高度设置等API<br/>
+5.框架中的元素全部继承于原生的tableView相关元素，除部分代理方法外，其他原生方法扔然可以使用<br/>
 
 用法:<br/>
-此框架基于MJRefresh，所以务必先添加该framework，手动或者pod都可以，[使用方法](https://github.com/CoderMJLee/MJRefresh/)<br/>
+此框架基于MJRefresh，所以务必先添加该framework，手动或者pod都可以，<a href="https://github.com/CoderMJLee/MJRefresh/" target="_blank">使用方法</a>
 请使用该框架中的元素来代替原生列表控件，对应关系如下:<br/>
 ```
 MJTableBaseView -> UITableView
 MJTableViewController -> UITableViewController
 MJTableViewCell -> UITableViewCell
 MJTableViewSection 原生使用UIView展示section内容，这里使用MJTableViewSection
+SectionVo 用来设置Section样式与MJTableViewSection实例绑定
+CellVo 用来设置Cell样式与MJTableViewCell实例绑定
 ```
 
 使用时有列表控件的界面直接继承MJTableViewController，.h示例如下
