@@ -3,6 +3,7 @@
     *  [框架用法](#框架用法)
 * 代码结构
     *  [MJTableBaseView.h](#MJTableBaseView.h)
+            * [Cell Content Alignment](#table-usage-cell-content-alignment)
     *  [MJTableViewController.h](#MJTableViewController.h)
     *  [MJTableViewCell.h](#MJTableViewCell.h)
     *  [MJTableViewSection.h](#MJTableViewSection.h)
@@ -85,7 +86,7 @@ Cell控件直接继承MJTableViewCell，.h示例如下
 }
 ```
 
-# MJTableBaseView.h
+# table-usage-cell-content-alignment
 ```objc
 @interface MJTableBaseView : UITableView
 
