@@ -8,7 +8,7 @@
 5.框架中的元素全部继承于原生的tableView相关元素，除部分代理方法外，其他原生方法扔然可以使用<br/>
 
 用法:<br/>
-此框架基于MJRefresh，所以务必先添加该framework，手动或者pod都可以，<a href="https://github.com/CoderMJLee/MJRefresh/" target="_blank">使用方法</a>
+此框架基于MJRefresh，所以务必先添加该framework，手动或者pod都可以，<a href="https://github.com/CoderMJLee/MJRefresh/" target="_blank">使用方法</a><br/>
 请使用该框架中的元素来代替原生列表控件，对应关系如下:<br/>
 ```
 MJTableBaseView -> UITableView
@@ -317,10 +317,10 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 ```
 ### 相同类型的Cell添加可以修改成通过原数组批量添加
 ```objc
-    [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
-        //添加多个高度为80，类型为RefreshFundViewCell，展示基金信息的Cell
-        [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:80 cellClass:RefreshFundViewCell.class sourceArray:self.fundModels]];
-    }]];
+[tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
+    //添加多个高度为80，类型为RefreshFundViewCell，展示基金信息的Cell
+    [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:80 cellClass:RefreshFundViewCell.class sourceArray:self.fundModels]];
+}]];
 ```
 ![案例1-2](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180329193736678-1640767410.gif)
 
