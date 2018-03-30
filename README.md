@@ -392,7 +392,7 @@ endLoadMoreHandler(YES);//不要忘了结束上拉加载刷新
     return CGRectMake(0, self.noticeBack.height, self.view.width, self.view.height - self.noticeBack.height - self.submitButton.height);
 }
 ```
-![案例2-1](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330134454670-294114017.gif)
+![案例2-1](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330134633439-2144359463.gif)
 
 # 自定义下拉刷新控件
 ### 列表控制器内部重写getRefreshHeader
