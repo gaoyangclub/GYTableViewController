@@ -21,13 +21,13 @@
 @property(nonatomic,assign) BOOL isFirst;
 /** 是否在该节中的末位 **/
 @property(nonatomic,assign) BOOL isLast;
-/** 是否在该节只有此一个MJTableViewCell实例 **/
+/** 是否在该节只有此一个GYTableViewCell实例 **/
 @property(nonatomic,assign) BOOL isSingle;
 /** 是否需要刷新界面 **/
 @property(nonatomic,assign) BOOL needRefresh;
 /** 是否初次界面加载完毕 **/
 @property(nonatomic,assign) BOOL isSubviewShow;
-/** 对应的MJTableBaseView实例 **/
+/** 对应的GYTableBaseView实例 **/
 @property(nonatomic,weak) GYTableBaseView* tableView;
 /** 当前所处位置 **/
 @property(nonatomic,retain) NSIndexPath* indexPath;
