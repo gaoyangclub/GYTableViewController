@@ -1,0 +1,21 @@
+PODS:
+  - MJRefresh (3.1.15.3)
+  - SDCycleScrollView (1.75):
+    - SDWebImage (>= 4.0.0)
+  - SDWebImage (4.3.2):
+    - SDWebImage/Core (= 4.3.2)
+  - SDWebImage/Core (4.3.2)
+
+DEPENDENCIES:
+  - MJRefresh
+  - SDCycleScrollView
+  - SDWebImage
+
+SPEC CHECKSUMS:
+  MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
+  SDCycleScrollView: 884b88f0266dd4708a0e1934975c69cb971707b1
+  SDWebImage: 29bd3c0bc1f01e5eb59720847c64ad4c4ca1af5d
+
+PODFILE CHECKSUM: b251c814626f973f83cb6fce2e6902352244c2d2
+
+COCOAPODS: 1.4.0
