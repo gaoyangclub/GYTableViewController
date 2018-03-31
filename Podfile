@@ -1,6 +1,6 @@
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, ‘8.0’
-target 'MJTableViewController' do
+target 'GYTableViewController' do
 
 pod 'MJRefresh'
 
