@@ -1,7 +1,7 @@
 # 自定义封装UITableView，更加简洁高效，无需为了实现delegate增加胶水代码，自带下拉刷新上拉加载控件
-
 * 如何开始
     *  [项目技术特点](#技术特点)<br/>
+    *  [安装方法](#安装方法)<br/>
     *  [框架用法](#框架用法)<br/>
 * 代码结构
     *  [GYTableBaseView.h](#gytable-base-view)
@@ -28,14 +28,17 @@
 
 
 # 技术特点
-1.Section和Cell层次更加清晰，根据传入的Section数据结构内部已经全部实现Section和Cell相关delegate方法<br/>
-2.Cell实例可获得外部动态数据，索引位置，上下关系，选中状态等，随时更换样式<br/>
-3.Controller自带MJRefresh框架，提供下拉刷新和上拉加载功能，外部暴露接口调用<br/>
-4.提供Cell，Section间距设置，提供选中行高亮、选中行自动居中，提供设置Cell动态高度设置等API<br/>
-5.框架中的元素全部继承于原生的tableView相关元素，除部分代理方法外，其他原生方法扔然可以使用<br/>
+* Section和Cell层次更加清晰，根据传入的Section数据结构内部已经全部实现Section和Cell相关delegate方法<br/>
+* Cell实例可获得外部动态数据，索引位置，上下关系，选中状态等，随时更换样式<br/>
+* Controller自带MJRefresh框架，提供下拉刷新和上拉加载功能，外部暴露接口调用<br/>
+* 提供Cell，Section间距设置，提供选中行高亮、选中行自动居中，提供设置Cell动态高度设置等API<br/>
+* 框架中的元素全部继承于原生的tableView相关元素，除部分代理方法外，其他原生方法扔然可以使用<br/>
+
+# 安装方法
+* pod安装: pod 'GYTableViewController'
+* 手动安装:手动安装需要添加两个库，将GYTableViewController项目文件中Framework文件下的文件导入自身项目，同时此框架基于MJRefresh，所以也需要导入MJRefresh框架文件，手动或者pod都可以，<a href="https://github.com/CoderMJLee/MJRefresh/#How_to_use_MJRefresh" target="_blank">MJRefresh安装方法</a><br/>
 
 # 框架用法
-此框架基于MJRefresh，所以务必先添加该framework，手动或者pod都可以，<a href="https://github.com/CoderMJLee/MJRefresh/" target="_blank">使用方法</a><br/>
 请使用该框架中的元素来代替原生列表控件，对应关系如下:<br/>
 ```
 GYTableBaseView -> UITableView
@@ -450,7 +453,8 @@ endLoadMoreHandler(YES);//不要忘了结束上拉加载刷新
 ```objc
 -(void)tableView:(GYTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     CellVo* cvo = [tableView getCellVoByIndexPath:indexPath];//获取到绑定的CellVo
-    //...
+    XXClass* cellData = cvo.cellData;//获得cell的原始数据
+    //根据数据添加业务逻辑...
 }
 ```
 ### 设置cell点击效果，cell实例内部重写showSelectionStyle
