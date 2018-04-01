@@ -87,39 +87,6 @@
         
         [self startRotateRepert];
     }
-//    if (state == MJRefreshStateIdle) {
-    
-//        [self.rotateView.layer removeAllAnimations];
-//        [UIView animateWithDuration:1.f
-//                              delay:0
-//                            options:UIViewAnimationOptionCurveLinear
-//                         animations:^{
-//                             self.rotateView.transform = CGAffineTransformRotate(self.rotateView.transform, M_PI_2);
-//                         }
-//                         completion:^(BOOL finished){
-//                             //                             [self rotateImageView];
-//                         }];
-        
-//        if (oldState == MJRefreshStateRefreshing) {
-//            
-////            CABasicAnimation* rotationAnimation1 = [self.rotateView.layer animationForKey:@"rotationAnimation1"];
-////            if (rotationAnimation1) {
-////                [rotationAnimation1 ]
-////            }
-//            
-////            [self.rotateView.layer removeAllAnimations];
-//            
-//            CABasicAnimation* rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-//            rotationAnimation.byValue = [NSNumber numberWithFloat: M_PI / 2. ];
-//            rotationAnimation.duration = 2;
-////            rotationAnimation.cumulative = YES;
-////            rotationAnimation.repeatCount = HUGE_VALF;
-//            rotationAnimation.fillMode = kCAFillModeForwards;
-//            [self.rotateView.layer addAnimation:rotationAnimation forKey:@"rotationAnimation2"];
-//            
-//        }
-//    }
-    
 }
 
 -(void)setPullingPercent:(CGFloat)pullingPercent{
