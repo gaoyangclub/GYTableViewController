@@ -1,5 +1,3 @@
-# 自定义封装UITableView，更加简洁高效，无需为了实现delegate增加胶水代码，自带下拉刷新上拉加载控件
-[项目仓库地址](https://github.com/gaoyangclub/GYTableViewController)<br/>
 欢迎互相交流学习，问题交流群群号:296406818<br>
 * 如何开始
     *  [项目技术特点](#技术特点)
