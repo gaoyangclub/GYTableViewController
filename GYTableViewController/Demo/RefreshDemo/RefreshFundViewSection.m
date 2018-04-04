@@ -19,6 +19,7 @@
 
 @implementation RefreshFundViewSection
 
+#pragma mark 懒加载添加视图
 -(UILabel *)titleLabel{
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc]init];
@@ -49,6 +50,7 @@
     return _bottomLine;
 }
 
+#pragma mark Section视图暂时使用原生的方法布局 以后可能封装成别的方法来代替
 -(void)layoutSubviews{
     self.backgroundColor = COLOR_BACKGROUND;
     //square用懒加载方式添加一个UIView方块，具体创建方式不赘述

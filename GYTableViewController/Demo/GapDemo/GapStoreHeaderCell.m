@@ -20,6 +20,7 @@
 
 @implementation GapStoreHeaderCell
 
+#pragma mark 懒加载添加视图
 -(UILabel *)headerIconView{
     if (!_headerIconView) {
         _headerIconView = [UICreationUtils createLabel:ICON_FONT_NAME size:20 color:COLOR_PRIMARY_STORE];
@@ -44,6 +45,7 @@
     return _desLabel;
 }
 
+#pragma mark 根据外部传入数据开始布局
 -(void)showSubviews{
     self.backgroundColor = [UIColor whiteColor];
     

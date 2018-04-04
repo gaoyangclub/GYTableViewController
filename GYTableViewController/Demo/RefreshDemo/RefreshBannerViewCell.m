@@ -31,6 +31,7 @@
     return _cycleScrollView;
 }
 
+#pragma mark 根据外部传入数据开始布局
 -(void)showSubviews{
     self.cycleScrollView.frame = self.contentView.bounds;
     self.cycleScrollView.imageURLStringsGroup = GET_CELL_ARRAY_DATA([NSString class]); //self.data;

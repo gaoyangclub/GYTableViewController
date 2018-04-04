@@ -5,6 +5,8 @@
 //  Created by 高扬 on 17/11/18.
 //  Copyright © 2017年 GaoYang. All rights reserved.
 //
+//  显示网页信息控制器
+//
 
 #import <UIKit/UIKit.h>
 

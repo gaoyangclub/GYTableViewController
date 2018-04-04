@@ -19,8 +19,8 @@
 @implementation AutoHeightTableViewController
 
 //----------  start ----------
+#pragma mark monk数据
 /** 以下作为前端mock的数据，模拟从后台返回的数据结构，真实操作为触发刷新后请求后台获取 **/
-
 -(NSArray<WeiboModel *> *)weiboModels{
     if (!_weiboModels) {
         _weiboModels = @[
@@ -41,7 +41,7 @@
 }
 
 //----------  end ----------
-
+#pragma mark 触发下拉刷新(交互或代码)
 -(void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
     int64_t delay = 0.5 * NSEC_PER_SEC;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//模拟网络请求产生异步加载

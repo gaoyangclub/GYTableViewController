@@ -25,6 +25,7 @@
 
 @implementation RelateExpressViewCell
 
+#pragma mark 懒加载添加视图
 -(UILabel *)titleLabel{
     if (!_titleLabel) {
         _titleLabel = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_TEXT_PRIMARY];
@@ -67,6 +68,7 @@
     return _roundNode;
 }
 
+#pragma mark 根据外部传入数据开始布局
 -(void)showSubviews{
     self.backgroundColor = [UIColor whiteColor];
     
@@ -95,16 +97,16 @@
     [self checkCellRelate];
 }
 
+#pragma mark 设置选中效果
 -(void)setSelected:(BOOL)selected{
     [super setSelected:selected];
     [self checkCellRelate];
 }
-
 //如要显示选中后一直按下效果 请使用setSelected
 //-(BOOL)showSelectionStyle{
 //    return YES;
 //}
-
+#pragma mark 位于第一个或最后一个和中间段的选中未选中的Cell样式不同
 -(void)checkCellRelate{
     self.titleLabel.textColor = self.yearLabel.textColor = self.timeLabel.textColor = self.selected ? COLOR_PRIMARY_EXPRESS : COLOR_TEXT_PRIMARY;
     UIColor* nodeColor;

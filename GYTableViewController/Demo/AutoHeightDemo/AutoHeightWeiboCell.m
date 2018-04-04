@@ -34,6 +34,7 @@
 
 @implementation AutoHeightWeiboCell
 
+#pragma mark 懒加载添加视图
 -(UIImageView *)iconView{
     if (!_iconView) {
         _iconView = [[UIImageView alloc]init];
@@ -93,6 +94,7 @@
     return _bottomLine;
 }
 
+#pragma mark 获取动态高度,高度被缓存不会二次计算
 //    NSLog(@"getCellHeight被调用！");
 -(CGFloat)getCellHeight:(CGFloat)cellWidth{
     WeiboModel* weiboModel = GET_CELL_DATA(WeiboModel.class);//获取Model
@@ -103,7 +105,7 @@
                              context:nil];//计算给定范围内最佳尺寸
     return TOPIC_AREA_HEIGHT + contentSize.size.height + IMAGE_AREA_HEIGHT + BOTTOM_PADDING * 2;//返回计算后的最终高度
 }
-
+#pragma mark 根据外部传入数据开始布局
 -(void)showSubviews{
     self.backgroundColor = [UIColor whiteColor];
     

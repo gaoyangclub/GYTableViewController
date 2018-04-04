@@ -79,6 +79,10 @@
     return _groupTitleLable;
 }
 
+#pragma mark 根据外部传入数据开始布局
+/**
+ * 添加三个GapPraiseItem实例，一字排开
+ */
 -(void)showSubviews{
     self.backgroundColor = [UIColor whiteColor];
     

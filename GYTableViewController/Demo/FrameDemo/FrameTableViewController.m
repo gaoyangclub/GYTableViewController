@@ -27,8 +27,8 @@
 @implementation FrameTableViewController
 
 //----------  start ----------
+#pragma mark monk数据
 /** 以下作为前端mock的数据，模拟从后台返回的数据结构，真实操作为触发刷新后请求后台获取 **/
-
 -(NSArray<DishesModel *> *)dishesModels{
     if (!_dishesModels) {
         _dishesModels = @[
@@ -57,6 +57,7 @@
 
 //----------  end ----------
 
+#pragma mark 懒加载添加视图
 -(UIView*)noticeBack{
     if (!_noticeBack) {
         _noticeBack = [[UIView alloc]init];
@@ -95,10 +96,30 @@
     return _submitButton;
 }
 
+#pragma mark 子视图布局 父视图的位置最好在getTableViewFrame方法中执行
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.view.backgroundColor = COLOR_BACKGROUND;
+    
+    //    CGFloat const noticeBackHeight = 30;
+    //    self.noticeBack.frame = CGRectMake(0, 0, self.view.width, noticeBackHeight);
+    
+    CGFloat const leftMargin = 10;
+    self.noticeLabel.centerY = self.noticeIcon.centerY = self.noticeBack.height / 2.;
+    self.noticeIcon.x = leftMargin;
+    self.noticeLabel.x = self.noticeIcon.maxX + leftMargin;
+    
+    self.submitButton.x = 0;
+    self.submitButton.width = self.view.width;
+    self.submitButton.height = 50;
+}
+
+#pragma mark 自定义上拉加载控件
 -(MJRefreshHeader *)getRefreshHeader{
     return [[DiyRotateRefreshHeader alloc]init];
 }
-
+#pragma mark 设置tableView位置信息
 //如存在和容器底部对齐的元素，请在此方法对齐底部位置(默认占满controller边界)；autoLayerout无需重写此方法，自行设置tableView和其他元素布局关系
 -(CGRect)getTableViewFrame{
     self.noticeBack.frame = CGRectMake(0, 0, self.view.width, 30);
@@ -109,6 +130,7 @@
     return CGRectMake(0, self.noticeBack.height, self.view.width, self.view.height - self.noticeBack.height - self.submitButton.height);
 }
 
+#pragma mark 触发下拉刷新(交互或代码)
 -(void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
     int64_t delay = 0.5 * NSEC_PER_SEC;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//模拟网络请求产生异步加载
@@ -119,6 +141,7 @@
     });
 }
 
+#pragma mark 侦听选中的Cell并跳转页面
 -(void)tableView:(GYTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     CellVo* cvo = [tableView getCellVoByIndexPath:indexPath];
     DishesModel* dishesModel = cvo.cellData;
@@ -126,24 +149,6 @@
     webViewController.linkUrl = dishesModel.linkUrl;
     webViewController.navigationTitle = dishesModel.title;
     [self.navigationController pushViewController:webViewController animated:YES];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    self.view.backgroundColor = COLOR_BACKGROUND;
-    
-//    CGFloat const noticeBackHeight = 30;
-//    self.noticeBack.frame = CGRectMake(0, 0, self.view.width, noticeBackHeight);
-    
-    CGFloat const leftMargin = 10;
-    self.noticeLabel.centerY = self.noticeIcon.centerY = self.noticeBack.height / 2.;
-    self.noticeIcon.x = leftMargin;
-    self.noticeLabel.x = self.noticeIcon.maxX + leftMargin;
-    
-    self.submitButton.x = 0;
-    self.submitButton.width = self.view.width;
-    self.submitButton.height = 50;
 }
 
 

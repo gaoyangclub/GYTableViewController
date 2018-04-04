@@ -281,8 +281,8 @@
 				A929706F206F31CD0052AF0E /* FrameDishesViewCell.m */,
 				A9297070206F31CD0052AF0E /* DiyRotateRefreshHeader.h */,
 				A929706A206F31CD0052AF0E /* DiyRotateRefreshHeader.m */,
-				A929706C206F31CD0052AF0E /* WebViewController.m */,
 				A929706E206F31CD0052AF0E /* WebViewController.h */,
+				A929706C206F31CD0052AF0E /* WebViewController.m */,
 			);
 			path = FrameDemo;
 			sourceTree = "<group>";

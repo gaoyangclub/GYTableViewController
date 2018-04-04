@@ -26,6 +26,7 @@
 
 @implementation FrameDishesViewCell
 
+#pragma mark 懒加载添加视图
 -(UIImageView *)iconView{
     if (!_iconView) {
         _iconView = [[UIImageView alloc]init];
@@ -69,6 +70,7 @@
     return _bottomLine;
 }
 
+#pragma mark 根据外部传入数据开始布局
 -(void)showSubviews{
     self.backgroundColor = [UIColor whiteColor];
     
@@ -103,6 +105,7 @@
     self.bottomLine.width = self.contentView.width;
 }
 
+#pragma mark 设置cell点击效果
 -(BOOL)showSelectionStyle{
     return YES;
 }

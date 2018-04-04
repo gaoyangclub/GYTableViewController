@@ -14,11 +14,6 @@
 @property(nonatomic,retain) UILabel* titleLable;
 @property(nonatomic,retain) UIImageView* iconView;//图片文本
 @property(nonatomic,retain) HotModel* hotModel;
-//@property(nonatomic,copy) NSString* title;
-//@property(nonatomic,copy) NSString* iconName;
-//@property(nonatomic,retain) UIColor* iconColor;
-
-
 
 @end
 
@@ -76,7 +71,10 @@
     }
     return _bottomLine;
 }
-
+#pragma mark 根据外部传入数据开始布局
+/**
+ * 批量创建HomeFastItem按钮实例，一字排开
+ */
 -(void)showSubviews{
     self.backgroundColor = [UIColor whiteColor];
     

@@ -27,8 +27,8 @@
 @implementation RefreshTableViewController
 
 //----------  start ----------
+#pragma mark monk数据
 /** 以下作为前端mock的数据，模拟从后台返回的数据结构，真实操作为触发刷新后请求后台获取 **/
-
 -(NSArray<NSString *> *)bannerUrlGroup{
     if (!_bannerUrlGroup) {
         _bannerUrlGroup = @[
@@ -83,15 +83,22 @@
 
 //----------  end  ----------
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.view.backgroundColor = COLOR_BACKGROUND;
+}
+
+#pragma mark 触发下拉刷新(交互或代码)
 -(void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
     int64_t delay = 0.5 * NSEC_PER_SEC;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//模拟网络请求产生异步加载
         [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
             //添加一个高度为230，类型为BannerViewCell，展示banner图片列表的Cell
             [svo addCellVo:[CellVo initWithParams:230 cellClass:RefreshBannerViewCell.class cellData:self.bannerUrlGroup isUnique:YES]];
-            //添加一个高度为90，类型为RefreshHotViewCell，展示banner图片列表的Cell
+            //添加一个高度为90，类型为RefreshHotViewCell，展示标签按钮区域的Cell
             [svo addCellVo:[CellVo initWithParams:90 cellClass:RefreshHotViewCell.class cellData:self.hotModels isUnique:YES]];
         }]];
+        //设置页眉
         [tableView addSectionVo:[SectionVo initWithParams:36 sectionHeaderClass:RefreshFundViewSection.class sectionHeaderData:@"精品专区" nextBlock:^(SectionVo *svo) {
             //添加多个高度为80，类型为RefreshFundViewCell，展示基金信息的Cell
             [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:80 cellClass:RefreshFundViewCell.class sourceArray:self.fundModels]];
@@ -100,10 +107,12 @@
     });
 }
 
+#pragma mark 显示上拉加载控件
 -(BOOL)isShowFooter{
     return YES;
 }
 
+#pragma mark 触发上拉加载(交互或代码)
 -(void)footerLoadMore:(GYTableBaseView *)tableView endLoadMoreHandler:(FooterLoadMoreHandler)endLoadMoreHandler lastSectionVo:(SectionVo *)lastSectionVo{
     int64_t delay = 0.5 * NSEC_PER_SEC;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//模拟网络请求产生异步加载
@@ -121,15 +130,6 @@
         }
         endLoadMoreHandler(YES);//不要忘了结束上拉加载刷新
     });
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.backgroundColor = COLOR_BACKGROUND;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
 }
 
 @end

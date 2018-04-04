@@ -26,6 +26,7 @@
 
 @implementation RelateTableViewController
 
+#pragma mark 懒加载添加交互控件和点击后处理
 -(UIView *)operateArea{
     if (!_operateArea) {
         _operateArea = [[UIView alloc]init];
@@ -104,7 +105,7 @@
 
 //----------  start ----------
 /** 以下作为前端mock的数据，模拟从后台返回的数据结构，真实操作为触发刷新后请求后台获取 **/
-
+#pragma mark monk数据
 -(NSArray<ExpressModel *> *)expressModels{
     if (!_expressModels) {
         _expressModels = @[
@@ -132,6 +133,7 @@
 
 //----------  end ----------
 
+#pragma mark 下拉刷新后根据选择控件选中情况设置selectedIndexPath，clickCellHighlight，clickCellMoveToCenter等属性
 -(void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
     int64_t delay = 0.5 * NSEC_PER_SEC;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//模拟网络请求产生异步加载
@@ -145,18 +147,21 @@
     });
 }
 
+#pragma mark 监听选中某个Cell
 -(void)tableView:(GYTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if(self.switchClickHighlight.on){
         self.steperSelectedIndex.value = indexPath.row + 1;
     }
 }
 
+#pragma mark 设置tableView位置信息
 -(CGRect)getTableViewFrame{
     self.operateArea.frame = CGRectMake(0, 0, self.view.width, 70);
     CGFloat const gap = 5;
     return CGRectMake(0, self.operateArea.height + gap, self.view.width, self.view.height - self.operateArea.height - gap);
 }
 
+#pragma mark 视图布局 父视图的位置最好在getTableViewFrame方法中执行
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = COLOR_BACKGROUND;

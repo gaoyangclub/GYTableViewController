@@ -25,6 +25,7 @@
 
 @implementation RefreshFundViewCell
 
+#pragma mark 懒加载添加视图
 -(UILabel *)iconView{
     if (!_iconView) {
         _iconView = [UICreationUtils createLabel:ICON_FONT_NAME size:30 color:COLOR_PRIMARY_FUND];
@@ -67,6 +68,7 @@
     return _bottomLine;
 }
 
+#pragma mark 根据外部传入数据开始布局
 -(void)showSubviews{
     
     self.backgroundColor = [UIColor whiteColor];

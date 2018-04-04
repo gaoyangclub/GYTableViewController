@@ -26,6 +26,7 @@
 
 @implementation GapStoreViewCell
 
+#pragma mark 懒加载添加视图
 -(UIImageView *)iconView{
     if (!_iconView) {
         _iconView = [[UIImageView alloc]init];
@@ -79,6 +80,7 @@
     return _discountButton;
 }
 
+#pragma mark 根据外部传入数据开始布局
 -(void)showSubviews{
     self.backgroundColor = [UIColor whiteColor];
     
