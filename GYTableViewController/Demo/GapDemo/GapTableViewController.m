@@ -83,6 +83,7 @@
 #pragma mark 设置间距
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     self.tableView.sectionGap = 6;//设置每一节区域之间间距
     self.tableView.cellGap = 3;//设置每个Cell之间间距(包含每一节区域)

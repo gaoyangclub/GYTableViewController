@@ -84,6 +84,7 @@
 //----------  end  ----------
 
 - (void)viewDidLoad {
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     [super viewDidLoad];
     self.view.backgroundColor = COLOR_BACKGROUND;
 }

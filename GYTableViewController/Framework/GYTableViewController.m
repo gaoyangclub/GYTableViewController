@@ -42,6 +42,12 @@
 //    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     [self initTableView];
+    
+    if (@available(iOS 11.0, *)) {
+        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }else {
+        self.automaticallyAdjustsScrollViewInsets = NO;//YES表示自动测量导航栏高度占用的Insets偏移
+    }
 }
 
 -(void)initTableView{
@@ -61,10 +67,10 @@
         if (header) {
             self.tableView.header = header;
         }
-//        MJRefreshFooter* footer = [self getRefreshFooter];
-//        if (footer) {
-//            self.tableView.mj_footer = footer;
-//        }
+        MJRefreshFooter* footer = [self getRefreshFooter];
+        if (footer) {
+            self.tableView.mj_footer = footer;
+        }
     }
 }
 

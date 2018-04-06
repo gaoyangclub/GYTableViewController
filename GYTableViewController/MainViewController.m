@@ -80,25 +80,35 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"主页";
-    self.automaticallyAdjustsScrollViewInsets = NO;//YES表示自动测量导航栏高度占用的Insets偏移
-    self.navigationController.navigationBar.translucent = NO;//Bar的高斯模糊效果，默认为YES
+    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    [self.tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
+                    [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ControllerDemoViewCell.class sourceArray:self.controllers]];
+                }]];
+    [self.tableView reloadGYData];
 }
 
--(void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
-    int64_t delay = 0.5 * NSEC_PER_SEC;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//模拟网络请求产生异步加载
-        [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
-            [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ControllerDemoViewCell.class sourceArray:self.controllers]];
-        }]];
-        endRefreshHandler(YES);
-    });
+-(BOOL)isShowHeader{
+    return NO;
 }
+//
+//-(void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
+//    int64_t delay = 0.5 * NSEC_PER_SEC;
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//模拟网络请求产生异步加载
+//        [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
+//            [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ControllerDemoViewCell.class sourceArray:self.controllers]];
+//        }]];
+//        endRefreshHandler(YES);
+//    });
+//}
 
 -(void)tableView:(GYTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     CellVo* cvo = [tableView getCellVoByIndexPath:indexPath];
     ControllerVo* controllerVo = cvo.cellData;
     UIViewController* viewController = [[controllerVo.controllerClass alloc]init];
     viewController.title = controllerVo.title;
+    viewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

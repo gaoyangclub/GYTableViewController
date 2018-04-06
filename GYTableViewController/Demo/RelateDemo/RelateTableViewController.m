@@ -166,6 +166,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = COLOR_BACKGROUND;
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     CGFloat const toppadding = 30;
     CGFloat const bottompadding = self.operateArea.height - toppadding;
     

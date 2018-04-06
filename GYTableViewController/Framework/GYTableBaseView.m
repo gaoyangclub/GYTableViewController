@@ -8,6 +8,9 @@
 
 #import "GYTableBaseView.h"
 #import "GYRefreshAutoFooter.h"
+//#import <Foundation/Foundation.h>
+
+//#define iOS9+ [UIDevice currentDevice].systemVersion.doubleValue >= 9.0
 
 typedef enum {
     CellTypeNormal,//除头尾中间段的
@@ -158,7 +161,7 @@ typedef enum {
 -(NSUInteger)getTotalCellVoCount{
     NSInteger cellCount = 0;
     for (SectionVo* svo in self.dataArray) {
-        for (CellVo* cvo in svo.cellVoList) {
+        for (__unused CellVo* cvo in svo.cellVoList) {
             cellCount ++;
         }
     }
@@ -523,13 +526,13 @@ typedef enum {
     }
 }
 
-//-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-//    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(didScrollToRow:indexPath:)]) {
-//        NSIndexPath *path =  [self indexPathForRowAtPoint:CGPointMake(scrollView.contentOffset.x, scrollView.contentOffset.y)];
-////        NSLog(@"这是第%li栏目",(long)path.section);
-//        [self.refreshDelegate didScrollToRow:self indexPath:path];
-//    }
-//}
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    NSIndexPath *path =  [self indexPathForRowAtPoint:CGPointMake(scrollView.contentOffset.x, scrollView.contentOffset.y)];
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(didScrollToRow:indexPath:)]) {
+//        NSLog(@"这是第%li栏目",(long)path.section);
+        [self.refreshDelegate didScrollToRow:self indexPath:path];
+    }
+}
 
 -(void)checkGaps {
     //遍历整个数据链 判断头尾标记和gap是否存在
@@ -752,6 +755,7 @@ typedef enum {
         [self.refreshDelegate tableView:tableView performAction:action forRowAtIndexPath:indexPath withSender:sender];
     }
 }
+
 - (BOOL)tableView:(UITableView *)tableView canFocusRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:canFocusRowAtIndexPath:)]) {
         [self.refreshDelegate tableView:tableView canFocusRowAtIndexPath:indexPath];
@@ -775,6 +779,7 @@ typedef enum {
     }
     return nil;
 }
+
 
 @end
 

@@ -100,6 +100,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     self.view.backgroundColor = COLOR_BACKGROUND;
     
     //    CGFloat const noticeBackHeight = 30;
