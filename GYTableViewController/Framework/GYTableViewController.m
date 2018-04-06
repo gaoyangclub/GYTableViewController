@@ -69,7 +69,7 @@
         }
         MJRefreshFooter* footer = [self getRefreshFooter];
         if (footer) {
-            self.tableView.mj_footer = footer;
+            self.tableView.footer = footer;
         }
     }
 }

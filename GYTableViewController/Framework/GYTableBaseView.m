@@ -209,46 +209,16 @@ typedef enum {
         }
         
         if (self.showFooter) {
-            __weak __typeof(self) weakSelf = self;
-            MJRefreshAutoNormalFooter* footer = [GYRefreshAutoFooter footerWithRefreshingBlock:^{
-                __strong typeof(weakSelf) strongSelf = weakSelf;
-                if (strongSelf.refreshDelegate && [strongSelf.refreshDelegate respondsToSelector:@selector(footerLoadMore:endLoadMoreHandler:lastSectionVo:)]){
-                    [strongSelf.refreshDelegate footerLoadMore:strongSelf endLoadMoreHandler:^(BOOL hasData){
-//                        [strongSelf footerLoaded:hasData];
-                        if (hasData) {
-                            [strongSelf checkGaps];
-//                            strongSelf.refreshAll = NO;
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                [strongSelf reloadData];
-                                if (strongSelf.refreshDelegate && [strongSelf.refreshDelegate respondsToSelector:@selector(didLoadMoreComplete:)]){
-                                    [strongSelf.refreshDelegate didLoadMoreComplete:strongSelf];
-                                }
-                            });
-                            [strongSelf.mj_footer endRefreshing];
-                        }else{
-                            [strongSelf.mj_footer endRefreshingWithNoMoreData];
-                        }
-                    } lastSectionVo:[strongSelf getLastSectionVo]];
-                }
-            }];
-//            footer.automaticallyHidden = YES;
+            MJRefreshAutoNormalFooter* footer = [[GYRefreshAutoFooter alloc]init];
+            //            footer.automaticallyHidden = YES;
             footer.stateLabel.userInteractionEnabled = NO;//无法点击交互
             [footer setTitle:@"上拉加载更多" forState:MJRefreshStateIdle];
-            
-//            footer.ignoredScrollViewContentInsetBottom = 0;
-//            UIEdgeInsets insets = footer.scrollViewOriginalInset;
-//            insets.bottom = insets.top = 0;
-//            footer.scrollViewOriginalInset = insets;
-            self.mj_footer = footer;// 上拉刷新
+            self.footer = footer;
         }
         
 //    });
 
 }
-
-//-(void)footerLoaded:(BOOL)hasData{
-//    
-//}
 
 -(void)setHeader:(MJRefreshHeader *)header{
     if (self.showHeader) {
@@ -277,6 +247,34 @@ typedef enum {
             [self moveSelectedIndexPathToCenter];
         };
         self.mj_header = header;
+    }
+}
+
+-(void)setFooter:(MJRefreshFooter *)footer{
+    if (self.showFooter) {
+        __weak __typeof(self) weakSelf = self;
+        footer.refreshingBlock = ^{
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            if (strongSelf.refreshDelegate && [strongSelf.refreshDelegate respondsToSelector:@selector(footerLoadMore:endLoadMoreHandler:lastSectionVo:)]){
+                [strongSelf.refreshDelegate footerLoadMore:strongSelf endLoadMoreHandler:^(BOOL hasData){
+                    //                        [strongSelf footerLoaded:hasData];
+                    if (hasData) {
+                        [strongSelf checkGaps];
+                        //                            strongSelf.refreshAll = NO;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [strongSelf reloadData];
+                            if (strongSelf.refreshDelegate && [strongSelf.refreshDelegate respondsToSelector:@selector(didLoadMoreComplete:)]){
+                                [strongSelf.refreshDelegate didLoadMoreComplete:strongSelf];
+                            }
+                        });
+                        [strongSelf.mj_footer endRefreshing];
+                    }else{
+                        [strongSelf.mj_footer endRefreshingWithNoMoreData];
+                    }
+                } lastSectionVo:[strongSelf getLastSectionVo]];
+            }
+        };
+        self.mj_footer = footer;// 上拉刷新
     }
 }
 

@@ -94,6 +94,7 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 @property (nonatomic, weak) id<GYTableBaseViewDelegate> refreshDelegate;
 //@property (nonatomic,assign) BOOL refreshAll;
 @property(nonatomic,retain) MJRefreshHeader* header;
+@property(nonatomic,retain) MJRefreshFooter* footer;
 
 /** 设置选中位置 **/
 @property(nonatomic,retain) NSIndexPath* selectedIndexPath;
