@@ -511,9 +511,16 @@ typedef enum {
     }
 }
 
--(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
-    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(didEndScrollingAnimation:)]) {
-        [self.refreshDelegate didEndScrollingAnimation:self];
+//-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+//    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(didEndScrollingAnimation:)]) {
+//        [self.refreshDelegate didEndScrollingAnimation:self];
+//    }
+//}
+
+// called when setContentOffset/scrollRectVisible:animated: finishes. not called if not animating
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(scrollViewDidEndScrollingAnimation:)]) {
+        [self.refreshDelegate scrollViewDidEndScrollingAnimation:scrollView];
     }
 }
 
@@ -525,10 +532,13 @@ typedef enum {
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    NSIndexPath *path =  [self indexPathForRowAtPoint:CGPointMake(scrollView.contentOffset.x, scrollView.contentOffset.y)];
-    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(didScrollToRow:indexPath:)]) {
-//        NSLog(@"这是第%li栏目",(long)path.section);
-        [self.refreshDelegate didScrollToRow:self indexPath:path];
+//    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(didScrollToRow:indexPath:)]) {
+//        NSIndexPath *path =  [self indexPathForRowAtPoint:CGPointMake(scrollView.contentOffset.x, scrollView.contentOffset.y)];
+////        NSLog(@"这是第%li栏目",(long)path.section);
+//        [self.refreshDelegate didScrollToRow:self indexPath:path];
+//    }
+    if(self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(scrollViewDidScroll:)]){
+        [self.refreshDelegate scrollViewDidScroll:scrollView];
     }
 }
 
@@ -777,7 +787,81 @@ typedef enum {
     }
     return nil;
 }
-
+// any zoom scale changes
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(scrollViewDidZoom:)]) {
+        [self.refreshDelegate scrollViewDidZoom:scrollView];
+    }
+}
+// called on start of dragging (may require some time and or distance to move)
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(scrollViewWillBeginDragging:)]) {
+        [self.refreshDelegate scrollViewWillBeginDragging:scrollView];
+    }
+}
+// called on finger up if the user dragged. velocity is in points/millisecond. targetContentOffset may be changed to adjust where the scroll view comes to rest
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(scrollViewWillEndDragging:withVelocity:targetContentOffset:)]) {
+        [self.refreshDelegate scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
+    }
+}
+// called on finger up if the user dragged. decelerate is true if it will continue moving afterwards
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(scrollViewDidEndDragging:willDecelerate:)]) {
+        [self.refreshDelegate scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
+    }
+}
+// called on finger up as we are moving
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(scrollViewWillBeginDecelerating:)]) {
+        [self.refreshDelegate scrollViewWillBeginDecelerating:scrollView];
+    }
+}
+// called when scroll view grinds to a halt
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(scrollViewDidEndDecelerating:)]) {
+        [self.refreshDelegate scrollViewDidEndDecelerating:scrollView];
+    }
+}
+// return a view that will be scaled. if delegate returns nil, nothing happens
+- (nullable UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(viewForZoomingInScrollView:)]) {
+        return [self.refreshDelegate viewForZoomingInScrollView:scrollView];
+    }
+    return nil;
+}
+// called before the scroll view begins zooming its content
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(scrollViewWillBeginZooming:withView:)]) {
+        [self.refreshDelegate scrollViewWillBeginZooming:scrollView withView:view];
+    }
+}
+// scale between minimum and maximum. called after any 'bounce' animations
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(scrollViewDidEndZooming:withView:atScale:)]) {
+        [self.refreshDelegate scrollViewDidEndZooming:scrollView withView:view atScale:scale];
+    }
+}
+// return a yes if you want to scroll to the top. if not defined, assumes YES
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(scrollViewShouldScrollToTop:)]) {
+        return [self.refreshDelegate scrollViewShouldScrollToTop:scrollView];
+    }
+    return YES;
+}
+// called when scrolling animation finished. may be called immediately if already at top
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(scrollViewDidScrollToTop:)]) {
+        [self.refreshDelegate scrollViewDidScrollToTop:scrollView];
+    }
+}
+/* Also see -[UIScrollView adjustedContentInsetDidChange]
+ */
+- (void)scrollViewDidChangeAdjustedContentInset:(UIScrollView *)scrollView{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(scrollViewDidChangeAdjustedContentInset:)]) {
+        [self.refreshDelegate scrollViewDidChangeAdjustedContentInset:scrollView];
+    }
+}
 
 @end
 

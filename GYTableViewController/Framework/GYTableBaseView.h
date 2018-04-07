@@ -53,10 +53,9 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 @optional
 /** 当GYTableBaseView滚动到某个位置时代理调用 **/
 -(void)didScrollToRow:(GYTableBaseView*)tableView indexPath:(NSIndexPath *)indexPath;
-@optional
+//@optional
 /** 当GYTableBaseView从滚动状态静止时代理调用 **/
--(void)didEndScrollingAnimation:(GYTableBaseView*)tableView;
-
+//-(void)didEndScrollingAnimation:(GYTableBaseView*)tableView;
 
 /** 以下方法不可代理调用  **/
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView __attribute__((unavailable("Disabled")));

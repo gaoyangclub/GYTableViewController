@@ -14,6 +14,25 @@
 #import "RefreshFundViewCell.h"
 #import "RefreshFundViewSection.h"
 
+//@interface BlankCell:GYTableViewCell
+//@end
+//@implementation BlankCell
+//
+//- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
+//    UIView *view = [super hitTest:point withEvent:event];
+//    if ([view isKindOfClass:[UITableView class]]) {
+//        return self;
+//    }
+//    return nil;
+//}
+//
+//
+//-(void)showSubviews{
+//    self.userInteractionEnabled = NO;
+//}
+//
+//@end
+
 @interface RefreshTableViewController ()
 
 @property(nonatomic,retain)NSArray<NSString*>* bannerUrlGroup;
@@ -89,11 +108,21 @@
     self.view.backgroundColor = COLOR_BACKGROUND;
 }
 
+//-(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
+//    CGFloat const centerY = 100;
+//    if (targetContentOffset->y > centerY && targetContentOffset->y < 500) {
+//        targetContentOffset->y = 500;
+//    }else if(targetContentOffset->y <= centerY){
+//        targetContentOffset->y = 0;
+//    }
+//}
+
 #pragma mark 触发下拉刷新(交互或代码)
 -(void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
     int64_t delay = 0.5 * NSEC_PER_SEC;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//模拟网络请求产生异步加载
         [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
+//            [svo addCellVo:[CellVo initWithParams:500 cellClass:BlankCell.class cellData:nil isUnique:YES]];
             //添加一个高度为230，类型为BannerViewCell，展示banner图片列表的Cell
             [svo addCellVo:[CellVo initWithParams:230 cellClass:RefreshBannerViewCell.class cellData:self.bannerUrlGroup isUnique:YES]];
             //添加一个高度为90，类型为RefreshHotViewCell，展示标签按钮区域的Cell
