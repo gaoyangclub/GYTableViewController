@@ -121,7 +121,7 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 /** 删除一节内容 **/
 -(void)removeSectionVoAt:(NSInteger)index;
 /** 重新刷新全部界面 类似源生的reloadData **/
--(void)reloadGYData;
+-(void)gy_reloadData;
 /** 将选中的数据项平滑居中移动 **/
 -(void)moveSelectedIndexPathToCenter;
 

@@ -43,11 +43,13 @@
     
     [self initTableView];
     
-    if (@available(iOS 11.0, *)) {
-        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    }else {
+    #if __IPHONE_11_0
+        if (@available(iOS 11.0, *)) {
+            self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
+    #else
         self.automaticallyAdjustsScrollViewInsets = NO;//YES表示自动测量导航栏高度占用的Insets偏移
-    }
+    #endif
 }
 
 -(void)initTableView{
@@ -91,7 +93,7 @@
         [self.tableView headerBeginRefresh];
     }
 }
-#pragma 坑爹!!! 必须时时跟随主view的frame
+#pragma mark 坑爹!!! 必须时时跟随主view的frame
 -(void)viewDidLayoutSubviews{
     self.tableView.frame = [self getTableViewFrame];
     [super viewDidLayoutSubviews];

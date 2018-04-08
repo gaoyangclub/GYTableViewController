@@ -86,7 +86,7 @@
     [self.tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
                     [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:ControllerDemoViewCell.class sourceArray:self.controllers]];
                 }]];
-    [self.tableView reloadGYData];
+    [self.tableView gy_reloadData];
 }
 
 -(BOOL)isShowHeader{

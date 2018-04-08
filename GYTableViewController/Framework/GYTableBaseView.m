@@ -229,7 +229,7 @@ typedef enum {
                 [strongSelf clearAllSectionVo];//预先清除数据
                 [strongSelf.refreshDelegate headerRefresh:strongSelf endRefreshHandler:^(BOOL hasData){
                     strongSelf->_hasFirstRefreshed = YES;
-                    [strongSelf reloadGYData];
+                    [strongSelf gy_reloadData];
                     [strongSelf.mj_header endRefreshing];// 结束刷新
                     if (hasData) {
                         if (strongSelf.mj_footer) {
@@ -288,7 +288,7 @@ typedef enum {
     }
 }
 
--(void)reloadGYData{
+-(void)gy_reloadData{
 //    self.refreshAll = YES;
     [self checkGaps];
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -763,29 +763,81 @@ typedef enum {
         [self.refreshDelegate tableView:tableView performAction:action forRowAtIndexPath:indexPath withSender:sender];
     }
 }
-
-- (BOOL)tableView:(UITableView *)tableView canFocusRowAtIndexPath:(NSIndexPath *)indexPath{
+- (BOOL)tableView:(UITableView *)tableView canFocusRowAtIndexPath:(NSIndexPath *)indexPath NS_AVAILABLE_IOS(9_0){
     if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:canFocusRowAtIndexPath:)]) {
         [self.refreshDelegate tableView:tableView canFocusRowAtIndexPath:indexPath];
     }
     return YES;
 }
-- (BOOL)tableView:(UITableView *)tableView shouldUpdateFocusInContext:(UITableViewFocusUpdateContext *)context{
+- (nullable NSIndexPath *)indexPathForPreferredFocusedViewInTableView:(UITableView *)tableView NS_AVAILABLE_IOS(9_0){
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(indexPathForPreferredFocusedViewInTableView:)]) {
+        [self.refreshDelegate indexPathForPreferredFocusedViewInTableView:tableView];
+    }
+    return nil;
+}
+- (BOOL)tableView:(UITableView *)tableView shouldUpdateFocusInContext:(UITableViewFocusUpdateContext *)context NS_AVAILABLE_IOS(9_0){
     if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:shouldUpdateFocusInContext:)]) {
         [self.refreshDelegate tableView:tableView shouldUpdateFocusInContext:context];
     }
     return YES;
 }
-- (void)tableView:(UITableView *)tableView didUpdateFocusInContext:(UITableViewFocusUpdateContext *)context withAnimationCoordinator:(UIFocusAnimationCoordinator *)coordinator{
+- (void)tableView:(UITableView *)tableView didUpdateFocusInContext:(UITableViewFocusUpdateContext *)context withAnimationCoordinator:(UIFocusAnimationCoordinator *)coordinator NS_AVAILABLE_IOS(9_0){
     if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:didUpdateFocusInContext:withAnimationCoordinator:)]) {
         [self.refreshDelegate tableView:tableView didUpdateFocusInContext:context withAnimationCoordinator:coordinator];
     }
 }
-- (nullable NSIndexPath *)indexPathForPreferredFocusedViewInTableView:(UITableView *)tableView{
-    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(indexPathForPreferredFocusedViewInTableView:)]) {
-        [self.refreshDelegate indexPathForPreferredFocusedViewInTableView:tableView];
+// fixed font style. use custom view (UILabel) if you want something different
+- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:titleForHeaderInSection:)]) {
+        [self.refreshDelegate tableView:tableView titleForHeaderInSection:section];
     }
     return nil;
+}
+- (nullable NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:titleForFooterInSection:)]) {
+        [self.refreshDelegate tableView:tableView titleForFooterInSection:section];
+    }
+    return nil;
+}
+// Individual rows can opt out of having the -editing property set for them. If not implemented, all rows are assumed to be editable.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:canEditRowAtIndexPath:)]) {
+        [self.refreshDelegate tableView:tableView canEditRowAtIndexPath:indexPath];
+    }
+    return NO;
+}
+// Allows the reorder accessory view to optionally be shown for a particular row. By default, the reorder control will be shown only if the datasource implements -tableView:moveRowAtIndexPath:toIndexPath:
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:canMoveRowAtIndexPath:)]) {
+        [self.refreshDelegate tableView:tableView canMoveRowAtIndexPath:indexPath];
+    }
+    return NO;
+}
+// return list of section titles to display in section index view (e.g. "ABCD...Z#")
+- (nullable NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(sectionIndexTitlesForTableView:)]) {
+        [self.refreshDelegate sectionIndexTitlesForTableView:tableView];
+    }
+    return nil;
+}
+// tell table which section corresponds to section title/index (e.g. "B",1))
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:sectionForSectionIndexTitle:atIndex:)]) {
+        [self.refreshDelegate tableView:tableView sectionForSectionIndexTitle:title atIndex:index];
+    }
+    return -1;
+}
+// Not called for edit actions using UITableViewRowAction - the action's handler will be invoked instead
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:commitEditingStyle:forRowAtIndexPath:)]) {
+        [self.refreshDelegate tableView:tableView commitEditingStyle:editingStyle forRowAtIndexPath:indexPath];
+    }
+}
+// Data manipulation - reorder / moving support
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
+    if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(tableView:moveRowAtIndexPath:toIndexPath:)]) {
+        [self.refreshDelegate tableView:tableView moveRowAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
+    }
 }
 // any zoom scale changes
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView{
@@ -855,13 +907,15 @@ typedef enum {
         [self.refreshDelegate scrollViewDidScrollToTop:scrollView];
     }
 }
+#if __IPHONE_11_0
 /* Also see -[UIScrollView adjustedContentInsetDidChange]
  */
-- (void)scrollViewDidChangeAdjustedContentInset:(UIScrollView *)scrollView{
+- (void)scrollViewDidChangeAdjustedContentInset:(UIScrollView *)scrollView API_AVAILABLE(ios(11.0), tvos(11.0)){
     if (self.refreshDelegate && [self.refreshDelegate respondsToSelector:@selector(scrollViewDidChangeAdjustedContentInset:)]) {
         [self.refreshDelegate scrollViewDidChangeAdjustedContentInset:scrollView];
     }
 }
+#endif
 
 @end
 
