@@ -6,6 +6,7 @@ pod 'MJRefresh'
 #pod 'GYTableViewController'
 
 pod 'SDCycleScrollView'
-pod 'SDWebImage'
+#pod 'SDWebImage'
+#pod 'Masonry'
 
 end

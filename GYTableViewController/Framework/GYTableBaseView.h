@@ -85,12 +85,12 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 -(instancetype)initWithCoder:(NSCoder *)aDecoder __attribute__((unavailable("Disabled. Use -initWithFrameAndParams instead")));
 -(instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style __attribute__((unavailable("Disabled. Use -initWithFrameAndParams instead")));
 
--(instancetype)initWithFrameAndParams:(CGRect)frame showHeader:(BOOL)showHeader showFooter:(BOOL)showFooter useCellIdentifer:(BOOL)useCellIdentifer topEdgeDiverge:(BOOL)topEdgeDiverge;
--(instancetype)initWithFrameAndParams:(CGRect)frame style:(UITableViewStyle)style showHeader:(BOOL)showHeader showFooter:(BOOL)showFooter useCellIdentifer:(BOOL)useCellIdentifer topEdgeDiverge:(BOOL)topEdgeDiverge;
+-(instancetype)initWithFrameAndParams:(CGRect)frame showHeader:(BOOL)showHeader showFooter:(BOOL)showFooter useCellIdentifer:(BOOL)useCellIdentifer delegate:(id<GYTableBaseViewDelegate>)delegate;
+-(instancetype)initWithFrameAndParams:(CGRect)frame style:(UITableViewStyle)style showHeader:(BOOL)showHeader showFooter:(BOOL)showFooter useCellIdentifer:(BOOL)useCellIdentifer delegate:(id<GYTableBaseViewDelegate>)delegate;
 
 @property(nonatomic,retain,readonly)NSMutableArray<SectionVo*>* dataSourceArray;
 
-@property (nonatomic, weak) id<GYTableBaseViewDelegate> refreshDelegate;
+//@property (nonatomic, weak) id<GYTableBaseViewDelegate> gy_delegate;
 //@property (nonatomic,assign) BOOL refreshAll;
 @property(nonatomic,retain) MJRefreshHeader* header;
 @property(nonatomic,retain) MJRefreshFooter* footer;
@@ -107,6 +107,7 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 @property (nonatomic,assign) CGFloat cellGap;
 /** 首次下拉 **/
 @property (nonatomic,assign,readonly) BOOL hasFirstRefreshed;
+
 
 /** 下拉刷新 **/
 -(void)headerBeginRefresh;

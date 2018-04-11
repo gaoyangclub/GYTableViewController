@@ -11,6 +11,7 @@
 #import "FrameDishesViewCell.h"
 #import "WebViewController.h"
 #import "DiyRotateRefreshHeader.h"
+//#import "Masonry.h"
 
 @interface FrameTableViewController ()
 
@@ -95,7 +96,6 @@
     }
     return _submitButton;
 }
-
 #pragma mark 子视图布局 父视图的位置最好在getTableViewFrame方法中执行
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -104,10 +104,8 @@
     
     self.view.backgroundColor = COLOR_BACKGROUND;
     
-    //    CGFloat const noticeBackHeight = 30;
-    //    self.noticeBack.frame = CGRectMake(0, 0, self.view.width, noticeBackHeight);
-    
     CGFloat const leftMargin = 10;
+    
     self.noticeLabel.centerY = self.noticeIcon.centerY = self.noticeBack.height / 2.;
     self.noticeIcon.x = leftMargin;
     self.noticeLabel.x = self.noticeIcon.maxX + leftMargin;
@@ -117,10 +115,29 @@
     self.submitButton.height = 50;
 }
 
-#pragma mark 自定义上拉加载控件
--(MJRefreshHeader *)getRefreshHeader{
-    return [[DiyRotateRefreshHeader alloc]init];
-}
+//调用autoLayerout工具Masonry测试 完全可行 不需要实现getTableViewFrame方法 在viewDidLoad中替换最后7行代码
+//    [self.noticeBack mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.height.equalTo(@30);
+//        make.left.right.top.equalTo(self.view);
+//    }];
+//    [self.noticeIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(@(leftMargin));
+//        make.centerY.equalTo(self.noticeBack);
+//    }];
+//    [self.noticeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self.noticeIcon.mas_right).offset(leftMargin);
+//        make.centerY.equalTo(self.noticeBack);
+//    }];
+//    [self.submitButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.height.equalTo(@50);
+//        make.left.right.bottom.equalTo(self.view);
+//    }];
+//    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.noticeBack.mas_bottom);
+//        make.left.right.equalTo(self.view);
+//        make.bottom.equalTo(self.submitButton.mas_top);
+//    }];
+
 #pragma mark 设置tableView位置信息
 //如存在和容器底部对齐的元素，请在此方法对齐底部位置(默认占满controller边界)；autoLayerout无需重写此方法，自行设置tableView和其他元素布局关系
 -(CGRect)getTableViewFrame{
@@ -130,6 +147,11 @@
     
     //返回设置好的tableView位置frame 高度=总高度-公告区高-底部按钮高
     return CGRectMake(0, self.noticeBack.height, self.view.width, self.view.height - self.noticeBack.height - self.submitButton.height);
+}
+
+#pragma mark 自定义上拉加载控件
+-(MJRefreshHeader *)getRefreshHeader{
+    return [[DiyRotateRefreshHeader alloc]init];
 }
 
 #pragma mark 触发下拉刷新(交互或代码)
@@ -152,6 +174,5 @@
     webViewController.navigationTitle = dishesModel.title;
     [self.navigationController pushViewController:webViewController animated:YES];
 }
-
 
 @end

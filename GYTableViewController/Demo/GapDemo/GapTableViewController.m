@@ -91,6 +91,4 @@
     self.view.backgroundColor = COLOR_BACKGROUND;
 }
 
-
-
 @end

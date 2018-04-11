@@ -15,12 +15,12 @@
 
 @implementation GYTableViewController
 
-//-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    return 0;
-//}
-//-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    return nil;
-//}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 0;
+}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return nil;
+}
 
 -(void)setSelectedIndexPath:(NSIndexPath *)selectedIndexPath{
     self.tableView.selectedIndexPath = selectedIndexPath;
@@ -56,14 +56,9 @@
     if (!self.tableView) {
         
 //        BOOL translucent = (self.tabBarController != NULL && self.tabBarController.navigationController != NULL && !self.tabBarController.navigationController.navigationBar.translucent);
-        
-        self.tableView = [[GYTableBaseView alloc]initWithFrameAndParams:self.view.frame showHeader:self.isShowHeader showFooter:self.isShowFooter useCellIdentifer:self.useCellIdentifer
-                                                         topEdgeDiverge:
-//                          (self.navigationController != NULL && !self.navigationController.navigationBar.translucent)
-                          NO
-                          ];
+        self.tableView = [[GYTableBaseView alloc]initWithFrameAndParams:self.view.frame showHeader:self.isShowHeader showFooter:self.isShowFooter useCellIdentifer:self.useCellIdentifer delegate:self];
 //        self.tableView.alpha = 0.3;
-        self.tableView.refreshDelegate = self;
+//        self.tableView.gy_delegate = self;
         [self.view addSubview:self.tableView];
         MJRefreshHeader* header = [self getRefreshHeader];
         if (header) {
@@ -95,7 +90,9 @@
 }
 #pragma mark 坑爹!!! 必须时时跟随主view的frame
 -(void)viewDidLayoutSubviews{
-    self.tableView.frame = [self getTableViewFrame];
+    if(self.tableView.translatesAutoresizingMaskIntoConstraints){//没开启约束
+        self.tableView.frame = [self getTableViewFrame];
+    }
     [super viewDidLayoutSubviews];
 }
 
