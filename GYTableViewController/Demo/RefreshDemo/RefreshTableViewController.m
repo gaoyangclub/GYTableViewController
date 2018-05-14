@@ -20,15 +20,13 @@
 //
 //- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
 //    UIView *view = [super hitTest:point withEvent:event];
-//    if ([view isKindOfClass:[UITableView class]]) {
-//        return self;
+////    if ([view isKindOfClass:[UITableView class]]) {
+////        return self;
+////    }
+//    if (view == self.contentView) {
+//        return [self.tableView.superview.subviews[0] hitTest:point withEvent:event];
 //    }
-//    return nil;
-//}
-//
-//
-//-(void)showSubviews{
-//    self.userInteractionEnabled = NO;
+//    return view;
 //}
 //
 //@end
@@ -41,9 +39,40 @@
 
 @property(nonatomic,retain)NSArray<FundModel*>* fundNewModels;
 
+//@property(nonatomic,retain)UIButton* submitButton;
+//@property(nonatomic,retain)UIView* buttonArea;
+
 @end
 
 @implementation RefreshTableViewController
+
+//-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+//    NSLog(@"%@界面点击",[self class]);
+//}
+//
+//-(UIView *)buttonArea{
+//    if(!_buttonArea){
+//        _buttonArea = [[UIView alloc]init];
+//        [self.view addSubview:_buttonArea];
+//        _buttonArea.backgroundColor = [UIColor orangeColor];
+//    }
+//    return _buttonArea;
+//}
+//
+//-(UIButton *)submitButton{
+//    if (!_submitButton) {
+//        _submitButton = [UIButton buttonWithType:UIButtonTypeSystem];
+//        _submitButton.backgroundColor = COLOR_PRIMARY_DISHES;
+//        [_submitButton setTitle:@"结   算" forState:UIControlStateNormal];
+//        [_submitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//        _submitButton.titleLabel.font = [UIFont systemFontOfSize:20];
+//        
+//        [self.buttonArea addSubview:_submitButton];
+//        
+//        //        [_submitButton addTarget:self action:@selector(clickSubmitButton:) forControlEvents:UIControlEventTouchUpInside];
+//    }
+//    return _submitButton;
+//}
 
 //----------  start ----------
 #pragma mark monk数据
@@ -103,6 +132,9 @@
 //----------  end  ----------
 
 - (void)viewDidLoad {
+//    self.buttonArea.frame = CGRectMake(0,0, self.view.width, self.view.height);
+//    self.submitButton.frame = CGRectMake(0, 0, 300, 60);
+    [self.view bringSubviewToFront:self.tableView];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     [super viewDidLoad];
     self.view.backgroundColor = COLOR_BACKGROUND;
