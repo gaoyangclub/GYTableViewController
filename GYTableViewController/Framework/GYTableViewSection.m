@@ -17,19 +17,19 @@
 
 @implementation GYTableViewSection
 
--(void)setSelected:(BOOL)selected
+- (void)setSelected:(BOOL)selected
 {
     [super setSelected:selected];
     [self setNeedsLayout];
 }
 
--(void)setSectionIndex:(NSInteger)sectionIndex
+- (void)setSectionIndex:(NSInteger)sectionIndex
 {
     _sectionIndex = sectionIndex;
     [self setNeedsLayout];
 }
 
--(void)setData:(NSObject *)data
+- (void)setData:(NSObject *)data
 {
     _data = data;
     [self setNeedsLayout];

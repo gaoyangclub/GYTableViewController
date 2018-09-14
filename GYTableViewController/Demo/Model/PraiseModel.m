@@ -10,7 +10,7 @@
 
 @implementation PraiseModel
 
-+(instancetype)initWithParams:(NSString *)groupTitle hotModels:(NSArray<HotModel *> *)hotModels{
++ (instancetype)initWithParams:(NSString *)groupTitle hotModels:(NSArray<HotModel *> *)hotModels {
     PraiseModel *instance;
     @synchronized (self)    {
         if (instance == nil)

@@ -8,8 +8,8 @@
 //  Cell自动调整高度示例
 //
 
-#import "GYTableViewController.h"
+#import "UIViewController+GYTableView.h"
 
-@interface AutoHeightTableViewController : GYTableViewController
+@interface AutoHeightTableViewController : UIViewController
 
 @end

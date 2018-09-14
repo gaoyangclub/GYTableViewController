@@ -18,24 +18,24 @@
 
 @interface AutoHeightWeiboCell()
 
-@property(nonatomic,retain)UIImageView* iconView;
+@property (nonatomic,strong) UIImageView *iconView;
 
-@property(nonatomic,retain)UILabel* nameLabel;
+@property (nonatomic,strong) UILabel *nameLabel;
 
-@property(nonatomic,retain)UILabel* titleLabel;
+@property (nonatomic,strong) UILabel *titleLabel;
 
-@property(nonatomic,retain)UILabel* contentLabel;
+@property (nonatomic,strong) UILabel *contentLabel;
 
-@property(nonatomic,retain)UIImageView* photoView;
+@property (nonatomic,strong) UIImageView *photoView;
 
-@property(nonatomic,retain)UIView* bottomLine;
+@property (nonatomic,strong) UIView *bottomLine;
 
 @end
 
 @implementation AutoHeightWeiboCell
 
 #pragma mark 懒加载添加视图
--(UIImageView *)iconView{
+- (UIImageView *)iconView {
     if (!_iconView) {
         _iconView = [[UIImageView alloc]init];
         _iconView.contentMode = UIViewContentModeScaleAspectFill;
@@ -48,7 +48,7 @@
     return _iconView;
 }
 
--(UIImageView *)photoView{
+- (UIImageView *)photoView {
     if (!_photoView) {
         _photoView = [[UIImageView alloc]init];
         _photoView.contentMode = UIViewContentModeScaleAspectFill;
@@ -58,7 +58,7 @@
     return _photoView;
 }
 
--(UILabel *)titleLabel{
+- (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [UICreationUtils createLabel:SIZE_TEXT_SECONDARY color:COLOR_TEXT_SECONDARY];
         [self.contentView addSubview:_titleLabel];
@@ -66,7 +66,7 @@
     return _titleLabel;
 }
 
--(UILabel *)nameLabel{
+- (UILabel *)nameLabel {
     if (!_nameLabel) {
         _nameLabel = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_TEXT_PRIMARY];
         [self.contentView addSubview:_nameLabel];
@@ -74,7 +74,7 @@
     return _nameLabel;
 }
 
--(UILabel *)contentLabel{
+- (UILabel *)contentLabel {
     if (!_contentLabel) {
         _contentLabel = [UICreationUtils createLabel:SIZE_TEXT_SECONDARY color:COLOR_TEXT_PRIMARY];
         _contentLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -84,7 +84,7 @@
     return _contentLabel;
 }
 
--(UIView *)bottomLine{
+- (UIView *)bottomLine {
     if (!_bottomLine) {
         _bottomLine = [[UIView alloc]init];
         _bottomLine.backgroundColor = COLOR_LINE;
@@ -96,9 +96,9 @@
 
 #pragma mark 获取动态高度,高度被缓存不会二次计算
 //    NSLog(@"getCellHeight被调用！");
--(CGFloat)getCellHeight:(CGFloat)cellWidth{
-    WeiboModel* weiboModel = GET_CELL_DATA(WeiboModel.class);//获取Model
-    NSString* content = weiboModel.content;//获取动态内容字符串
+- (CGFloat)getCellHeight:(CGFloat)cellWidth {
+    WeiboModel *weiboModel = GET_CELL_DATA(WeiboModel.class);//获取Model
+    NSString *content = weiboModel.content;//获取动态内容字符串
     CGRect contentSize = [content boundingRectWithSize:CGSizeMake(cellWidth - LEFT_PADDING - RIGHT_PADDING, FLT_MAX)
                              options:NSStringDrawingUsesLineFragmentOrigin
                           attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:SIZE_TEXT_SECONDARY]}
@@ -106,10 +106,10 @@
     return TOPIC_AREA_HEIGHT + contentSize.size.height + IMAGE_AREA_HEIGHT + BOTTOM_PADDING * 2;//返回计算后的最终高度
 }
 #pragma mark 根据外部传入数据开始布局
--(void)showSubviews{
+- (void)showSubviews {
     self.backgroundColor = [UIColor whiteColor];
     
-    WeiboModel* weiboModel = GET_CELL_DATA(WeiboModel.class);
+    WeiboModel *weiboModel = GET_CELL_DATA(WeiboModel.class);
     
     [self.iconView sd_setImageWithURL:[NSURL URLWithString:weiboModel.iconName]];
     self.iconView.centerX = LEFT_PADDING / 2.;

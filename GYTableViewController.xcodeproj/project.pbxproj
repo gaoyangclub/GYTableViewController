@@ -58,8 +58,8 @@
 		A9384F9C207085FC008A3255 /* GYTableViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = A9384F92207085FC008A3255 /* GYTableViewSection.m */; };
 		A9384F9D207085FC008A3255 /* MJRefreshComponent+GY.m in Sources */ = {isa = PBXBuildFile; fileRef = A9384F93207085FC008A3255 /* MJRefreshComponent+GY.m */; };
 		A9384F9E207085FC008A3255 /* GYRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = A9384F94207085FC008A3255 /* GYRefreshAutoFooter.m */; };
-		A9384F9F207085FC008A3255 /* GYTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9384F95207085FC008A3255 /* GYTableViewController.m */; };
 		A9384FA0207085FC008A3255 /* GYTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9384F97207085FC008A3255 /* GYTableViewCell.m */; };
+		A978F24E2149FE15008568C7 /* UIViewController+GYTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = A978F24D2149FE15008568C7 /* UIViewController+GYTableView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -141,18 +141,18 @@
 		A92970AE206F31CD0052AF0E /* fundHot07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fundHot07.png; sourceTree = "<group>"; };
 		A92970B0206F31CD0052AF0E /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
 		A92970B1206F31CD0052AF0E /* demo_unicode.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = demo_unicode.html; sourceTree = "<group>"; };
-		A9384F8F207085FC008A3255 /* GYTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GYTableViewController.h; sourceTree = "<group>"; };
 		A9384F90207085FC008A3255 /* GYTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GYTableViewCell.h; sourceTree = "<group>"; };
 		A9384F91207085FC008A3255 /* GYTableBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GYTableBaseView.m; sourceTree = "<group>"; };
 		A9384F92207085FC008A3255 /* GYTableViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GYTableViewSection.m; sourceTree = "<group>"; };
 		A9384F93207085FC008A3255 /* MJRefreshComponent+GY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MJRefreshComponent+GY.m"; sourceTree = "<group>"; };
 		A9384F94207085FC008A3255 /* GYRefreshAutoFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GYRefreshAutoFooter.m; sourceTree = "<group>"; };
-		A9384F95207085FC008A3255 /* GYTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GYTableViewController.m; sourceTree = "<group>"; };
 		A9384F96207085FC008A3255 /* GYTableBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GYTableBaseView.h; sourceTree = "<group>"; };
 		A9384F97207085FC008A3255 /* GYTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GYTableViewCell.m; sourceTree = "<group>"; };
 		A9384F98207085FC008A3255 /* MJRefreshComponent+GY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MJRefreshComponent+GY.h"; sourceTree = "<group>"; };
 		A9384F99207085FC008A3255 /* GYTableViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GYTableViewSection.h; sourceTree = "<group>"; };
 		A9384F9A207085FC008A3255 /* GYRefreshAutoFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GYRefreshAutoFooter.h; sourceTree = "<group>"; };
+		A978F24C2149FE15008568C7 /* UIViewController+GYTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+GYTableView.h"; sourceTree = "<group>"; };
+		A978F24D2149FE15008568C7 /* UIViewController+GYTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+GYTableView.m"; sourceTree = "<group>"; };
 		BB0902A3C76E084E2D3480F4 /* Pods-GYTableViewController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GYTableViewController.release.xcconfig"; path = "Pods/Target Support Files/Pods-GYTableViewController/Pods-GYTableViewController.release.xcconfig"; sourceTree = "<group>"; };
 		E301B20D533B9F90241B2513 /* libPods-GYTableViewController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GYTableViewController.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8EEDD4C6537A6D01962065B /* Pods-GYTableViewController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GYTableViewController.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GYTableViewController/Pods-GYTableViewController.debug.xcconfig"; sourceTree = "<group>"; };
@@ -380,8 +380,8 @@
 		A9384F8E207085FC008A3255 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
-				A9384F8F207085FC008A3255 /* GYTableViewController.h */,
-				A9384F95207085FC008A3255 /* GYTableViewController.m */,
+				A978F24C2149FE15008568C7 /* UIViewController+GYTableView.h */,
+				A978F24D2149FE15008568C7 /* UIViewController+GYTableView.m */,
 				A9384F96207085FC008A3255 /* GYTableBaseView.h */,
 				A9384F91207085FC008A3255 /* GYTableBaseView.m */,
 				A9384F90207085FC008A3255 /* GYTableViewCell.h */,
@@ -549,10 +549,10 @@
 				A92970BA206F31CD0052AF0E /* DiyRotateRefreshHeader.m in Sources */,
 				A92970B8206F31CD0052AF0E /* UICreationUtils.m in Sources */,
 				A92970B9206F31CD0052AF0E /* FrameTableViewController.m in Sources */,
+				A978F24E2149FE15008568C7 /* UIViewController+GYTableView.m in Sources */,
 				A9384F9B207085FC008A3255 /* GYTableBaseView.m in Sources */,
 				A92970CC206F31CD0052AF0E /* GapStoreHeaderCell.m in Sources */,
 				A92970C7206F31CD0052AF0E /* StoreModel.m in Sources */,
-				A9384F9F207085FC008A3255 /* GYTableViewController.m in Sources */,
 				A929704B206F2FD50052AF0E /* main.m in Sources */,
 				A9384F9D207085FC008A3255 /* MJRefreshComponent+GY.m in Sources */,
 				A9384F9C207085FC008A3255 /* GYTableViewSection.m in Sources */,
@@ -715,7 +715,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GDF5YE97RF;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GYTableViewController/PrefixHeader.pch;
 				INFOPLIST_FILE = GYTableViewController/Info.plist;
@@ -732,7 +732,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GDF5YE97RF;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GYTableViewController/PrefixHeader.pch;
 				INFOPLIST_FILE = GYTableViewController/Info.plist;

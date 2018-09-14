@@ -10,13 +10,13 @@
 
 @interface DiyRotateRefreshHeader()
 
-@property(nonatomic,retain)UILabel* rotateView;
+@property (nonatomic,strong) UILabel *rotateView;
 
 @end
 
 @implementation DiyRotateRefreshHeader
 
--(UILabel *)rotateView{
+- (UILabel *)rotateView {
     if (!_rotateView) {
         _rotateView = [[UILabel alloc]init];
         UIFont *iconfont = [UIFont fontWithName:@"iconfont" size: 25];
@@ -29,7 +29,7 @@
     return _rotateView;
 }
 
--(void)placeSubviews{
+- (void)placeSubviews {
     [super placeSubviews];
     
     CGFloat arrowCenterX = self.mj_w * 0.5;
@@ -40,7 +40,7 @@
     self.rotateView.center = arrowCenter;
 }
 
--(void)startRotateRepert{
+- (void)startRotateRepert {
     [UIView animateWithDuration:0.05f
                           delay:0
                         options:UIViewAnimationOptionCurveLinear
@@ -58,7 +58,7 @@
                      }];
 }
 
--(void)stopRotate{
+- (void)stopRotate {
     [UIView animateWithDuration:0.2f
                           delay:0
                         options:UIViewAnimationOptionCurveEaseOut
@@ -70,7 +70,7 @@
                      }];
 }
 
--(void)setState:(MJRefreshState)state{
+- (void)setState:(MJRefreshState)state {
     
     MJRefreshCheckState
     
@@ -89,7 +89,7 @@
     }
 }
 
--(void)setPullingPercent:(CGFloat)pullingPercent{
+- (void)setPullingPercent:(CGFloat)pullingPercent {
     [super setPullingPercent:pullingPercent];
 ////    if (pullingPercent == 0) {
 ////        self.rotateView.alpha = 1;

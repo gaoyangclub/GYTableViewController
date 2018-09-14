@@ -13,15 +13,15 @@
 
 @interface GapPraiseItem : UIControl
 
-@property(nonatomic,retain) UILabel* titleLable;
-@property(nonatomic,retain) UIImageView* iconView;//图片
-@property(nonatomic,retain) HotModel* hotModel;
+@property (nonatomic,strong) UILabel *titleLable;
+@property (nonatomic,strong) UIImageView *iconView;//图片
+@property (nonatomic,strong) HotModel *hotModel;
 
 @end
 
 @implementation GapPraiseItem
 
--(UILabel *)titleLable{
+- (UILabel *)titleLable {
     if (!_titleLable) {
         _titleLable = [UICreationUtils createLabel:SIZE_TEXT_SECONDARY color:[UIColor whiteColor]];
         [self addSubview:_titleLable];
@@ -29,7 +29,7 @@
     return _titleLable;
 }
 
--(UIImageView *)iconView{
+- (UIImageView *)iconView {
     if(!_iconView){
         _iconView = [[UIImageView alloc]init];
         _iconView.contentMode = UIViewContentModeScaleAspectFill;
@@ -39,7 +39,7 @@
     return _iconView;
 }
 
--(void)layoutSubviews{
+- (void)layoutSubviews {
     [super layoutSubviews];
     
     [self.iconView sd_setImageWithURL:[NSURL URLWithString:self.hotModel.iconName]];//网络加载图片
@@ -56,14 +56,14 @@
 
 @interface GapPraiseGroupCell()
 
-@property(nonatomic,retain)UILabel* groupTitleLable;
-@property(nonatomic,retain)UILabel* groupIconView;
+@property (nonatomic,strong) UILabel *groupTitleLable;
+@property (nonatomic,strong) UILabel *groupIconView;
 
 @end
 
 @implementation GapPraiseGroupCell
 
--(UILabel *)groupIconView{
+- (UILabel *)groupIconView {
     if (!_groupIconView) {
         _groupIconView = [UICreationUtils createLabel:ICON_FONT_NAME size:20 color:COLOR_PRIMARY_PRAISE];
         [self.contentView addSubview:_groupIconView];
@@ -71,7 +71,7 @@
     return _groupIconView;
 }
 
--(UILabel *)groupTitleLable{
+- (UILabel *)groupTitleLable {
     if (!_groupTitleLable) {
         _groupTitleLable = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_PRIMARY_PRAISE];
         [self addSubview:_groupTitleLable];
@@ -83,10 +83,10 @@
 /**
  * 添加三个GapPraiseItem实例，一字排开
  */
--(void)showSubviews{
+- (void)showSubviews {
     self.backgroundColor = [UIColor whiteColor];
     
-    PraiseModel* praiseModel = GET_CELL_DATA(PraiseModel.class);
+    PraiseModel *praiseModel = GET_CELL_DATA(PraiseModel.class);
     
     CGFloat const toppadding = 50;
     CGFloat const padding = 15;

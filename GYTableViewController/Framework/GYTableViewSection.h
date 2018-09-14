@@ -23,14 +23,14 @@
 @interface GYTableViewSection : UIControl
 
 /** tableView所有section总数  **/
-@property(nonatomic,assign)NSInteger sectionCount;
+@property (nonatomic,assign) NSInteger sectionCount;
 /** 当前section索引位置  **/
-@property(nonatomic,assign)NSInteger sectionIndex;
+@property (nonatomic,assign) NSInteger sectionIndex;
 /** 外部传入的数据 用来布局或交互等（sectionVo.sectionData） **/
-@property(nonatomic,retain)id data;
+@property (nonatomic,strong) id data;
 /** 是否在整个tableView的首位 **/
-@property(nonatomic,assign)BOOL isFirst;
+@property (nonatomic,assign) BOOL isFirst;
 /** 是否在整个tableView的末位 **/
-@property(nonatomic,assign)BOOL isLast;
+@property (nonatomic,assign) BOOL isLast;
 
 @end

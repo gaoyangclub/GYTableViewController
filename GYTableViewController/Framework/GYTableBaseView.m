@@ -24,8 +24,8 @@ typedef enum {
 @interface SectionVo()
 
 /** 存储该节包含的cellVo数据列表 注:包含用户数据和gap数据 不能直接对外遍历使用 **/
-@property (nonatomic,retain)NSMutableArray<CellVo*>* cellVoList;
-//@property (nonatomic,assign)BOOL isSectionGap;//作为间距容器存在
+@property (nonatomic,strong) NSMutableArray<CellVo *> *cellVoList;
+//@property (nonatomic,assign) BOOL isSectionGap;//作为间距容器存在
 
 @end
 
@@ -33,14 +33,14 @@ typedef enum {
 
 @property (nonatomic,assign)CellType cellType;
 
--(BOOL)isRealCell;
+- (BOOL)isRealCell;
 
 @end
 
 @interface GYTableBaseView()<UITableViewDelegate,UITableViewDataSource>{//
     
 }
-@property(nonatomic,retain)NSMutableArray<SectionVo*>* dataArray;
+@property (nonatomic,strong) NSMutableArray<SectionVo *> *dataArray;
 
 @property (nonatomic,assign) BOOL useCellIdentifer;
 @property (nonatomic,assign) BOOL showHeader;
@@ -56,7 +56,7 @@ typedef enum {
 
 @implementation GYTableBaseView
 
--(instancetype)initWithFrameAndParams:(CGRect)frame showHeader:(BOOL)showHeader showFooter:(BOOL)showFooter useCellIdentifer:(BOOL)useCellIdentifer delegate:(id<GYTableBaseViewDelegate>)delegate{// topEdgeDiverge:(BOOL)topEdgeDiverge
+- (instancetype)initWithFrameAndParams:(CGRect)frame showHeader:(BOOL)showHeader showFooter:(BOOL)showFooter useCellIdentifer:(BOOL)useCellIdentifer delegate:(id<GYTableBaseViewDelegate>)delegate{// topEdgeDiverge:(BOOL)topEdgeDiverge
     self = [super initWithFrame:frame];
     if (self) {
         self.useCellIdentifer = useCellIdentifer;
@@ -69,7 +69,7 @@ typedef enum {
     return self;
 }
 
--(instancetype)initWithFrameAndParams:(CGRect)frame style:(UITableViewStyle)style showHeader:(BOOL)showHeader showFooter:(BOOL)showFooter useCellIdentifer:(BOOL)useCellIdentifer delegate:(id<GYTableBaseViewDelegate>)delegate{//topEdgeDiverge:(BOOL)topEdgeDiverge
+- (instancetype)initWithFrameAndParams:(CGRect)frame style:(UITableViewStyle)style showHeader:(BOOL)showHeader showFooter:(BOOL)showFooter useCellIdentifer:(BOOL)useCellIdentifer delegate:(id<GYTableBaseViewDelegate>)delegate {//topEdgeDiverge:(BOOL)topEdgeDiverge
     self = [super initWithFrame:frame style:style];
     if (self) {
         self.useCellIdentifer = useCellIdentifer;
@@ -83,7 +83,7 @@ typedef enum {
 }
 
 //alloc会调用allocWithZone:
-+(id)allocWithZone:(NSZone *)zone
++ (id)allocWithZone:(NSZone *)zone
 {
     GYTableBaseView* instance;
     @synchronized (self) {
@@ -99,7 +99,7 @@ typedef enum {
     return nil;
 }
 
--(instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self prepare];
@@ -107,19 +107,19 @@ typedef enum {
     return self;
 }
 
--(NSMutableArray<SectionVo*> *)dataArray{
+- (NSMutableArray<SectionVo*> *)dataArray {
     if(!_dataArray){
-        _dataArray = [[NSMutableArray<SectionVo*> alloc]init];
+        _dataArray = [[NSMutableArray<SectionVo *> alloc]init];
     }
     return _dataArray;
 }
 
--(NSMutableArray<SectionVo *> *)dataSourceArray{
+- (NSMutableArray<SectionVo *> *)dataSourceArray {
     return self.dataArray;
 }
 
 /** 重新刷新界面 */
--(void)headerBeginRefresh {
+- (void)headerBeginRefresh {
     if (!self.mj_header.isRefreshing) {
         [self clearAllSectionVo];
         [self reloadData];
@@ -127,46 +127,46 @@ typedef enum {
     }
 }
 
--(void)clearAllSectionVo {
+- (void)clearAllSectionVo {
     _selectedIndexPath = nil;
     [self.dataArray removeAllObjects];
 }
 
--(void)addSectionVo:(SectionVo*)sectionVo {
+- (void)addSectionVo:(SectionVo*)sectionVo {
     [self.dataArray addObject:sectionVo];
 }
 
--(void)insertSectionVo:(SectionVo *)sectionVo atIndex:(NSInteger)index{
+- (void)insertSectionVo:(SectionVo *)sectionVo atIndex:(NSInteger)index {
     [self.dataArray insertObject:sectionVo atIndex:index];
 }
 
--(void)removeSectionVoAt:(NSInteger)index{
+- (void)removeSectionVoAt:(NSInteger)index {
     [self.dataArray removeObjectAtIndex:index];
 }
 
--(SectionVo*)getSectionVoByIndex:(NSInteger)index{
+- (SectionVo*)getSectionVoByIndex:(NSInteger)index {
     if (index < self.dataArray.count) {
         return self.dataArray[index];
     }
     return nil;
 }
 
--(CellVo *)getCellVoByIndexPath:(NSIndexPath *)indexPath{
-    SectionVo* sectionVo = [self getSectionVoByIndex:indexPath.section];
+- (CellVo *)getCellVoByIndexPath:(NSIndexPath *)indexPath {
+    SectionVo *sectionVo = [self getSectionVoByIndex:indexPath.section];
     if (sectionVo && sectionVo.cellVoList && indexPath.row < sectionVo.cellVoList.count) {
         return sectionVo.cellVoList[indexPath.row];
     }
     return nil;
 }
 
--(NSUInteger)getSectionVoCount{
+- (NSUInteger)getSectionVoCount {
     return self.dataArray.count;
 }
 
--(NSUInteger)getTotalCellVoCount{
+- (NSUInteger)getTotalCellVoCount {
     NSInteger cellCount = 0;
-    for (SectionVo* svo in self.dataArray) {
-        for (__unused CellVo* cvo in svo.cellVoList) {
+    for (SectionVo *svo in self.dataArray) {
+        for (__unused CellVo *cvo in svo.cellVoList) {
             cellCount ++;
         }
     }
@@ -175,7 +175,7 @@ typedef enum {
 
 /**----- mark下 如下代码利用runtime动态增加代理方法给外部控制器使用，存在一些问题，暂时还是手动放开底部一堆delegate方法进行转发   start  -----*/
 
--(void)setGy_delegate:(id<GYTableBaseViewDelegate>)gy_delegate{
+- (void)setGy_delegate:(id<GYTableBaseViewDelegate>)gy_delegate {
     _gy_delegate = gy_delegate;
     
 //    unsigned int mothCout_f = 0;
@@ -280,7 +280,7 @@ typedef enum {
 
 /**----------------   end   ------------**/
 
-//-(void)setTopEdgeDiverge:(BOOL)topEdgeDiverge{
+//- (void)setTopEdgeDiverge:(BOOL)topEdgeDiverge{
 ////    if (topEdgeDiverge) {
 //////        self.contentInset = UIEdgeInsetsMake(0, 0, 64, 0);
 ////        self.mj_insetB = 64;
@@ -289,7 +289,7 @@ typedef enum {
 ////    }
 //}
 
--(void)prepare{
+- (void)prepare {
 //    dispatch_once_t onceToken;
 //    dispatch_once(&onceToken, ^{
     
@@ -326,7 +326,7 @@ typedef enum {
 //    });
 }
 
--(void)setHeader:(MJRefreshHeader *)header{
+- (void)setHeader:(MJRefreshHeader *)header {
     if (self.showHeader) {
         __weak __typeof(self) weakSelf = self;
         header.refreshingBlock = ^{
@@ -356,7 +356,7 @@ typedef enum {
     }
 }
 
--(void)setFooter:(MJRefreshFooter *)footer{
+- (void)setFooter:(MJRefreshFooter *)footer {
     if (self.showFooter) {
         __weak __typeof(self) weakSelf = self;
         footer.refreshingBlock = ^{
@@ -384,7 +384,7 @@ typedef enum {
     }
 }
 
--(void)moveSelectedIndexPathToCenter{
+- (void)moveSelectedIndexPathToCenter {
     if(self.mj_header.isIdle){//不在刷新状态下可以使用
         if (self.clickCellMoveToCenter && self->_selectedIndexPath) {
             //                GYTableViewCell* cell = [self cellForRowAtIndexPath:_selectedIndexPath];
@@ -394,7 +394,7 @@ typedef enum {
     }
 }
 
--(void)gy_reloadData{
+- (void)gy_reloadData {
 //    self.refreshAll = YES;
     [self checkGaps];
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -408,38 +408,38 @@ typedef enum {
     });
 }
 
--(MJRefreshHeader *)header{
+- (MJRefreshHeader *)header {
     return self.mj_header;
 }
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.dataArray.count;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    SectionVo* sectionVo = [self getSectionVoByIndex:section];
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    SectionVo *sectionVo = [self getSectionVoByIndex:section];
     return sectionVo ? sectionVo.sectionHeaderHeight : 0;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
     return [self tableView:tableView heightForHeaderInSection:section];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    SectionVo* sectionVo = [self getSectionVoByIndex:section];
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    SectionVo *sectionVo = [self getSectionVoByIndex:section];
     return sectionVo ? sectionVo.sectionFooterHeight : 0;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section {
     return [self tableView:tableView heightForFooterInSection:section];
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    SectionVo* sectionVo = [self getSectionVoByIndex:section];
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    SectionVo *sectionVo = [self getSectionVoByIndex:section];
     return sectionVo && sectionVo.cellVoList ? sectionVo.cellVoList.count : 0;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
     
@@ -447,18 +447,18 @@ typedef enum {
         NSLog(@"产生无效UITableViewCell 可能是一个刷新列表正在进行中 另一个刷新就来了引起的");
         return [[UITableViewCell alloc] init];
     }
-    SectionVo* sectionVo = [self getSectionVoByIndex:section];
-    CellVo* cellVo = sectionVo.cellVoList[row];//获取的数据给cell显示
+    SectionVo *sectionVo = [self getSectionVoByIndex:section];
+    CellVo *cellVo = sectionVo.cellVoList[row];//获取的数据给cell显示
     Class cellClass = cellVo.cellClass;
 //    if(autoCellClass != nil){
 //        cellClass = autoCellClass!
 //    }
     
-    GYTableViewCell* cell;
+    GYTableViewCell *cell;
     BOOL isCreate = NO;
     if(self.useCellIdentifer) {
-        NSString* cellIdentifer;
-        NSString* classString = NSStringFromClass(cellClass);
+        NSString *cellIdentifer;
+        NSString *classString = NSStringFromClass(cellClass);
         if(cellVo.isUnique){//唯一
             cellIdentifer = [classString stringByAppendingString:[NSString stringWithFormat:@"_%lu_%lu",section,row]];
         }else{
@@ -504,24 +504,24 @@ typedef enum {
 }
 
 //防止子类交互影响屏蔽父类
--(BOOL)touchesShouldCancelInContentView:(UIView *)view{
+- (BOOL)touchesShouldCancelInContentView:(UIView *)view {
     return YES;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    CellVo* cellVo = [self getCellVoByIndexPath:indexPath];
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CellVo *cellVo = [self getCellVoByIndexPath:indexPath];
     if (cellVo) {
         return cellVo.cellHeight;
     }
     return 0;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [self tableView:tableView heightForRowAtIndexPath:indexPath];
 }
 
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    SectionVo* sectionVo = [self getSectionVoByIndex:section];
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    SectionVo *sectionVo = [self getSectionVoByIndex:section];
     Class headerClass = sectionVo.sectionHeaderClass;
     GYTableViewSection* sectionView;
     if (headerClass != NULL) {
@@ -542,8 +542,8 @@ typedef enum {
     return sectionView;
 }
 
-- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    SectionVo* sectionVo = [self getSectionVoByIndex:section];
+- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    SectionVo *sectionVo = [self getSectionVoByIndex:section];
     Class footerClass = sectionVo.sectionFooterClass;
     GYTableViewSection* sectionView;
     if (footerClass != NULL) {
@@ -557,7 +557,7 @@ typedef enum {
     return sectionView;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.clickCellMoveToCenter) {
         [self moveCellToCenter:indexPath];
     }
@@ -575,7 +575,7 @@ typedef enum {
     [self dispatchSelectRow:indexPath];
 }
 
--(void)moveCellToCenter:(NSIndexPath *)indexPath{
+- (void)moveCellToCenter:(NSIndexPath *)indexPath {
     CGRect btnToSelf = [self rectForRowAtIndexPath:indexPath];
     CGPoint contentOffset = self.contentOffset;
     CGFloat moveY = btnToSelf.origin.y + btnToSelf.size.height / 2. - contentOffset.y - CGRectGetHeight(self.bounds) / 2.;// - self.contentInset.top
@@ -590,7 +590,7 @@ typedef enum {
     [self setContentOffset:CGPointMake(contentOffset.x,moveOffsetY) animated:YES];
 }
 
--(void)dispatchSelectRow:(NSIndexPath *)indexPath{
+- (void)dispatchSelectRow:(NSIndexPath *)indexPath {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]){
         [self.gy_delegate tableView:self didSelectRowAtIndexPath:indexPath];
     }
@@ -599,25 +599,25 @@ typedef enum {
 //    }
 }
 
--(void)setSelectedIndexPath:(NSIndexPath *)selectedIndexPath{
+- (void)setSelectedIndexPath:(NSIndexPath *)selectedIndexPath {
     [self changeSelectIndexPath:selectedIndexPath];
 }
 
--(void)changeSelectIndexPath:(NSIndexPath *)selectedIndexPath{
+- (void)changeSelectIndexPath:(NSIndexPath *)selectedIndexPath {
     if (self->_selectedIndexPath) {
-        GYTableViewCell* prevCell = [self cellForRowAtIndexPath:self->_selectedIndexPath];
+        GYTableViewCell *prevCell = [self cellForRowAtIndexPath:self->_selectedIndexPath];
         if (prevCell) {
             prevCell.selected = NO;
         }
     }
     self->_selectedIndexPath = selectedIndexPath;
-    GYTableViewCell* cell = [self cellForRowAtIndexPath:selectedIndexPath];
+    GYTableViewCell *cell = [self cellForRowAtIndexPath:selectedIndexPath];
     if (cell) {
         cell.selected = YES;
     }
 }
 
--(void)checkGaps {
+- (void)checkGaps {
     //遍历整个数据链 判断头尾标记和gap是否存在
 //    for (SectionVo* svo in self.dataArray) {
     for (NSInteger i = [self getSectionVoCount] - 1; i >= 0; i --) {
@@ -633,7 +633,7 @@ typedef enum {
 //                }
 //            }
             for (NSInteger j = svo.cellVoList.count - 1; j >= 0; j --) {
-                CellVo* cvo = svo.cellVoList[j];
+                CellVo *cvo = svo.cellVoList[j];
                 if (cvo.cellType == CellTypeFirst) {
                     hasFirst = YES;
                 }else if(cvo.cellType == CellTypeLast){
@@ -679,12 +679,12 @@ typedef enum {
     }
 }
 
--(SectionVo*)getSectionGapVo{
+- (SectionVo *)getSectionGapVo {
 //    if (svo != nil) {
 //        svo.sectionHeaderHeight = self.sectionGap;
 //    }else{
-    SectionVo* svo = [SectionVo initWithParams:0 sectionHeaderClass:nil sectionHeaderData:nil nextBlock:^(SectionVo *svo) {
-        CellVo* cvo = [CellVo initWithParams:self.sectionGap cellClass:[GYTableViewCell class] cellData:nil];
+    SectionVo *svo = [SectionVo initWithParams:0 sectionHeaderClass:nil sectionHeaderData:nil nextBlock:^(SectionVo *svo) {
+        CellVo *cvo = [CellVo initWithParams:self.sectionGap cellClass:[GYTableViewCell class] cellData:nil];
         cvo.cellType = CellTypeSectionGap;
         [svo addCellVo:cvo];
     }];
@@ -692,20 +692,20 @@ typedef enum {
     return svo;
 }
 
--(CellVo*)getCellGapCellVo{
-    CellVo* cvo = [CellVo initWithParams:self.cellGap cellClass:[GYTableViewCell class] cellData:nil];
+- (CellVo *)getCellGapCellVo{
+    CellVo *cvo = [CellVo initWithParams:self.cellGap cellClass:[GYTableViewCell class] cellData:nil];
     cvo.cellType = CellTypeCellGap;
     return cvo;
 }
 
--(SectionVo*)getLastSectionVo {
+- (SectionVo *)getLastSectionVo {
     if (self.dataArray.count > 0) {
         return self.dataArray.lastObject;
     }
     return NULL;
 }
 
--(SectionVo*)getFirstSectionVo {
+- (SectionVo *)getFirstSectionVo {
     if (self.dataArray.count > 0) {
         return self.dataArray.firstObject;
     }
@@ -713,20 +713,20 @@ typedef enum {
 }
 
 // called when setContentOffset/scrollRectVisible:animated: finishes. not called if not animating
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(scrollViewDidEndScrollingAnimation:)]) {
         [self.gy_delegate scrollViewDidEndScrollingAnimation:scrollView];
     }
 }
 
--(void)scrollToRowAtIndexPath:(NSIndexPath *)indexPath atScrollPosition:(UITableViewScrollPosition)scrollPosition animated:(BOOL)animated{
+- (void)scrollToRowAtIndexPath:(NSIndexPath *)indexPath atScrollPosition:(UITableViewScrollPosition)scrollPosition animated:(BOOL)animated {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(didScrollToRow:indexPath:)]) {
         //        NSLog(@"这是第%li栏目",(long)path.section);
         [self.gy_delegate didScrollToRow:self indexPath:indexPath];
     }
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     //    if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(didScrollToRow:indexPath:)]) {
     //        NSIndexPath *path =  [self indexPathForRowAtPoint:CGPointMake(scrollView.contentOffset.x, scrollView.contentOffset.y)];
     ////        NSLog(@"这是第%li栏目",(long)path.section);
@@ -736,70 +736,70 @@ typedef enum {
         [self.gy_delegate scrollViewDidScroll:scrollView];
     }
 }
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:willDisplayCell:forRowAtIndexPath:)]) {
         [self.gy_delegate tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
     }
 }
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section{
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:willDisplayHeaderView:forSection:)]) {
         [self.gy_delegate tableView:tableView willDisplayHeaderView:view forSection:section];
     }
 }
-- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section{
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:willDisplayFooterView:forSection:)]) {
         [self.gy_delegate tableView:tableView willDisplayFooterView:view forSection:section];
     }
 }
-- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath*)indexPath{
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:didEndDisplayingCell:forRowAtIndexPath:)]) {
         [self.gy_delegate tableView:tableView didEndDisplayingCell:cell forRowAtIndexPath:indexPath];
     }
 }
-- (void)tableView:(UITableView *)tableView didEndDisplayingHeaderView:(UIView *)view forSection:(NSInteger)section{
+- (void)tableView:(UITableView *)tableView didEndDisplayingHeaderView:(UIView *)view forSection:(NSInteger)section {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:didEndDisplayingHeaderView:forSection:)]) {
         [self.gy_delegate tableView:tableView didEndDisplayingHeaderView:view forSection:section];
     }
 }
-- (void)tableView:(UITableView *)tableView didEndDisplayingFooterView:(UIView *)view forSection:(NSInteger)section{
+- (void)tableView:(UITableView *)tableView didEndDisplayingFooterView:(UIView *)view forSection:(NSInteger)section {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:didEndDisplayingFooterView:forSection:)]) {
         [self.gy_delegate tableView:tableView didEndDisplayingFooterView:view forSection:section];
     }
 }
 
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:accessoryButtonTappedForRowWithIndexPath:)]) {
         [self.gy_delegate tableView:tableView accessoryButtonTappedForRowWithIndexPath:indexPath];
     }
 }
-- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:didHighlightRowAtIndexPath:)]) {
         [self.gy_delegate tableView:tableView didHighlightRowAtIndexPath:indexPath];
     }
 }
-- (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:didUnhighlightRowAtIndexPath:)]) {
         [self.gy_delegate tableView:tableView didUnhighlightRowAtIndexPath:indexPath];
     }
 }
-- (nullable NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (nullable NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:willSelectRowAtIndexPath:)]) {
         return [self.gy_delegate tableView:tableView willSelectRowAtIndexPath:indexPath];
     }
     return indexPath;
 }
-- (nullable NSIndexPath *)tableView:(UITableView *)tableView willDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (nullable NSIndexPath *)tableView:(UITableView *)tableView willDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:willDeselectRowAtIndexPath:)]) {
         return [self.gy_delegate tableView:tableView willDeselectRowAtIndexPath:indexPath];
     }
     return indexPath;
 }
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:didDeselectRowAtIndexPath:)]) {
         return [self.gy_delegate tableView:tableView didDeselectRowAtIndexPath:indexPath];
     }
 }
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:editingStyleForRowAtIndexPath:)]) {
         return [self.gy_delegate tableView:tableView editingStyleForRowAtIndexPath:indexPath];
     }
@@ -811,197 +811,197 @@ typedef enum {
     }
     return nil;
 }
-- (nullable NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (nullable NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:editActionsForRowAtIndexPath:)]) {
         return [self.gy_delegate tableView:tableView editActionsForRowAtIndexPath:indexPath];
     }
     return nil;
 }
-- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath{
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:shouldIndentWhileEditingRowAtIndexPath:)]) {
         return [self.gy_delegate tableView:tableView shouldIndentWhileEditingRowAtIndexPath:indexPath];
     }
     return false;
 }
-- (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:willBeginEditingRowAtIndexPath:)]) {
         [self.gy_delegate tableView:tableView willBeginEditingRowAtIndexPath:indexPath];
     }
 }
-- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(nullable NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(nullable NSIndexPath *)indexPath {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:didEndEditingRowAtIndexPath:)]) {
         [self.gy_delegate tableView:tableView didEndEditingRowAtIndexPath:indexPath];
     }
 }
-- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath{
+- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:targetIndexPathForMoveFromRowAtIndexPath:toProposedIndexPath:)]) {
         [self.gy_delegate tableView:tableView targetIndexPathForMoveFromRowAtIndexPath:sourceIndexPath toProposedIndexPath:proposedDestinationIndexPath];
     }
     return nil;
 }
-- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:indentationLevelForRowAtIndexPath:)]) {
         return [self.gy_delegate tableView:tableView indentationLevelForRowAtIndexPath:indexPath];
     }
     return 0;
 }
-- (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:shouldShowMenuForRowAtIndexPath:)]) {
         return [self.gy_delegate tableView:tableView shouldShowMenuForRowAtIndexPath:indexPath];
     }
     return false;
 }
-- (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(nullable id)sender{
+- (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(nullable id)sender {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:canPerformAction:forRowAtIndexPath:withSender:)]) {
         return [self.gy_delegate tableView:tableView canPerformAction:action forRowAtIndexPath:indexPath withSender:sender];
     }
     return false;
 }
-- (void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(nullable id)sender{
+- (void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(nullable id)sender {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:performAction:forRowAtIndexPath:withSender:)]) {
         [self.gy_delegate tableView:tableView performAction:action forRowAtIndexPath:indexPath withSender:sender];
     }
 }
-- (BOOL)tableView:(UITableView *)tableView canFocusRowAtIndexPath:(NSIndexPath *)indexPath NS_AVAILABLE_IOS(9_0){
+- (BOOL)tableView:(UITableView *)tableView canFocusRowAtIndexPath:(NSIndexPath *)indexPath NS_AVAILABLE_IOS(9_0) {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:canFocusRowAtIndexPath:)]) {
         [self.gy_delegate tableView:tableView canFocusRowAtIndexPath:indexPath];
     }
     return YES;
 }
-- (nullable NSIndexPath *)indexPathForPreferredFocusedViewInTableView:(UITableView *)tableView NS_AVAILABLE_IOS(9_0){
+- (nullable NSIndexPath *)indexPathForPreferredFocusedViewInTableView:(UITableView *)tableView NS_AVAILABLE_IOS(9_0) {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(indexPathForPreferredFocusedViewInTableView:)]) {
         [self.gy_delegate indexPathForPreferredFocusedViewInTableView:tableView];
     }
     return nil;
 }
-- (BOOL)tableView:(UITableView *)tableView shouldUpdateFocusInContext:(UITableViewFocusUpdateContext *)context NS_AVAILABLE_IOS(9_0){
+- (BOOL)tableView:(UITableView *)tableView shouldUpdateFocusInContext:(UITableViewFocusUpdateContext *)context NS_AVAILABLE_IOS(9_0) {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:shouldUpdateFocusInContext:)]) {
         [self.gy_delegate tableView:tableView shouldUpdateFocusInContext:context];
     }
     return YES;
 }
-- (void)tableView:(UITableView *)tableView didUpdateFocusInContext:(UITableViewFocusUpdateContext *)context withAnimationCoordinator:(UIFocusAnimationCoordinator *)coordinator NS_AVAILABLE_IOS(9_0){
+- (void)tableView:(UITableView *)tableView didUpdateFocusInContext:(UITableViewFocusUpdateContext *)context withAnimationCoordinator:(UIFocusAnimationCoordinator *)coordinator NS_AVAILABLE_IOS(9_0) {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:didUpdateFocusInContext:withAnimationCoordinator:)]) {
         [self.gy_delegate tableView:tableView didUpdateFocusInContext:context withAnimationCoordinator:coordinator];
     }
 }
 // fixed font style. use custom view (UILabel) if you want something different
-- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:titleForHeaderInSection:)]) {
         [self.gy_delegate tableView:tableView titleForHeaderInSection:section];
     }
     return nil;
 }
-- (nullable NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
+- (nullable NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:titleForFooterInSection:)]) {
         [self.gy_delegate tableView:tableView titleForFooterInSection:section];
     }
     return nil;
 }
 // Individual rows can opt out of having the -editing property set for them. If not implemented, all rows are assumed to be editable.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:canEditRowAtIndexPath:)]) {
         [self.gy_delegate tableView:tableView canEditRowAtIndexPath:indexPath];
     }
     return NO;
 }
 // Allows the reorder accessory view to optionally be shown for a particular row. By default, the reorder control will be shown only if the datasource implements -tableView:moveRowAtIndexPath:toIndexPath:
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath{
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:canMoveRowAtIndexPath:)]) {
         [self.gy_delegate tableView:tableView canMoveRowAtIndexPath:indexPath];
     }
     return NO;
 }
 // return list of section titles to display in section index view (e.g. "ABCD...Z#")
-- (nullable NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView{
+- (nullable NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(sectionIndexTitlesForTableView:)]) {
         [self.gy_delegate sectionIndexTitlesForTableView:tableView];
     }
     return nil;
 }
 // tell table which section corresponds to section title/index (e.g. "B",1))
-- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index{
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:sectionForSectionIndexTitle:atIndex:)]) {
         [self.gy_delegate tableView:tableView sectionForSectionIndexTitle:title atIndex:index];
     }
     return -1;
 }
 // Not called for edit actions using UITableViewRowAction - the action's handler will be invoked instead
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:commitEditingStyle:forRowAtIndexPath:)]) {
         [self.gy_delegate tableView:tableView commitEditingStyle:editingStyle forRowAtIndexPath:indexPath];
     }
 }
 // Data manipulation - reorder / moving support
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(tableView:moveRowAtIndexPath:toIndexPath:)]) {
         [self.gy_delegate tableView:tableView moveRowAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
     }
 }
 // any zoom scale changes
-- (void)scrollViewDidZoom:(UIScrollView *)scrollView{
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(scrollViewDidZoom:)]) {
         [self.gy_delegate scrollViewDidZoom:scrollView];
     }
 }
 // called on start of dragging (may require some time and or distance to move)
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(scrollViewWillBeginDragging:)]) {
         [self.gy_delegate scrollViewWillBeginDragging:scrollView];
     }
 }
 // called on finger up if the user dragged. velocity is in points/millisecond. targetContentOffset may be changed to adjust where the scroll view comes to rest 这个方法比较奇怪 必须实现后才能被动态捕捉
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(scrollViewWillEndDragging:withVelocity:targetContentOffset:)]) {
         [self.gy_delegate scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
     }
 }
 // called on finger up if the user dragged. decelerate is true if it will continue moving afterwards
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(scrollViewDidEndDragging:willDecelerate:)]) {
         [self.gy_delegate scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
     }
 }
 // called on finger up as we are moving
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(scrollViewWillBeginDecelerating:)]) {
         [self.gy_delegate scrollViewWillBeginDecelerating:scrollView];
     }
 }
 // called when scroll view grinds to a halt
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(scrollViewDidEndDecelerating:)]) {
         [self.gy_delegate scrollViewDidEndDecelerating:scrollView];
     }
 }
 // return a view that will be scaled. if delegate returns nil, nothing happens
-- (nullable UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView{
+- (nullable UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(viewForZoomingInScrollView:)]) {
         return [self.gy_delegate viewForZoomingInScrollView:scrollView];
     }
     return nil;
 }
 // called before the scroll view begins zooming its content
-- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view{
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(scrollViewWillBeginZooming:withView:)]) {
         [self.gy_delegate scrollViewWillBeginZooming:scrollView withView:view];
     }
 }
 // scale between minimum and maximum. called after any 'bounce' animations
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale{
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(scrollViewDidEndZooming:withView:atScale:)]) {
         [self.gy_delegate scrollViewDidEndZooming:scrollView withView:view atScale:scale];
     }
 }
 // return a yes if you want to scroll to the top. if not defined, assumes YES
-- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView{
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(scrollViewShouldScrollToTop:)]) {
         return [self.gy_delegate scrollViewShouldScrollToTop:scrollView];
     }
     return YES;
 }
 // called when scrolling animation finished. may be called immediately if already at top
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView{
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(scrollViewDidScrollToTop:)]) {
         [self.gy_delegate scrollViewDidScrollToTop:scrollView];
     }
@@ -1009,7 +1009,7 @@ typedef enum {
 #if __IPHONE_11_0
 /* Also see -[UIScrollView adjustedContentInsetDidChange]
  */
-- (void)scrollViewDidChangeAdjustedContentInset:(UIScrollView *)scrollView API_AVAILABLE(ios(11.0), tvos(11.0)){
+- (void)scrollViewDidChangeAdjustedContentInset:(UIScrollView *)scrollView API_AVAILABLE(ios(11.0), tvos(11.0)) {
     if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(scrollViewDidChangeAdjustedContentInset:)]) {
         [self.gy_delegate scrollViewDidChangeAdjustedContentInset:scrollView];
     }
@@ -1020,15 +1020,15 @@ typedef enum {
 
 @implementation SectionVo
 
-+(instancetype)initWithParams:(void (^)(SectionVo* svo))nextBlock{
++ (instancetype)initWithParams:(void (^)(SectionVo *svo))nextBlock{
     return [SectionVo initWithParams:0 sectionHeaderClass:nil sectionHeaderData:nil nextBlock:nextBlock];
 }
 
-+(instancetype)initWithParams:(CGFloat)sectionHeaderHeight sectionHeaderClass:(Class)sectionHeaderClass sectionHeaderData:(id)sectionHeaderData nextBlock:(void (^)(SectionVo *))nextBlock{
++ (instancetype)initWithParams:(CGFloat)sectionHeaderHeight sectionHeaderClass:(Class)sectionHeaderClass sectionHeaderData:(id)sectionHeaderData nextBlock:(void (^)(SectionVo *))nextBlock {
     return [SectionVo initWithParams:sectionHeaderHeight sectionHeaderClass:sectionHeaderClass sectionHeaderData:sectionHeaderData sectionFooterHeight:0 sectionFooterClass:nil sectionFooterData:nil nextBlock:nextBlock];
 }
 
-+(instancetype)initWithParams:(CGFloat)sectionHeaderHeight sectionHeaderClass:(Class)sectionHeaderClass sectionHeaderData:(id)sectionHeaderData sectionFooterHeight:(CGFloat)sectionFooterHeight sectionFooterClass:(Class)sectionFooterClass sectionFooterData:(id)sectionFooterData nextBlock:(void (^)(SectionVo *))nextBlock{
++ (instancetype)initWithParams:(CGFloat)sectionHeaderHeight sectionHeaderClass:(Class)sectionHeaderClass sectionHeaderData:(id)sectionHeaderData sectionFooterHeight:(CGFloat)sectionFooterHeight sectionFooterClass:(Class)sectionFooterClass sectionFooterData:(id)sectionFooterData nextBlock:(void (^)(SectionVo *))nextBlock {
     SectionVo *instance;
     @synchronized (self)    {
         if (instance == nil)
@@ -1048,19 +1048,19 @@ typedef enum {
     return instance;
 }
 
--(NSMutableArray<CellVo *> *)cellVoList{
+- (NSMutableArray<CellVo *> *)cellVoList{
     if(!_cellVoList){
-        _cellVoList = [NSMutableArray<CellVo*> array];
+        _cellVoList = [NSMutableArray<CellVo *> array];
     }
     return _cellVoList;
 }
 
--(NSInteger)getCellVoCount {
+- (NSInteger)getCellVoCount {
     if (!self.cellVoList || self.cellVoList.count == 0) {
         return 0;
     }
     NSInteger count = 0;
-    for (CellVo* cvo in self.cellVoList) {
+    for (CellVo *cvo in self.cellVoList) {
         if ([cvo isRealCell]) {
             count++;
         }
@@ -1068,11 +1068,11 @@ typedef enum {
     return count;
 }
 
--(void)addCellVo:(CellVo *)cellVo{
+- (void)addCellVo:(CellVo *)cellVo {
     [self.cellVoList addObject:cellVo];
 }
 
--(void)addCellVoByList:(NSArray<CellVo *> *)otherVoList{
+- (void)addCellVoByList:(NSArray<CellVo *> *)otherVoList {
     [self.cellVoList addObjectsFromArray:otherVoList];
 }
 
@@ -1080,15 +1080,15 @@ typedef enum {
 
 @implementation CellVo
 
-+(instancetype)initWithParams:(CGFloat)cellHeight cellClass:(Class)cellClass cellData:(NSObject*)cellData{
++ (instancetype)initWithParams:(CGFloat)cellHeight cellClass:(Class)cellClass cellData:(NSObject*)cellData {
     return [CellVo initWithParams:cellHeight cellClass:cellClass cellData:cellData isUnique:false];
 }
 
-+(instancetype)initWithParams:(CGFloat)cellHeight cellClass:(Class)cellClass cellData:(id)cellData isUnique:(BOOL)isUnique{
++ (instancetype)initWithParams:(CGFloat)cellHeight cellClass:(Class)cellClass cellData:(id)cellData isUnique:(BOOL)isUnique {
     return [CellVo initWithParams:cellHeight cellClass:cellClass cellData:cellData isUnique:isUnique forceUpdate:false];
 }
 
-+(instancetype)initWithParams:(CGFloat)cellHeight cellClass:(Class)cellClass cellData:(id)cellData isUnique:(BOOL)isUnique forceUpdate:(BOOL)forceUpdate
++ (instancetype)initWithParams:(CGFloat)cellHeight cellClass:(Class)cellClass cellData:(id)cellData isUnique:(BOOL)isUnique forceUpdate:(BOOL)forceUpdate
 {
     CellVo *instance;
     @synchronized (self)    {
@@ -1110,7 +1110,7 @@ typedef enum {
     return instance;
 }
 
-+(NSArray<CellVo *> *)dividingCellVoBySourceArray:(CGFloat)cellHeight cellClass:(Class)cellClass sourceArray:(NSArray *)sourceArray{
++ (NSArray<CellVo *> *)dividingCellVoBySourceArray:(CGFloat)cellHeight cellClass:(Class)cellClass sourceArray:(NSArray *)sourceArray {
     if (!sourceArray || sourceArray.count <= 0) {
         return nil;
     }
@@ -1122,7 +1122,7 @@ typedef enum {
     return cellVoList;
 }
 
--(BOOL)isRealCell{
+- (BOOL)isRealCell {
     return self.cellType == CellTypeNormal || self.cellType == CellTypeFirst || self.cellType == CellTypeLast;
 }
 

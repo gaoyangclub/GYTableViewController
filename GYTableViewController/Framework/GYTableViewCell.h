@@ -42,24 +42,24 @@
 /** 对应的GYTableBaseView实例 **/
 @property(nonatomic,weak) GYTableBaseView* tableView;
 /** 当前所处位置 **/
-@property(nonatomic,retain) NSIndexPath* indexPath;
+@property(nonatomic,strong) NSIndexPath* indexPath;
 /** 对应的CellVo实例 **/
-@property(nonatomic,retain) CellVo *cellVo;
+@property(nonatomic,strong) CellVo *cellVo;
 
 /** 页面元素创建并布局 请勿使用layoutSubviews来布局 **/
--(void)showSubviews;
+- (void)showSubviews;
 /** 是否显示选中的效果样式 默认false **/
--(BOOL)showSelectionStyle;
+- (BOOL)showSelectionStyle;
 /** 根据内容动态计算高度（适合内容多少高度不定的样式或文案展示） **/
--(CGFloat)getCellHeight:(CGFloat)cellWidth;
+- (CGFloat)getCellHeight:(CGFloat)cellWidth;
 /** 检查cellData的类型是否是目标类型 并返回cellData **/
--(id)checkCellDataClass:(Class)targetClass;
+- (id)checkCellDataClass:(Class)targetClass;
 /** 检查cellData类型为NSArray中的子元素类型是否是目标类型 并返回cellData **/
--(NSArray*)checkCellArrayDataClass:(Class)arrayMemberClass;
+- (NSArray*)checkCellArrayDataClass:(Class)arrayMemberClass;
 
 /** 外部传入的数据 用来布局或交互等（cellVo.cellData） **/
-//@property(nonatomic,retain) id data;
+//@property(nonatomic,strong) id data;
 
--(void)layoutSubviews __attribute__((unavailable("Disabled")));
+- (void)layoutSubviews __attribute__((unavailable("Disabled")));
 
 @end

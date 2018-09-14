@@ -12,22 +12,22 @@
 
 @interface FrameDishesViewCell()
 
-@property(nonatomic,retain)UIImageView* iconView;
+@property (nonatomic,strong) UIImageView *iconView;
 
-@property(nonatomic,retain)UILabel* titleLabel;
+@property (nonatomic,strong) UILabel *titleLabel;
 
-@property(nonatomic,retain)UILabel* desLabel;
+@property (nonatomic,strong) UILabel *desLabel;
 
-@property(nonatomic,retain)UILabel* priceLabel;
+@property (nonatomic,strong) UILabel *priceLabel;
 
-@property(nonatomic,retain)UIView* bottomLine;
+@property (nonatomic,strong) UIView *bottomLine;
 
 @end
 
 @implementation FrameDishesViewCell
 
 #pragma mark 懒加载添加视图
--(UIImageView *)iconView{
+- (UIImageView *)iconView {
     if (!_iconView) {
         _iconView = [[UIImageView alloc]init];
         _iconView.contentMode = UIViewContentModeScaleAspectFill;
@@ -36,7 +36,7 @@
     return _iconView;
 }
 
--(UILabel *)titleLabel{
+- (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [UICreationUtils createLabel:SIZE_TEXT_LARGE color:COLOR_TEXT_PRIMARY];
         [self.contentView addSubview:_titleLabel];
@@ -44,7 +44,7 @@
     return _titleLabel;
 }
 
--(UILabel *)desLabel{
+- (UILabel *)desLabel {
     if (!_desLabel) {
         _desLabel = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_TEXT_SECONDARY];
         [self.contentView addSubview:_desLabel];
@@ -52,7 +52,7 @@
     return _desLabel;
 }
 
--(UILabel *)priceLabel{
+- (UILabel *)priceLabel {
     if (!_priceLabel) {
         _priceLabel = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_PRIMARY_FUND];
         [self.contentView addSubview:_priceLabel];
@@ -60,7 +60,7 @@
     return _priceLabel;
 }
 
--(UIView *)bottomLine{
+- (UIView *)bottomLine {
     if (!_bottomLine) {
         _bottomLine = [[UIView alloc]init];
         _bottomLine.backgroundColor = COLOR_LINE;
@@ -71,10 +71,10 @@
 }
 
 #pragma mark 根据外部传入数据开始布局
--(void)showSubviews{
+- (void)showSubviews {
     self.backgroundColor = [UIColor whiteColor];
     
-    DishesModel* dishesModel = GET_CELL_DATA(DishesModel.class);
+    DishesModel *dishesModel = GET_CELL_DATA(DishesModel.class);
     CGFloat const padding = 10;
     CGFloat const iconHeight = self.contentView.height - padding * 2;
     [self.iconView sd_setImageWithURL:[NSURL URLWithString:dishesModel.iconName]];
@@ -106,7 +106,7 @@
 }
 
 #pragma mark 设置cell点击效果
--(BOOL)showSelectionStyle{
+- (BOOL)showSelectionStyle {
     return YES;
 }
 

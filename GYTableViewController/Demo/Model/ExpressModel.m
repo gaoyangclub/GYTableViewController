@@ -10,7 +10,7 @@
 
 @implementation ExpressModel
 
-+(instancetype)initWithParams:(NSString *)title year:(NSString *)year time:(NSString *)time{
++ (instancetype)initWithParams:(NSString *)title year:(NSString *)year time:(NSString *)time {
     ExpressModel *instance;
     @synchronized (self)    {
         if (instance == nil)

@@ -10,7 +10,7 @@
 
 @implementation WeiboModel
 
-+(instancetype)initWithParams:(NSString *)iconName name:(NSString *)name title:(NSString *)title content:(NSString *)content imageUrl:(NSString *)imageUrl{
++ (instancetype)initWithParams:(NSString *)iconName name:(NSString *)name title:(NSString *)title content:(NSString *)content imageUrl:(NSString *)imageUrl {
     WeiboModel *instance;
     @synchronized (self)    {
         if (instance == nil)

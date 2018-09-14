@@ -12,7 +12,7 @@
 
 @interface WebViewController : UIViewController
 
-@property(nonatomic,copy)NSString* linkUrl;
-@property(nonatomic,copy)NSString* navigationTitle;
+@property (nonatomic,copy) NSString *linkUrl;
+@property (nonatomic,copy) NSString *navigationTitle;
 
 @end

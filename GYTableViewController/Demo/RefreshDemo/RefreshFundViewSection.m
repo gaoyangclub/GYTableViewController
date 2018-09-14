@@ -11,16 +11,16 @@
 @interface RefreshFundViewSection()
 
 
-@property(nonatomic,retain)UILabel* titleLabel;
-@property(nonatomic,retain)UIView* square;
-@property(nonatomic,retain)UIView* bottomLine;
+@property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic,strong) UIView *square;
+@property (nonatomic,strong) UIView *bottomLine;
 
 @end
 
 @implementation RefreshFundViewSection
 
 #pragma mark 懒加载添加视图
--(UILabel *)titleLabel{
+- (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc]init];
         _titleLabel.font = [UIFont systemFontOfSize:16];
@@ -30,7 +30,7 @@
     return _titleLabel;
 }
 
--(UIView *)square{
+- (UIView *)square {
     if (!_square) {
         _square = [[UIView alloc] init];
         _square.backgroundColor = COLOR_PRIMARY_FUND;
@@ -40,7 +40,7 @@
     return _square;
 }
 
--(UIView *)bottomLine{
+- (UIView *)bottomLine {
     if (!_bottomLine) {
         _bottomLine = [[UIView alloc]init];
         _bottomLine.backgroundColor = COLOR_LINE;
@@ -51,7 +51,7 @@
 }
 
 #pragma mark Section视图暂时使用原生的方法布局 以后可能封装成别的方法来代替
--(void)layoutSubviews{
+- (void)layoutSubviews {
     self.backgroundColor = COLOR_BACKGROUND;
     //square用懒加载方式添加一个UIView方块，具体创建方式不赘述
     self.square.x = 0;

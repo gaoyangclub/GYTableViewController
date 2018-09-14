@@ -112,8 +112,8 @@
     return self.frame.size;
 }
 
--(void)removeAllSubViews{
-    for (UIView* subView in self.subviews) {//子对象全部移除干净
+- (void)removeAllSubViews {
+    for (UIView *subView in self.subviews) {//子对象全部移除干净
         [subView removeFromSuperview];
     }
 }

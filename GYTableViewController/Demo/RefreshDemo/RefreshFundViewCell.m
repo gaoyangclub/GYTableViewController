@@ -11,22 +11,22 @@
 
 @interface RefreshFundViewCell()
 
-@property(nonatomic,retain)UILabel* iconView;
+@property (nonatomic,strong) UILabel *iconView;
 
-@property(nonatomic,retain)UILabel* titleLabel;
+@property (nonatomic,strong) UILabel *titleLabel;
 
-@property(nonatomic,retain)UILabel* desLabel;
+@property (nonatomic,strong) UILabel *desLabel;
 
-@property(nonatomic,retain)UILabel* rateLabel;
+@property (nonatomic,strong) UILabel *rateLabel;
 
-@property(nonatomic,retain)UIView* bottomLine;
+@property(nonatomic,strong) UIView *bottomLine;
 
 @end
 
 @implementation RefreshFundViewCell
 
 #pragma mark 懒加载添加视图
--(UILabel *)iconView{
+- (UILabel *)iconView {
     if (!_iconView) {
         _iconView = [UICreationUtils createLabel:ICON_FONT_NAME size:30 color:COLOR_PRIMARY_FUND];
         [self.contentView addSubview:_iconView];
@@ -34,7 +34,7 @@
     return _iconView;
 }
 
--(UILabel *)titleLabel{
+- (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [UICreationUtils createLabel:SIZE_TEXT_LARGE color:COLOR_TEXT_PRIMARY];
         [self.contentView addSubview:_titleLabel];
@@ -42,7 +42,7 @@
     return _titleLabel;
 }
 
--(UILabel *)desLabel{
+- (UILabel *)desLabel {
     if (!_desLabel) {
         _desLabel = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_TEXT_SECONDARY];
         [self.contentView addSubview:_desLabel];
@@ -50,7 +50,7 @@
     return _desLabel;
 }
 
--(UILabel *)rateLabel{
+- (UILabel *)rateLabel {
     if (!_rateLabel) {
         _rateLabel = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_TEXT_SECONDARY];
         [self.contentView addSubview:_rateLabel];
@@ -58,7 +58,7 @@
     return _rateLabel;
 }
 
--(UIView *)bottomLine{
+- (UIView *)bottomLine {
     if (!_bottomLine) {
         _bottomLine = [[UIView alloc]init];
         _bottomLine.backgroundColor = COLOR_LINE;
@@ -69,11 +69,11 @@
 }
 
 #pragma mark 根据外部传入数据开始布局
--(void)showSubviews{
+- (void)showSubviews {
     
     self.backgroundColor = [UIColor whiteColor];
     
-    FundModel* fundModel = GET_CELL_DATA(FundModel.class);//self.data;
+    FundModel *fundModel = GET_CELL_DATA(FundModel.class);//self.data;
     
     self.iconView.text = fundModel.iconName;
     [self.iconView sizeToFit];

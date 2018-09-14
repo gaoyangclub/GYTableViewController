@@ -10,6 +10,6 @@
 
 @interface MJRefreshComponent (GY)
 
--(BOOL)isIdle;
+- (BOOL)isIdle;
 
 @end

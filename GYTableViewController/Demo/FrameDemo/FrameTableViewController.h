@@ -8,8 +8,8 @@
 //  table位置关系，自定义下拉刷新控件，选中cell跳转页面示例
 //
 
-#import "GYTableViewController.h"
+#import "UIViewController+GYTableView.h"
 
-@interface FrameTableViewController : GYTableViewController
+@interface FrameTableViewController : UIViewController
 
 @end

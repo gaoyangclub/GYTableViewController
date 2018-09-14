@@ -20,6 +20,6 @@
 @property (nonatomic, assign) CGFloat height;
 @property (nonatomic, assign) CGSize size;
 
--(void)removeAllSubViews;
+- (void)removeAllSubViews;
 
 @end

@@ -12,22 +12,22 @@
 
 @interface GapStoreViewCell()
 
-@property(nonatomic,retain)UIImageView* iconView;
+@property (nonatomic,strong) UIImageView *iconView;
 
-@property(nonatomic,retain)UILabel* titleLabel;
+@property (nonatomic,strong) UILabel *titleLabel;
 
-@property(nonatomic,retain)UILabel* hotLabel;//人气热度
+@property (nonatomic,strong) UILabel *hotLabel;//人气热度
 
-@property(nonatomic,retain)UILabel* desLabel;
+@property (nonatomic,strong) UILabel *desLabel;
 
-@property(nonatomic,retain)UIButton* discountButton;
+@property (nonatomic,strong) UIButton *discountButton;
 
 @end
 
 @implementation GapStoreViewCell
 
 #pragma mark 懒加载添加视图
--(UIImageView *)iconView{
+- (UIImageView *)iconView {
     if (!_iconView) {
         _iconView = [[UIImageView alloc]init];
         _iconView.contentMode = UIViewContentModeScaleAspectFill;
@@ -36,7 +36,7 @@
     return _iconView;
 }
 
--(UILabel *)titleLabel{
+- (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_TEXT_PRIMARY];
         [self.contentView addSubview:_titleLabel];
@@ -44,7 +44,7 @@
     return _titleLabel;
 }
 
--(UILabel *)hotLabel{
+- (UILabel *)hotLabel {
     if (!_hotLabel) {
         _hotLabel = [UICreationUtils createLabel:SIZE_TEXT_SECONDARY color:COLOR_PRIMARY_STORE];
         [self.contentView addSubview:_hotLabel];
@@ -52,7 +52,7 @@
     return _hotLabel;
 }
 
--(UILabel *)desLabel{
+- (UILabel *)desLabel {
     if (!_desLabel) {
         _desLabel = [UICreationUtils createLabel:SIZE_TEXT_SECONDARY color:COLOR_TEXT_SECONDARY];
         [self.contentView addSubview:_desLabel];
@@ -60,7 +60,7 @@
     return _desLabel;
 }
 
--(UIButton *)discountButton{
+- (UIButton *)discountButton {
     if (!_discountButton) {
         _discountButton = [UIButton buttonWithType:UIButtonTypeCustom];
         
@@ -81,10 +81,10 @@
 }
 
 #pragma mark 根据外部传入数据开始布局
--(void)showSubviews{
+- (void)showSubviews {
     self.backgroundColor = [UIColor whiteColor];
     
-    StoreModel* storeModel = GET_CELL_DATA(StoreModel.class);
+    StoreModel *storeModel = GET_CELL_DATA(StoreModel.class);
     CGFloat const padding = 20;
     CGFloat const iconHeight = self.contentView.height - padding * 2;
     [self.iconView sd_setImageWithURL:[NSURL URLWithString:storeModel.iconName]];

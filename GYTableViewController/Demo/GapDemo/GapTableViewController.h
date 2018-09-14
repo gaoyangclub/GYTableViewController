@@ -8,8 +8,8 @@
 //  设置Section或Cell间距示例
 //
 
-#import "GYTableViewController.h"
+#import "UIViewController+GYTableView.h"
 
-@interface GapTableViewController : GYTableViewController
+@interface GapTableViewController : UIViewController
 
 @end

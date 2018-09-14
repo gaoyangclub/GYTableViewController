@@ -10,7 +10,7 @@
 
 @implementation DishesModel
 
-+(instancetype)initWithParams:(NSString *)title iconName:(NSString *)iconName des:(NSString *)des price:(NSString *)price linkUrl:(NSString*)linkUrl{
++ (instancetype)initWithParams:(NSString *)title iconName:(NSString *)iconName des:(NSString *)des price:(NSString *)price linkUrl:(NSString *)linkUrl {
     DishesModel *instance;
     @synchronized (self)    {
         if (instance == nil)

@@ -6,26 +6,29 @@
 //  Copyright © 2018年 高扬. All rights reserved.
 //
 
+#import "MainViewController.h"
+
 #import "RefreshTableViewController.h"
 #import "FrameTableViewController.h"
-#import "MainViewController.h"
 #import "GapTableViewController.h"
 #import "RelateTableViewController.h"
 #import "AutoHeightTableViewController.h"
 
+//#import "GYTableViewCell.h"
+
 @interface ControllerVo:NSObject
 
-@property(nonatomic,copy)NSString* title;
+@property (nonatomic,copy) NSString *title;
 
-@property(nonatomic,retain)Class controllerClass;
+@property (nonatomic,strong) Class controllerClass;
 
-+(instancetype)initWithTitle:(NSString*)title andClass:(Class)controllerClass;
++ (instancetype)initWithTitle:(NSString *)title andClass:(Class)controllerClass;
 
 @end
 
 @implementation ControllerVo
 
-+(instancetype)initWithTitle:(NSString *)title andClass:(Class)controllerClass{
++ (instancetype)initWithTitle:(NSString *)title andClass:(Class)controllerClass {
     ControllerVo *instance;
     @synchronized (self)    {
         if (instance == nil)
@@ -45,11 +48,11 @@
 @end
 @implementation ControllerDemoViewCell
 
--(void)showSubviews{
-    self.textLabel.text = ((ControllerVo*)GET_CELL_DATA(ControllerVo.class)).title;
+- (void)showSubviews {
+    self.textLabel.text = ((ControllerVo *)GET_CELL_DATA(ControllerVo.class)).title;
 }
 
--(BOOL)showSelectionStyle{
+- (BOOL)showSelectionStyle {
     return YES;
 }
 
@@ -58,13 +61,13 @@
 
 @interface MainViewController ()
 
-@property(nonatomic,retain)NSArray<ControllerVo*>* controllers;
+@property (nonatomic,retain) NSArray<ControllerVo *> *controllers;
 
 @end
 
 @implementation MainViewController
 
--(NSArray<ControllerVo *> *)controllers{
+- (NSArray<ControllerVo *> *)controllers {
     if (!_controllers) {
         _controllers = @[
                          [ControllerVo initWithTitle:@"下拉刷新上拉加载示例" andClass:RefreshTableViewController.class],
@@ -89,11 +92,15 @@
     [self.tableView gy_reloadData];
 }
 
--(BOOL)isShowHeader{
+- (BOOL)useGYTableView {
+    return YES;
+}
+
+- (BOOL)isShowHeader {
     return NO;
 }
 //
-//-(void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
+//- (void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler {
 //    int64_t delay = 0.5 * NSEC_PER_SEC;
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//模拟网络请求产生异步加载
 //        [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
@@ -103,10 +110,10 @@
 //    });
 //}
 
--(void)tableView:(GYTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    CellVo* cvo = [tableView getCellVoByIndexPath:indexPath];
-    ControllerVo* controllerVo = cvo.cellData;
-    UIViewController* viewController = [[controllerVo.controllerClass alloc]init];
+- (void)tableView:(GYTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    CellVo *cvo = [tableView getCellVoByIndexPath:indexPath];
+    ControllerVo *controllerVo = cvo.cellData;
+    UIViewController *viewController = [[controllerVo.controllerClass alloc]init];
     viewController.title = controllerVo.title;
     viewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:viewController animated:YES];

@@ -11,9 +11,9 @@
 
 @interface PraiseModel : NSObject
 
-@property(nonatomic,copy)NSString* groupTitle;
-@property(nonatomic,retain)NSArray<HotModel*>* hotModels;
+@property (nonatomic,copy) NSString* groupTitle;
+@property (nonatomic,strong) NSArray<HotModel *> *hotModels;
 
-+(instancetype)initWithParams:(NSString*)groupTitle hotModels:(NSArray<HotModel*>*)hotModels;
++ (instancetype)initWithParams:(NSString *)groupTitle hotModels:(NSArray<HotModel *> *)hotModels;
 
 @end

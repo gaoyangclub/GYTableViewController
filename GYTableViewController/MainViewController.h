@@ -24,8 +24,8 @@
  *********************************************************************************
  */
 
-#import "GYTableViewController.h"
+#import "UIViewController+GYTableView.h"
 
-@interface MainViewController : GYTableViewController
+@interface MainViewController : UIViewController
 
 @end

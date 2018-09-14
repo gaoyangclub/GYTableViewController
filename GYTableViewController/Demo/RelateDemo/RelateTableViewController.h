@@ -8,8 +8,8 @@
 //  选中位置高亮，点击高亮，点击后Cell位置居中示例
 //
 
-#import "GYTableViewController.h"
+#import "UIViewController+GYTableView.h"
 
-@interface RelateTableViewController : GYTableViewController
+@interface RelateTableViewController : UIViewController
 
 @end

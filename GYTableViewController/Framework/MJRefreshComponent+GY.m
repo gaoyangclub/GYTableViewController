@@ -10,7 +10,7 @@
 
 @implementation MJRefreshComponent (GY)
 
--(BOOL)isIdle{
+- (BOOL)isIdle {
     return self.state == MJRefreshStateNoMoreData || self.state == MJRefreshStateIdle;
 }
 

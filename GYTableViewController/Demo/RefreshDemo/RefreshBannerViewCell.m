@@ -11,13 +11,13 @@
 
 @interface RefreshBannerViewCell()<SDCycleScrollViewDelegate>
 
-@property(nonatomic,retain)SDCycleScrollView *cycleScrollView;
+@property (nonatomic,strong) SDCycleScrollView *cycleScrollView;
 
 @end
 
 @implementation RefreshBannerViewCell
 
--(SDCycleScrollView *)cycleScrollView{
+- (SDCycleScrollView *)cycleScrollView {
     if (!_cycleScrollView) {
         _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectZero delegate:self placeholderImage:nil];
         _cycleScrollView.autoScrollTimeInterval = 5.0;//间隔5秒轮播
@@ -32,7 +32,7 @@
 }
 
 #pragma mark 根据外部传入数据开始布局
--(void)showSubviews{
+- (void)showSubviews {
     self.cycleScrollView.frame = self.contentView.bounds;
     self.cycleScrollView.imageURLStringsGroup = GET_CELL_ARRAY_DATA([NSString class]); //self.data;
 }

@@ -10,7 +10,7 @@
 
 @implementation StoreModel
 
-+(instancetype)initWithParams:(NSString *)title iconName:(NSString *)iconName hot:(NSString *)hot des:(NSString *)des discount:(NSString *)discount{
++ (instancetype)initWithParams:(NSString *)title iconName:(NSString *)iconName hot:(NSString *)hot des:(NSString *)des discount:(NSString *)discount {
     StoreModel *instance;
     @synchronized (self)    {
         if (instance == nil)

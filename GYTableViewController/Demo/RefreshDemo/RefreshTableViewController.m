@@ -27,7 +27,7 @@
 //}
 //
 //
-//-(void)showSubviews{
+//- (void)showSubviews{
 //    self.userInteractionEnabled = NO;
 //}
 //
@@ -35,11 +35,11 @@
 
 @interface RefreshTableViewController ()
 
-@property(nonatomic,retain)NSArray<NSString*>* bannerUrlGroup;
-@property(nonatomic,retain)NSArray<HotModel*>* hotModels;
-@property(nonatomic,retain)NSArray<FundModel*>* fundModels;
+@property (nonatomic,strong) NSArray<NSString *> *bannerUrlGroup;
+@property (nonatomic,strong) NSArray<HotModel *> *hotModels;
+@property (nonatomic,strong) NSArray<FundModel *> *fundModels;
 
-@property(nonatomic,retain)NSArray<FundModel*>* fundNewModels;
+@property (nonatomic,strong) NSArray<FundModel *> *fundNewModels;
 
 @end
 
@@ -48,7 +48,7 @@
 //----------  start ----------
 #pragma mark monk数据
 /** 以下作为前端mock的数据，模拟从后台返回的数据结构，真实操作为触发刷新后请求后台获取 **/
--(NSArray<NSString *> *)bannerUrlGroup{
+- (NSArray<NSString *> *)bannerUrlGroup {
     if (!_bannerUrlGroup) {
         _bannerUrlGroup = @[
                             @"https://ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/super/whfpf%3D425%2C260%2C50/sign=a4b3d7085dee3d6d2293d48b252b5910/0e2442a7d933c89524cd5cd4d51373f0830200ea.jpg",
@@ -59,7 +59,7 @@
     return _bannerUrlGroup;
 }
 
--(NSArray<HotModel *> *)hotModels{
+- (NSArray<HotModel *> *)hotModels {
     if (!_hotModels) {
         _hotModels = @[
                       [HotModel initWithParams:@"大盘走势" iconName:@"fundHot01"],
@@ -71,7 +71,7 @@
     return _hotModels;
 }
 
--(NSArray<FundModel *> *)fundModels{
+- (NSArray<FundModel *> *)fundModels {
     if (!_fundModels) {
         _fundModels = @[
                         [FundModel initWithParams:@"开放式" iconName:ICON_KAI_FANG des:@"国泰医药行业指数分级" rate:@"100%"],
@@ -88,7 +88,7 @@
     return _fundModels;
 }
 
--(NSArray<FundModel *> *)fundNewModels{
+- (NSArray<FundModel *> *)fundNewModels {
     if (!_fundNewModels) {
         _fundNewModels = @[
                            [FundModel initWithParams:@"QDII" iconName:ICON_ZHU_ZHUANG des:@"易方达恒生ETF链接" rate:@"100%"],
@@ -108,7 +108,12 @@
     self.view.backgroundColor = COLOR_BACKGROUND;
 }
 
-//-(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
+#pragma mark 使用该控件
+- (BOOL)useGYTableView {
+    return YES;
+}
+
+//- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
 //    CGFloat const centerY = 100;
 //    if (targetContentOffset->y > centerY && targetContentOffset->y < 500) {
 //        targetContentOffset->y = 500;
@@ -118,7 +123,7 @@
 //}
 
 #pragma mark 触发下拉刷新(交互或代码)
--(void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
+- (void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler {
     int64_t delay = 0.5 * NSEC_PER_SEC;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//模拟网络请求产生异步加载
         [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
@@ -138,12 +143,12 @@
 }
 
 #pragma mark 显示上拉加载控件
--(BOOL)isShowFooter{
+- (BOOL)isShowFooter {
     return YES;
 }
 
 #pragma mark 触发上拉加载(交互或代码)
--(void)footerLoadMore:(GYTableBaseView *)tableView endLoadMoreHandler:(FooterLoadMoreHandler)endLoadMoreHandler lastSectionVo:(SectionVo *)lastSectionVo{
+- (void)footerLoadMore:(GYTableBaseView *)tableView endLoadMoreHandler:(FooterLoadMoreHandler)endLoadMoreHandler lastSectionVo:(SectionVo *)lastSectionVo {
     int64_t delay = 0.5 * NSEC_PER_SEC;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//模拟网络请求产生异步加载
         if([tableView getTotalCellVoCount] > 30){//总共超出30条数据不添加数据

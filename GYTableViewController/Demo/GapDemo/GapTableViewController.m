@@ -16,8 +16,8 @@
 
 @interface GapTableViewController ()
 
-@property(nonatomic,retain)PraiseModel* praiseModels;
-@property(nonatomic,retain)NSArray<StoreModel*>* storeModels;
+@property (nonatomic,strong) PraiseModel *praiseModels;
+@property (nonatomic,strong) NSArray<StoreModel *> *storeModels;
 
 @end
 
@@ -26,7 +26,7 @@
 //----------  start ----------
 #pragma mark monk数据
 /** 以下作为前端mock的数据，模拟从后台返回的数据结构，真实操作为触发刷新后请求后台获取 **/
--(PraiseModel *)praiseModels{
+- (PraiseModel *)praiseModels {
     if (!_praiseModels) {
         _praiseModels = [PraiseModel initWithParams:@"附近生活圈" hotModels:@[
                                                                          [HotModel initWithParams:@"老张牛肉面" iconName:@"https://img.meituan.net/msmerchant/6208ee8e69966ac794b0478c3f370e7f535324.jpg%40340w_255h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"],
@@ -37,7 +37,7 @@
     return _praiseModels;
 }
 
--(NSArray<StoreModel *> *)storeModels{
+- (NSArray<StoreModel *> *)storeModels {
     if (!_storeModels) {
         _storeModels = @[
                          [StoreModel initWithParams:@"金草帽炭火烤肉（望京店)" iconName:@"http://p0.meituan.net/600.600/deal/c8cc7a1c865e0b65504c5cafda09020f48188.jpg@1275w_1275h_1e_1c" hot:@"4.1分" des:@"周一至周日 全天" discount:@"9折"],
@@ -51,11 +51,14 @@
     }
     return _storeModels;
 }
-
+#pragma mark 使用该控件
+- (BOOL)useGYTableView {
+    return YES;
+}
 //----------  end ----------
 
 #pragma mark 触发下拉刷新(交互或代码)
--(void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
+- (void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler {
     int64_t delay = 0.5 * NSEC_PER_SEC;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//模拟网络请求产生异步加载
         [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {

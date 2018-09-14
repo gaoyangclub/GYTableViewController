@@ -15,13 +15,13 @@
 
 @interface FrameTableViewController ()
 
-@property(nonatomic,retain)UIView* noticeBack;
-@property(nonatomic,retain)UILabel* noticeLabel;
-@property(nonatomic,retain)UILabel* noticeIcon;
+@property (nonatomic,strong) UIView *noticeBack;
+@property (nonatomic,strong) UILabel *noticeLabel;
+@property (nonatomic,strong) UILabel *noticeIcon;
 
-@property(nonatomic,retain)UIButton* submitButton;
+@property (nonatomic,strong) UIButton *submitButton;
 
-@property(nonatomic,retain)NSArray<DishesModel*>* dishesModels;
+@property (nonatomic,strong) NSArray<DishesModel *> *dishesModels;
 
 @end
 
@@ -30,7 +30,7 @@
 //----------  start ----------
 #pragma mark monk数据
 /** 以下作为前端mock的数据，模拟从后台返回的数据结构，真实操作为触发刷新后请求后台获取 **/
--(NSArray<DishesModel *> *)dishesModels{
+- (NSArray<DishesModel *> *)dishesModels {
     if (!_dishesModels) {
         _dishesModels = @[
                           [DishesModel initWithParams:@"苹果iphone X" iconName:@"https://img13.360buyimg.com/n7/jfs/t10675/253/1344769770/66891/92d54ca4/59df2e7fN86c99a27.jpg" des:@"亮黑色 64G 移动网络" price:@"9999" linkUrl:@"https://item.jd.com/5089253.html"],
@@ -59,7 +59,7 @@
 //----------  end ----------
 
 #pragma mark 懒加载添加视图
--(UIView*)noticeBack{
+- (UIView *)noticeBack {
     if (!_noticeBack) {
         _noticeBack = [[UIView alloc]init];
         _noticeBack.backgroundColor = COLOR_NOTICE_BACK;
@@ -68,21 +68,21 @@
     return _noticeBack;
 }
 
--(UILabel *)noticeIcon{
+- (UILabel *)noticeIcon {
     if (!_noticeIcon) {
         _noticeIcon = [UICreationUtils createLabel:ICON_FONT_NAME size:16 color:[UIColor whiteColor] text:ICON_GONG_GAO sizeToFit:YES superView:self.noticeBack];
     }
     return _noticeIcon;
 }
 
--(UILabel *)noticeLabel{
+- (UILabel *)noticeLabel {
     if (!_noticeLabel) {
         _noticeLabel = [UICreationUtils createLabel:SIZE_TEXT_SECONDARY color:[UIColor whiteColor] text:@"春季数码产品新款上市，全场3折，预购从速" sizeToFit:YES superView:self.noticeBack];
     }
     return _noticeLabel;
 }
 
--(UIButton *)submitButton{
+- (UIButton *)submitButton {
     if (!_submitButton) {
         _submitButton = [UIButton buttonWithType:UIButtonTypeSystem];
         _submitButton.backgroundColor = COLOR_PRIMARY_DISHES;
@@ -137,10 +137,13 @@
 //        make.left.right.equalTo(self.view);
 //        make.bottom.equalTo(self.submitButton.mas_top);
 //    }];
-
+#pragma mark 使用该控件
+- (BOOL)useGYTableView {
+    return YES;
+}
 #pragma mark 设置tableView位置信息
 //如存在和容器底部对齐的元素，请在此方法对齐底部位置(默认占满controller边界)；autoLayerout无需重写此方法，自行设置tableView和其他元素布局关系
--(CGRect)getTableViewFrame{
+- (CGRect)getTableViewFrame {
     self.noticeBack.frame = CGRectMake(0, 0, self.view.width, 30);
     
     self.submitButton.maxY = self.view.height;
@@ -150,12 +153,12 @@
 }
 
 #pragma mark 自定义上拉加载控件
--(MJRefreshHeader *)getRefreshHeader{
+- (MJRefreshHeader *)getRefreshHeader {
     return [[DiyRotateRefreshHeader alloc]init];
 }
 
 #pragma mark 触发下拉刷新(交互或代码)
--(void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
+- (void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler {
     int64_t delay = 0.5 * NSEC_PER_SEC;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//模拟网络请求产生异步加载
         [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
@@ -166,9 +169,9 @@
 }
 
 #pragma mark 侦听选中的Cell并跳转页面
--(void)tableView:(GYTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    CellVo* cvo = [tableView getCellVoByIndexPath:indexPath];
-    DishesModel* dishesModel = cvo.cellData;
+- (void)tableView:(GYTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    CellVo *cvo = [tableView getCellVoByIndexPath:indexPath];
+    DishesModel *dishesModel = cvo.cellData;
     WebViewController* webViewController = [[WebViewController alloc]init];
     webViewController.linkUrl = dishesModel.linkUrl;
     webViewController.navigationTitle = dishesModel.title;

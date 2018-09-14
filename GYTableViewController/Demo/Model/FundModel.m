@@ -10,7 +10,7 @@
 
 @implementation FundModel
 
-+(instancetype)initWithParams:(NSString *)title iconName:(NSString *)iconName des:(NSString *)des rate:(NSString *)rate{
++ (instancetype)initWithParams:(NSString *)title iconName:(NSString *)iconName des:(NSString *)des rate:(NSString *)rate {
     FundModel *instance;
     @synchronized (self)    {
         if (instance == nil)

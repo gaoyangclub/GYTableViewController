@@ -11,15 +11,15 @@
 
 @interface HomeFastItem : UIControl
 
-@property(nonatomic,retain) UILabel* titleLable;
-@property(nonatomic,retain) UIImageView* iconView;//图片文本
-@property(nonatomic,retain) HotModel* hotModel;
+@property (nonatomic,strong) UILabel *titleLable;
+@property (nonatomic,strong) UIImageView *iconView;//图片文本
+@property (nonatomic,strong) HotModel *hotModel;
 
 @end
 
 @implementation HomeFastItem
 
--(UILabel *)titleLable{
+- (UILabel *)titleLable {
     if (!_titleLable) {
         _titleLable = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_TEXT_PRIMARY];
         [self addSubview:_titleLable];
@@ -27,15 +27,15 @@
     return _titleLable;
 }
 
--(UIImageView *)iconView{
-    if(!_iconView){
+- (UIImageView *)iconView {
+    if (!_iconView) {
         _iconView = [[UIImageView alloc]init];
         [self addSubview:_iconView];
     }
     return _iconView;
 }
 
--(void)layoutSubviews{
+- (void)layoutSubviews {
     [super layoutSubviews];
     
     self.titleLable.text = self.hotModel.title;
@@ -56,13 +56,13 @@
 
 @interface RefreshHotViewCell()
 
-@property(nonatomic,retain)UIView* bottomLine;
+@property (nonatomic,strong)UIView *bottomLine;
 
 @end
 
 @implementation RefreshHotViewCell
 
--(UIView *)bottomLine{
+- (UIView *)bottomLine {
     if (!_bottomLine) {
         _bottomLine = [[UIView alloc]init];
         _bottomLine.backgroundColor = COLOR_LINE;
@@ -75,10 +75,10 @@
 /**
  * 批量创建HomeFastItem按钮实例，一字排开
  */
--(void)showSubviews{
+- (void)showSubviews {
     self.backgroundColor = [UIColor whiteColor];
     
-    NSArray<HotModel*>* hotModels = GET_CELL_ARRAY_DATA(HotModel.class); //self.data;
+    NSArray<HotModel *> *hotModels = GET_CELL_ARRAY_DATA(HotModel.class); //self.data;
     CGFloat const itemWidth = self.contentView.width / hotModels.count;
     for (NSInteger i = 0; i < hotModels.count; i++) {
         HotModel* hotModel = hotModels[i];

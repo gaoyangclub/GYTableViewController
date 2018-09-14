@@ -15,8 +15,8 @@
 
 @implementation AppDelegate
 
-- (UINavigationController*)createNavigationController:(UIViewController*)viewController{
-    UINavigationController* navigationController = [[UINavigationController alloc]initWithRootViewController:viewController];
+- (UINavigationController *)createNavigationController:(UIViewController*)viewController{
+    UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:viewController];
     navigationController.automaticallyAdjustsScrollViewInsets = navigationController.navigationBar.translucent = NO;
     return navigationController;
 }

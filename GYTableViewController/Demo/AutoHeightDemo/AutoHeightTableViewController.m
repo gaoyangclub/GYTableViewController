@@ -12,7 +12,7 @@
 
 @interface AutoHeightTableViewController ()
 
-@property(nonatomic,retain)NSArray<WeiboModel*>* weiboModels;
+@property (nonatomic,strong) NSArray<WeiboModel *> *weiboModels;
 
 @end
 
@@ -21,7 +21,7 @@
 //----------  start ----------
 #pragma mark monk数据
 /** 以下作为前端mock的数据，模拟从后台返回的数据结构，真实操作为触发刷新后请求后台获取 **/
--(NSArray<WeiboModel *> *)weiboModels{
+- (NSArray<WeiboModel *> *)weiboModels {
     if (!_weiboModels) {
         _weiboModels = @[
                          [WeiboModel initWithParams:@"https://tvax4.sinaimg.cn/crop.0.0.512.512.180/7f9147a5ly8floqz4q2g3j20e80e8t8x.jpg" name:@"美食推荐" title:@"牛肉的各种吃法，分分钟让你口水直流" content:@"这些才是你该喝的饮料 【24种果蔬汁收藏夹】良心经验总结，这些蔬果一起榨汁最好喝！健健康康的果蔬汁喝起来吧~ ​​​​" imageUrl:@"https://tc.sinaimg.cn/maxwidth.800/tc.service.weibo.com/mmbiz_qpic_cn/6a1acdf39e872fac4a820c23cd333bb1.jpg"],
@@ -41,8 +41,13 @@
 }
 
 //----------  end ----------
+#pragma mark 使用该控件
+- (BOOL)useGYTableView {
+    return YES;
+}
+
 #pragma mark 触发下拉刷新(交互或代码)
--(void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
+- (void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler {
     int64_t delay = 0.5 * NSEC_PER_SEC;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//模拟网络请求产生异步加载
         [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {

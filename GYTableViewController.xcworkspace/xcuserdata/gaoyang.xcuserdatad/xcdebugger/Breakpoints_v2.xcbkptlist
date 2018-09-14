@@ -2,4 +2,85 @@
 <Bucket
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GYTableViewController/Demo/RefreshDemo/RefreshTableViewController.m"
+            timestampString = "558610847.4246891"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "-headerRefresh:endRefreshHandler:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[RefreshTableViewController headerRefresh:endRefreshHandler:]"
+                  moduleName = "GYTableViewController"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gaoyang/Documents/GYTableViewController/GYTableViewController/Demo/RefreshDemo/RefreshTableViewController.m"
+                  timestampString = "558500189.388059"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "123"
+                  endingLineNumber = "123"
+                  offsetFromSymbolStart = "91">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__62-[RefreshTableViewController headerRefresh:endRefreshHandler:]_block_invoke"
+                  moduleName = "GYTableViewController"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gaoyang/Documents/GYTableViewController/GYTableViewController/Demo/RefreshDemo/RefreshTableViewController.m"
+                  timestampString = "558500189.3915451"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "123"
+                  endingLineNumber = "123"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_.134"
+                  moduleName = "GYTableViewController"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gaoyang/Documents/GYTableViewController/GYTableViewController/Demo/RefreshDemo/RefreshTableViewController.m"
+                  timestampString = "558500189.394977"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "123"
+                  endingLineNumber = "123"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GYTableViewController/Framework/UIViewController+GYTableView.m"
+            timestampString = "558610847.42476"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "-p_loadView"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

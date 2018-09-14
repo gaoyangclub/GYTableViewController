@@ -10,7 +10,7 @@
 
 @implementation HotModel
 
-+(instancetype)initWithParams:(NSString *)title iconName:(NSString *)iconName{
++ (instancetype)initWithParams:(NSString *)title iconName:(NSString *)iconName {
     HotModel *instance;
     @synchronized (self)    {
         if (instance == nil)

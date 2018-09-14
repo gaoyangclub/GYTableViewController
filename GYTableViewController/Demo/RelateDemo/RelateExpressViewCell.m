@@ -15,18 +15,18 @@
 
 @interface RelateExpressViewCell()
 
-@property(nonatomic,retain) UIView* routeLine;//竖直线
-@property(nonatomic,retain) UIView* roundNode;//圆点
-@property(nonatomic,retain) UILabel* titleLabel;
-@property(nonatomic,retain) UILabel* yearLabel;
-@property(nonatomic,retain) UILabel* timeLabel;
+@property (nonatomic,strong) UIView *routeLine;//竖直线
+@property (nonatomic,strong) UIView *roundNode;//圆点
+@property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic,strong) UILabel *yearLabel;
+@property (nonatomic,strong) UILabel *timeLabel;
 
 @end
 
 @implementation RelateExpressViewCell
 
 #pragma mark 懒加载添加视图
--(UILabel *)titleLabel{
+- (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_TEXT_PRIMARY];
         [self.contentView addSubview:_titleLabel];
@@ -34,7 +34,7 @@
     return _titleLabel;
 }
 
--(UILabel *)yearLabel{
+- (UILabel *)yearLabel {
     if (!_yearLabel) {
         _yearLabel = [UICreationUtils createLabel:SIZE_TEXT_SECONDARY color:COLOR_TEXT_PRIMARY];
         [self.contentView addSubview:_yearLabel];
@@ -42,7 +42,7 @@
     return _yearLabel;
 }
 
--(UILabel *)timeLabel{
+- (UILabel *)timeLabel {
     if (!_timeLabel) {
         _timeLabel = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_TEXT_PRIMARY];
         [self.contentView addSubview:_timeLabel];
@@ -50,7 +50,7 @@
     return _timeLabel;
 }
 
--(UIView *)routeLine{
+- (UIView *)routeLine {
     if (!_routeLine) {
         _routeLine = [[UIView alloc]init];
         _routeLine.width = 2;
@@ -60,7 +60,7 @@
     return _routeLine;
 }
 
--(UIView *)roundNode{
+- (UIView *)roundNode {
     if (!_roundNode) {
         _roundNode = [[UIView alloc]init];
         [self.contentView addSubview:_roundNode];
@@ -69,7 +69,7 @@
 }
 
 #pragma mark 根据外部传入数据开始布局
--(void)showSubviews{
+- (void)showSubviews {
     self.backgroundColor = [UIColor whiteColor];
     
     ExpressModel* expressModel = GET_CELL_DATA(ExpressModel.class);
@@ -98,18 +98,18 @@
 }
 
 #pragma mark 设置选中效果
--(void)setSelected:(BOOL)selected{
+- (void)setSelected:(BOOL)selected {
     [super setSelected:selected];
     [self checkCellRelate];
 }
 //如要显示选中后一直按下效果 请使用setSelected
-//-(BOOL)showSelectionStyle{
+//- (BOOL)showSelectionStyle{
 //    return YES;
 //}
 #pragma mark 位于第一个或最后一个和中间段的选中未选中的Cell样式不同
--(void)checkCellRelate{
+- (void)checkCellRelate {
     self.titleLabel.textColor = self.yearLabel.textColor = self.timeLabel.textColor = self.selected ? COLOR_PRIMARY_EXPRESS : COLOR_TEXT_PRIMARY;
-    UIColor* nodeColor;
+    UIColor *nodeColor;
     if (self.selected) {
         nodeColor = COLOR_PRIMARY_EXPRESS;
     }else{
@@ -124,7 +124,7 @@
     }
 }
 
--(void)drawFirstStyle:(UIColor*)color{
+- (void)drawFirstStyle:(UIColor *)color {
     self.routeLine.height = self.contentView.height / 2.;
     self.routeLine.y = self.contentView.height / 2.;
     self.roundNode.size = CGSizeMake(FIRST_ROUTE_RADIUS * 2, FIRST_ROUTE_RADIUS * 2);
@@ -137,7 +137,7 @@
     self.roundNode.backgroundColor = [UIColor whiteColor];
 }
 
--(void)drawLastStyle:(UIColor*)color{
+- (void)drawLastStyle:(UIColor *)color {
     self.routeLine.height = self.contentView.height / 2.;
     self.routeLine.y = 0;
     self.roundNode.size = CGSizeMake(FIRST_ROUTE_RADIUS * 2, FIRST_ROUTE_RADIUS * 2);
@@ -150,7 +150,7 @@
     self.roundNode.backgroundColor = [UIColor whiteColor];
 }
 
--(void)drawNormalStyle:(UIColor*)color{
+- (void)drawNormalStyle:(UIColor *)color {
     self.routeLine.height = self.contentView.height;
     self.routeLine.y = 0;
     self.roundNode.size = CGSizeMake(NORMAL_ROUTE_RADIUS * 2, NORMAL_ROUTE_RADIUS * 2);
