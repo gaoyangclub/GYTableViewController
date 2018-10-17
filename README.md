@@ -28,7 +28,7 @@
 
 
 # 技术特点
-* 无需继承自定义Controller，引入头文件即可使用<br/>
+* 无需继承自定义类，引入头文件UIViewController+GYTableView.h即可使用<br/>
 * Section和Cell层次更加清晰，根据传入的Section数据结构内部已经全部实现Section和Cell相关delegate方法<br/>
 * Cell实例可获得外部动态数据，索引位置，上下关系，选中状态等，随时更换样式<br/>
 * 自带MJRefresh框架，提供下拉刷新和上拉加载功能，外部暴露接口调用<br/>
