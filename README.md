@@ -5,7 +5,7 @@
     *  [框架用法](#框架用法)
 * 代码结构
     *  [GYTableBaseView.h](#gytable-base-view)
-    *  [GYTableViewController.h](#gytable-view-controller)
+    *  [UIViewController+GYTableView.h](#gytable-view-controller)
     *  [GYTableViewCell.h](#gytable-view-cell)
     *  [GYTableViewSection.h](#gytable-view-section)
     *  [SectionVo](#section-vo)
@@ -28,10 +28,11 @@
 
 
 # 技术特点
+* 无需继承自定义Controller，引入头文件即可使用<br/>
 * Section和Cell层次更加清晰，根据传入的Section数据结构内部已经全部实现Section和Cell相关delegate方法<br/>
 * Cell实例可获得外部动态数据，索引位置，上下关系，选中状态等，随时更换样式<br/>
-* Controller自带MJRefresh框架，提供下拉刷新和上拉加载功能，外部暴露接口调用<br/>
-* 提供Cell，Section间距设置，提供选中行高亮、选中行自动居中，提供设置Cell动态高度设置等API<br/>
+* 自带MJRefresh框架，提供下拉刷新和上拉加载功能，外部暴露接口调用<br/>
+* 提供Section，Cell间距设置，提供选中行高亮、选中行自动居中，提供设置Cell动态高度设置等API<br/>
 * 框架中的元素全部继承于原生的tableView相关元素，除部分代理方法外，其他原生方法扔然可以使用<br/>
 
 # 安装方法
@@ -42,21 +43,28 @@
 请使用该框架中的元素来代替原生列表控件，对应关系如下:<br/>
 ```
 GYTableBaseView -> UITableView
-GYTableViewController -> UITableViewController
+UIViewController+GYTableView -> UIViewController
+GYTableViewController(废弃,使用UIViewController+GYTableView代替) -> UITableViewController
 GYTableViewCell -> UITableViewCell
 GYTableViewSection 原生使用UIView展示section内容，这里使用GYTableViewSection
 SectionVo 用来设置Section样式与GYTableViewSection实例绑定
 CellVo 用来设置Cell样式与GYTableViewCell实例绑定
 ```
 
-使用时有列表控件的界面直接继承GYTableViewController，.h示例如下
+使用时有列表控件的界面直接引入头文件UIViewController+GYTableView.h即可，.h示例如下
 ```objc
-#import "GYTableViewController.h"
-@interface NormalTableViewController : GYTableViewController
+#import "UIViewController+GYTableView.h"
+@interface NormalViewController : UIViewController
+```
+.m文件必须开启useGYTableView开关来使用表格控件GYTableView
+```objc
+- (BOOL)useGYTableView {
+    return YES;
+}
 ```
 .m文件中重写headerRefresh添加元素，当自带的下拉刷新控件下拉时调用；从而开始列表内容层次搭建，以及各种类型的Cell位置如何摆放等
 ```objc
--(void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
+- (void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler {
     //下拉刷新后开始请求后台提供数据，请求到数据后根据解析的内容展开cell实例和位置等操作，代码结构如下(伪代码)
     request{
         tableView{
@@ -82,7 +90,7 @@ Cell控件直接继承GYTableViewCell，.h示例如下
 ```
 .m文件中重写showSubviews方法进行布局，利用GET_CELL_DATA或GET_CELL_ARRAY_DATA宏来获取列表控件中传入的数据，如传入非数组型的数据使用GET_CELL_DATA，反之使用GET_CELL_ARRAY_DATA
 ```objc
--(void)showSubviews{
+- (void)showSubviews {
     GET_CELL_DATA([xxx class]);//先获取外部传入的数据
     GET_CELL_ARRAY_DATA([xxx class]);//或者获取数组类型的数据
 
@@ -95,7 +103,7 @@ Cell控件直接继承GYTableViewCell，.h示例如下
 @interface GYTableBaseView : UITableView
 
 /** 设置选中位置 **/
-@property(nonatomic,retain) NSIndexPath* selectedIndexPath;
+@property (nonatomic,strong) NSIndexPath *selectedIndexPath;
 /** 点中cell高亮 **/
 @property (nonatomic,assign) BOOL clickCellHighlight;
 /** 点中cell自动居中 **/
@@ -107,35 +115,36 @@ Cell控件直接继承GYTableViewCell，.h示例如下
 /** 首次下拉 **/
 @property (nonatomic,assign,readonly) BOOL hasFirstRefreshed;
 
+
 /** 下拉刷新 **/
--(void)headerBeginRefresh;
+- (void)headerBeginRefresh;
 /** 检查数据间距 **/
--(void)checkGaps;
+- (void)checkGaps;
 /** 清除所有数据 **/
--(void)clearAllSectionVo;
+- (void)clearAllSectionVo;
 /** 添加一节内容 **/
--(void)addSectionVo:(SectionVo*)sectionVo;
+- (void)addSectionVo:(SectionVo *)sectionVo;
 /** 在某个索引插入一节内容 **/
--(void)insertSectionVo:(SectionVo*)sectionVo atIndex:(NSInteger)index;
+- (void)insertSectionVo:(SectionVo *)sectionVo atIndex:(NSInteger)index;
 /** 删除一节内容 **/
--(void)removeSectionVoAt:(NSInteger)index;
+- (void)removeSectionVoAt:(NSInteger)index;
 /** 重新刷新全部界面 类似源生的reloadData **/
--(void)reloadGYData;
+- (void)gy_reloadData;
 /** 将选中的数据项平滑居中移动 **/
--(void)moveSelectedIndexPathToCenter;
+- (void)moveSelectedIndexPathToCenter;
 
 /** 获取最后一个SectionVo **/
--(SectionVo*)getLastSectionVo;
+- (SectionVo *)getLastSectionVo;
 /** 获取第一个SectionVo **/
--(SectionVo*)getFirstSectionVo;
+- (SectionVo *)getFirstSectionVo;
 /** 获取目标索引位置SectionVo **/
--(SectionVo*)getSectionVoByIndex:(NSInteger)index;
+- (SectionVo *)getSectionVoByIndex:(NSInteger)index;
 /** 获取目标indexPath位置CellVo **/
--(CellVo*)getCellVoByIndexPath:(NSIndexPath*)indexPath;
+- (CellVo *)getCellVoByIndexPath:(NSIndexPath *)indexPath;
 /** 获取SectionVo总数 **/
--(NSUInteger)getSectionVoCount;
+- (NSUInteger)getSectionVoCount;
 /** 获取CellVo总数 所有SectionVo包含的CellVo总和 **/
--(NSUInteger)getTotalCellVoCount;
+- (NSUInteger)getTotalCellVoCount;
 
 @end
 ```
@@ -145,32 +154,32 @@ Cell控件直接继承GYTableViewCell，.h示例如下
 @interface SectionVo : NSObject
 
 /** 创建SectionVo实例并初始化设置下一步回调 **/
-+ (instancetype)initWithParams:(void(^)(SectionVo* svo))nextBlock;
++ (instancetype)initWithParams:(void(^)(SectionVo *svo))nextBlock;
 /** 创建SectionVo实例并初始化设置section页眉高度、section页眉类型、section页眉数据、下一步回调 **/
-+ (instancetype)initWithParams:(CGFloat)sectionHeaderHeight sectionHeaderClass:(Class)sectionHeaderClass sectionHeaderData:(id)sectionHeaderData nextBlock:(void(^)(SectionVo* svo))nextBlock;
++ (instancetype)initWithParams:(CGFloat)sectionHeaderHeight sectionHeaderClass:(Class)sectionHeaderClass sectionHeaderData:(id)sectionHeaderData nextBlock:(void(^)(SectionVo *svo))nextBlock;
 /** 创建SectionVo实例并初始化设置section页眉高度、section页眉类型、section页眉数据、section页脚高度、section页脚类型、section页脚数据、下一步回调 **/
-+ (instancetype)initWithParams:(CGFloat)sectionHeaderHeight sectionHeaderClass:(Class)sectionHeaderClass sectionHeaderData:(id)sectionHeaderData sectionFooterHeight:(CGFloat)sectionFooterHeight sectionFooterClass:(Class)sectionFooterClass sectionFooterData:(id)sectionFooterData nextBlock:(void(^)(SectionVo* svo))nextBlock;
++ (instancetype)initWithParams:(CGFloat)sectionHeaderHeight sectionHeaderClass:(Class)sectionHeaderClass sectionHeaderData:(id)sectionHeaderData sectionFooterHeight:(CGFloat)sectionFooterHeight sectionFooterClass:(Class)sectionFooterClass sectionFooterData:(id)sectionFooterData nextBlock:(void(^)(SectionVo *svo))nextBlock;
 
 /** GYTableViewSection页眉实例高度 **/
-@property (nonatomic,assign)CGFloat sectionHeaderHeight;
+@property (nonatomic,assign) CGFloat sectionHeaderHeight;
 /** 用来实例化GYTableViewSection页眉的自定义类型 **/
-@property (nonatomic,retain)Class sectionHeaderClass;
+@property (nonatomic,strong) Class sectionHeaderClass;
 /** 传递给GYTableViewSection页眉实例的数据，用来展示界面判断逻辑等，实例内部通过self.data属性获得 **/
-@property (nonatomic,retain)id sectionHeaderData;
+@property (nonatomic,strong) id sectionHeaderData;
 
 /** GYTableViewSection页脚实例高度 **/
-@property (nonatomic,assign)CGFloat sectionFooterHeight;
+@property (nonatomic,assign) CGFloat sectionFooterHeight;
 /** 用来实例化GYTableViewSection页脚的自定义类型 **/
-@property (nonatomic,retain)Class sectionFooterClass;
+@property (nonatomic,strong) Class sectionFooterClass;
 /** 传递给GYTableViewSection页脚实例的数据，用来展示界面判断逻辑等，实例内部通过self.data属性获得 **/
-@property (nonatomic,retain)id sectionFooterData;
+@property (nonatomic,strong) id sectionFooterData;
 
 /** 该节包含的CellVo个数 **/
--(NSInteger)getCellVoCount;
+- (NSInteger)getCellVoCount;
 /**  添加单个CellVo **/
--(void)addCellVo:(CellVo*)cellVo;
+- (void)addCellVo:(CellVo*)cellVo;
 /**  批量添加CellVo **/
--(void)addCellVoByList:(NSArray<CellVo*>*)otherVoList;
+- (void)addCellVoByList:(NSArray<CellVo *> *)otherVoList;
 
 @end
 ```
@@ -186,49 +195,54 @@ Cell控件直接继承GYTableViewCell，.h示例如下
 /** 创建CellVo实例并初始化设置cell高度、cell类型、cell数据、cell是否唯一、是否强制刷新 **/
 + (instancetype)initWithParams:(CGFloat)cellHeight cellClass:(Class)cellClass cellData:(id)cellData isUnique:(BOOL)isUnique forceUpdate:(BOOL)forceUpdate;
 /** 通过原始数据数组批量创建CellVo并将数据分别对应存入 **/
-+(NSArray<CellVo*>*)dividingCellVoBySourceArray:(CGFloat)cellHeight cellClass:(Class)cellClass sourceArray:(NSArray*)sourceArray;
++ (NSArray<CellVo*>*)dividingCellVoBySourceArray:(CGFloat)cellHeight cellClass:(Class)cellClass sourceArray:(NSArray*)sourceArray;
 
 /** GYTableViewCell实例高度 **/
-@property (nonatomic,assign)CGFloat cellHeight;
+@property (nonatomic,assign) CGFloat cellHeight;
 /** 用来实例化GYTableViewCell的自定义类型 **/
-@property (nonatomic,retain)Class cellClass;
+@property (nonatomic,strong) Class cellClass;
 /** 传递给GYTableViewCell实例的数据，用来展示界面判断逻辑等，实例内部通过self.data属性获得 **/
-@property (nonatomic,retain)id cellData;
+@property (nonatomic,strong) id cellData;
 /** 创建GYTableViewCell实例唯一，相当于单例，就算是相同类型的GYTableViewCell也是各自成为单例，且内容不会刷新(适合内容只初始化一次的界面) **/
-@property (nonatomic,assign)BOOL isUnique;
+@property (nonatomic,assign) BOOL isUnique;
 /** isUnique设置为true的情况下 forceUpdate可以继续让单例GYTableViewCell中的内容强制刷新 **/
-@property (nonatomic,assign)BOOL forceUpdate;
+@property (nonatomic,assign) BOOL forceUpdate;
 /** 自定义保留字段 **/
-@property (nonatomic,copy)NSString* cellName;
+@property (nonatomic,copy) NSString *cellName;
 
 @end
 ```
 <a name="gytable-view-controller"></a>
-# GYTableViewController.h
+# UIViewController+GYTableView.h
 ```objc
-@interface GYTableViewController : UIViewController<GYTableBaseViewDelegate>
+@interface UIViewController (GYTableView)<GYTableBaseViewDelegate>
 
 /** controller包含的tableView实例 **/
-@property(nonatomic,retain)GYTableBaseView* tableView;
+@property(nonatomic,strong) GYTableBaseView *tableView;
 /** 设置进入该页面是否自动下拉刷新 默认true **/
-@property(nonatomic,assign)BOOL autoRefreshHeader;
+@property(nonatomic,assign) BOOL autoRefreshHeader;
 /** 设置选中某个indexPath位置 **/
-@property(nonatomic,retain)NSIndexPath* selectedIndexPath;
+@property(nonatomic,strong) NSIndexPath *selectedIndexPath;
 /** 设置是否标记重用cell实例 默认true **/
-@property(nonatomic,assign)BOOL useCellIdentifer;
+@property(nonatomic,assign) BOOL useCellIdentifer;
 /** 设置每次进入该页面自动滚动到列表顶部 默认false **/
-@property(nonatomic,assign)BOOL autoRestOffset;
+@property(nonatomic,assign) BOOL autoRestOffset;
 /** 设置是否显示下拉刷新控件 默认true **/
-@property(nonatomic,assign)BOOL isShowHeader;
+@property(nonatomic,assign) BOOL isShowHeader;
 /** 设置是否显示上拉加载控件 默认false **/
-@property(nonatomic,assign)BOOL isShowFooter;
+@property(nonatomic,assign) BOOL isShowFooter;
+
+/** 设置是否使用该控件 默认false;请在引入头文件后重写该方法返回true **/
+- (BOOL)useGYTableView;
 
 /** 设置TableView的布局位置，默认铺满Controller **/
--(CGRect)getTableViewFrame;
+- (CGRect)getTableViewFrame;
 /** 设置自定义下拉刷新控件实例 **/
--(MJRefreshHeader*)getRefreshHeader;
+- (MJRefreshHeader *)getRefreshHeader;
 /** 设置自定义上拉加载控件实例 **/
--(MJRefreshFooter*)getRefreshFooter;
+- (MJRefreshFooter *)getRefreshFooter;
+/** 设置TableView的父容器，默认当前view **/
+- (UIView *)getTableViewParent;
 
 @end
 ```
@@ -243,25 +257,22 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 
 @optional
 /** 当GYTableBaseView下拉刷新时代理调用 **/
--(void)headerRefresh:(GYTableBaseView*)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler;
+- (void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler;
 @optional
 /** 当GYTableBaseView上拉加载时代理调用 **/
--(void)footerLoadMore:(GYTableBaseView*)tableView endLoadMoreHandler:(FooterLoadMoreHandler)endLoadMoreHandler lastSectionVo:(SectionVo*)lastSectionVo;
+- (void)footerLoadMore:(GYTableBaseView *)tableView endLoadMoreHandler:(FooterLoadMoreHandler)endLoadMoreHandler lastSectionVo:(SectionVo *)lastSectionVo;
 @optional
 /** 当GYTableBaseView下拉刷新完毕后代理调用 **/
--(void)didRefreshComplete:(GYTableBaseView*)tableView;
+- (void)didRefreshComplete:(GYTableBaseView *)tableView;
 @optional
 /** 当GYTableBaseView上拉加载完毕后代理调用 **/
--(void)didLoadMoreComplete:(GYTableBaseView*)tableView;
+- (void)didLoadMoreComplete:(GYTableBaseView *)tableView;
 @optional
 /** 当GYTableBaseView某一条GYTableViewCell实例被点击时代理调用 **/
--(void)tableView:(GYTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableView:(GYTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 @optional
 /** 当GYTableBaseView滚动到某个位置时代理调用 **/
--(void)didScrollToRow:(GYTableBaseView*)tableView indexPath:(NSIndexPath *)indexPath;
-@optional
-/** 当GYTableBaseView从滚动状态静止时代理调用 **/
--(void)didEndScrollingAnimation:(GYTableBaseView*)tableView;
+- (void)didScrollToRow:(GYTableBaseView *)tableView indexPath:(NSIndexPath *)indexPath;
 
 @end
 ```
@@ -283,20 +294,20 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 /** 对应的GYTableBaseView实例 **/
 @property(nonatomic,weak) GYTableBaseView* tableView;
 /** 当前所处位置 **/
-@property(nonatomic,retain) NSIndexPath* indexPath;
+@property(nonatomic,strong) NSIndexPath* indexPath;
 /** 对应的CellVo实例 **/
-@property(nonatomic,retain) CellVo *cellVo;
+@property(nonatomic,strong) CellVo *cellVo;
 
 /** 页面元素创建并布局 请勿使用layoutSubviews来布局 **/
--(void)showSubviews;
+- (void)showSubviews;
 /** 是否显示选中的效果样式 默认false **/
--(BOOL)showSelectionStyle;
+- (BOOL)showSelectionStyle;
 /** 根据内容动态计算高度（适合内容多少高度不定的样式或文案展示） **/
--(CGFloat)getCellHeight:(CGFloat)cellWidth;
+- (CGFloat)getCellHeight:(CGFloat)cellWidth;
 /** 检查cellData的类型是否是目标类型 并返回cellData **/
--(id)checkCellDataClass:(Class)targetClass;
+- (id)checkCellDataClass:(Class)targetClass;
 /** 检查cellData类型为NSArray中的子元素类型是否是目标类型 并返回cellData **/
--(NSArray*)checkCellArrayDataClass:(Class)arrayMemberClass;
+- (NSArray*)checkCellArrayDataClass:(Class)arrayMemberClass;
 
 @end
 ```
@@ -306,15 +317,15 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 @interface GYTableViewSection : UIControl
 
 /** tableView所有section总数  **/
-@property(nonatomic,assign)NSInteger sectionCount;
+@property (nonatomic,assign) NSInteger sectionCount;
 /** 当前section索引位置  **/
-@property(nonatomic,assign)NSInteger sectionIndex;
+@property (nonatomic,assign) NSInteger sectionIndex;
 /** 外部传入的数据 用来布局或交互等（sectionVo.sectionData） **/
-@property(nonatomic,retain)id data;
+@property (nonatomic,strong) id data;
 /** 是否在整个tableView的首位 **/
-@property(nonatomic,assign)BOOL isFirst;
+@property (nonatomic,assign) BOOL isFirst;
 /** 是否在整个tableView的末位 **/
-@property(nonatomic,assign)BOOL isLast;
+@property (nonatomic,assign) BOOL isLast;
 
 @end
 ```
