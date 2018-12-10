@@ -38,21 +38,39 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 @optional
 /** 当GYTableBaseView下拉刷新时代理调用 **/
 - (void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler;
+
 @optional
 /** 当GYTableBaseView上拉加载时代理调用 **/
 - (void)footerLoadMore:(GYTableBaseView *)tableView endLoadMoreHandler:(FooterLoadMoreHandler)endLoadMoreHandler lastSectionVo:(SectionVo *)lastSectionVo;
+
 @optional
 /** 当GYTableBaseView下拉刷新完毕后代理调用 **/
 - (void)didRefreshComplete:(GYTableBaseView *)tableView;
+
 @optional
 /** 当GYTableBaseView上拉加载完毕后代理调用 **/
 - (void)didLoadMoreComplete:(GYTableBaseView *)tableView;
+
 @optional
 /** 当GYTableBaseView某一条GYTableViewCell实例被点击时代理调用 **/
 - (void)tableView:(GYTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ 当cell将被使用的时候做预定义(cellForRowAtIndexPath后被调用), 当用户需要对cell控件实例初始化一些自定义变量，或添加block并在控制器中回调的场景下使用
+ @param tableView tabel实例
+ @param targetCell 目标cell控件实例
+ @param indexPath 位置
+ */
 @optional
+- (void)preparCell:(GYTableBaseView *)tableView targetCell:(GYTableViewCell *)targetCell indexPath:(NSIndexPath *)indexPath;
+
+//@optional
 /** 当GYTableBaseView滚动到某个位置时代理调用 **/
-- (void)didScrollToRow:(GYTableBaseView *)tableView indexPath:(NSIndexPath *)indexPath;
+//- (void)didScrollToRow:(GYTableBaseView *)tableView indexPath:(NSIndexPath *)indexPath;
+
+
+- (void)
+
 //@optional
 /** 当GYTableBaseView从滚动状态静止时代理调用 **/
 //- (void)didEndScrollingAnimation:(GYTableBaseView*)tableView;

@@ -385,7 +385,7 @@ typedef enum {
 }
 
 - (void)moveSelectedIndexPathToCenter {
-    if(self.mj_header.isIdle){//不在刷新状态下可以使用
+    if(!self.mj_header || (self.mj_header && self.mj_header.isIdle)){//不设置下拉刷新控件 or 刷新控件不在刷新状态下可以使用
         if (self.clickCellMoveToCenter && self->_selectedIndexPath) {
             //                GYTableViewCell* cell = [self cellForRowAtIndexPath:_selectedIndexPath];
             //                DDLog(@"selectedIndexPath.row:%ld",(long)_selectedIndexPath.row);
@@ -475,23 +475,18 @@ typedef enum {
         isCreate = YES;
     }
     
-    if(isCreate){ //创建阶段设置
-        if([cell showSelectionStyle]){
-            cell.selectionStyle = UITableViewCellSelectionStyleGray;
-        }else{
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        }
+    if (isCreate) { //创建阶段设置
         cell.backgroundColor = [UIColor clearColor];//无色
     }
-    if (isCreate || !cell.isSubviewShow || !cellVo.isUnique || (cellVo.isUnique && cellVo.forceUpdate)) {//cell.cellVo != cellVo
+    if (isCreate || !cell.isSubviewShow || !cellVo.isUnique || (cellVo.isUnique && cellVo.forceUpdate)) {//cell.cellVo !=
         cell.needRefresh = YES; //需要刷新
-    }else{
+    } else {
         cell.needRefresh = NO; //不需要刷新
     }
 //    NSObject* data = cellVo.cellData;
     cell.isSingle = sectionVo.cellVoList.count <= 1;
     cell.isFirst = cellVo.cellType == CellTypeFirst;
-    if(sectionVo.cellVoList != NULL){
+    if (sectionVo.cellVoList != NULL) {
         cell.isLast = cellVo.cellType == CellTypeLast;//row == source.data!.count - 1//索引在最后
     }
     cell.indexPath = indexPath;
@@ -499,7 +494,19 @@ typedef enum {
 //    cell.data = data;
     cell.cellVo = cellVo;
     
+    //当cellVo数据设置完毕后再设置选中样式，有可能根据业务数据返回showSelectionStyle值
+    if ([cell showSelectionStyle]) {
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+    } else {
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
     cell.selected = [indexPath isEqual:self.selectedIndexPath];
+    
+    if ([self.delegate respondsToSelector:@selector(preparCell:targetCell:indexPath:)]) {
+        [self.delegate preparCell:self targetCell:cell indexPath:indexPath];
+    }
+    
     return cell;
 }
 
