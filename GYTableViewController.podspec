@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = 'GYTableViewController'
-    s.version      = '1.0.7'
+    s.version      = '1.0.8'
     s.summary      = 'A simple and efficient table control with pull-to-refresh'
     s.homepage     = 'https://github.com/gaoyangclub/GYTableViewController'
     s.license      = 'MIT'
