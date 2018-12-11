@@ -503,8 +503,8 @@ typedef enum {
     
     cell.selected = [indexPath isEqual:self.selectedIndexPath];
     
-    if ([self.delegate respondsToSelector:@selector(preparCell:targetCell:indexPath:)]) {
-        [self.delegate preparCell:self targetCell:cell indexPath:indexPath];
+    if (self.gy_delegate && [self.gy_delegate respondsToSelector:@selector(preparCell:targetCell:indexPath:)]) {
+        [self.gy_delegate preparCell:self targetCell:cell indexPath:indexPath];
     }
     
     return cell;

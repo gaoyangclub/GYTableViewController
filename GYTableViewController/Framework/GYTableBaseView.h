@@ -27,6 +27,7 @@
 
 @class CellVo;
 @class SectionVo;
+@class GYTableViewCell;
 @class GYTableBaseView;
 
 /** 下拉刷新或上拉加载调用结束Block hasData标注界面是否刷新出了新的数据  **/
@@ -55,6 +56,10 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 /** 当GYTableBaseView某一条GYTableViewCell实例被点击时代理调用 **/
 - (void)tableView:(GYTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 
+@optional
+/** 当GYTableBaseView滚动到某个位置时代理调用 **/
+- (void)didScrollToRow:(GYTableBaseView *)tableView indexPath:(NSIndexPath *)indexPath;
+
 /**
  当cell将被使用的时候做预定义(cellForRowAtIndexPath后被调用), 当用户需要对cell控件实例初始化一些自定义变量，或添加block并在控制器中回调的场景下使用
  @param tableView tabel实例
@@ -63,13 +68,6 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
  */
 @optional
 - (void)preparCell:(GYTableBaseView *)tableView targetCell:(GYTableViewCell *)targetCell indexPath:(NSIndexPath *)indexPath;
-
-//@optional
-/** 当GYTableBaseView滚动到某个位置时代理调用 **/
-//- (void)didScrollToRow:(GYTableBaseView *)tableView indexPath:(NSIndexPath *)indexPath;
-
-
-- (void)
 
 //@optional
 /** 当GYTableBaseView从滚动状态静止时代理调用 **/
