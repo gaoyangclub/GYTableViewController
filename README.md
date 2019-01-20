@@ -460,9 +460,9 @@ endLoadMoreHandler(YES);//不要忘了结束上拉加载刷新
 
 <a name="侦听选中的cell"></a>
 # 侦听选中的Cell
-### 列表控制器内部实现代理，原生的方法一致
+### 列表控制器内部实现代理 (tableView:didSelectRowAtIndexPath:已废弃)
 ```objc
--(void)tableView:(GYTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)didSelectRow:(GYTableBaseView *)tableView indexPath:(NSIndexPath *)indexPath {
     CellVo* cvo = [tableView getCellVoByIndexPath:indexPath];//获取到绑定的CellVo
     XXClass* cellData = cvo.cellData;//获得cell的原始数据
     //根据数据添加业务逻辑...
@@ -470,7 +470,7 @@ endLoadMoreHandler(YES);//不要忘了结束上拉加载刷新
 ```
 ### 设置cell点击效果，cell实例内部重写showSelectionStyle
 ```objc
--(BOOL)showSelectionStyle{
+- (BOOL)showSelectionStyle {
     return YES;
 }
 ```
