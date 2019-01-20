@@ -54,7 +54,9 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 
 @optional
 /** 当GYTableBaseView某一条GYTableViewCell实例被点击时代理调用 **/
-- (void)tableView:(GYTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableView:(GYTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, "请使用didSelectRow:indexPath:代替");
+
+- (void)didSelectRow:(GYTableBaseView *)tableView indexPath:(NSIndexPath *)indexPath;
 
 @optional
 /** 当GYTableBaseView滚动到某个位置时代理调用 **/
@@ -69,10 +71,6 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 @optional
 - (void)preparCell:(GYTableBaseView *)tableView targetCell:(GYTableViewCell *)targetCell indexPath:(NSIndexPath *)indexPath;
 
-//@optional
-/** 当GYTableBaseView从滚动状态静止时代理调用 **/
-//- (void)didEndScrollingAnimation:(GYTableBaseView*)tableView;
-
 /** 以下方法不可代理调用  **/
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView __attribute__((unavailable("Disabled")));
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
@@ -84,10 +82,10 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
-- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
+//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
+//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
+//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
+//- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
 
 
 @end
@@ -106,7 +104,7 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 
 @property (nonatomic,strong,readonly) NSMutableArray<SectionVo *> *dataSourceArray;
 
-//@property (nonatomic, weak) id<GYTableBaseViewDelegate> gy_delegate;
+@property (nonatomic, weak) id<GYTableBaseViewDelegate> gy_delegate;
 //@property (nonatomic,assign) BOOL refreshAll;
 @property (nonatomic,strong) MJRefreshHeader *header;
 @property (nonatomic,strong) MJRefreshFooter *footer;

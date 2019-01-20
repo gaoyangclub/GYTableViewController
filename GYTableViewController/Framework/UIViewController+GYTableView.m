@@ -74,13 +74,13 @@ static const char *GYTableView_isShowFooter = "GYTableView_isShowFooter";
     objc_setAssociatedObject(self, GYTableView_isShowFooter, @(isShowFooter), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
-}
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//    return 0;
+//}
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return nil;
-}
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return nil;
+//}
 
 - (void)setSelectedIndexPath:(NSIndexPath *)selectedIndexPath {
     self.tableView.selectedIndexPath = selectedIndexPath;
@@ -118,7 +118,7 @@ static const char *GYTableView_isShowFooter = "GYTableView_isShowFooter";
     if (!self.tableView) {
         //        BOOL translucent = (self.tabBarController != NULL && self.tabBarController.navigationController != NULL && !self.tabBarController.navigationController.navigationBar.translucent);
         self.tableView = [[GYTableBaseView alloc]initWithFrameAndParams:self.view.frame showHeader:self.isShowHeader showFooter:self.isShowFooter useCellIdentifer:self.useCellIdentifer delegate:self];
-        //        self.tableView.gy_delegate = self;
+//        self.tableView.gy_delegate = self;
 //        self.tableView.backgroundColor = [UIColor brownColor];
         [[self getTableViewParent] addSubview:self.tableView];
         MJRefreshHeader *header = [self getRefreshHeader];

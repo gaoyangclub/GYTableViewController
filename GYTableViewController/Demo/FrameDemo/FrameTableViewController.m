@@ -169,7 +169,7 @@
 }
 
 #pragma mark 侦听选中的Cell并跳转页面
-- (void)tableView:(GYTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)didSelectRow:(GYTableBaseView *)tableView indexPath:(NSIndexPath *)indexPath{
     CellVo *cvo = [tableView getCellVoByIndexPath:indexPath];
     DishesModel *dishesModel = cvo.cellData;
     WebViewController* webViewController = [[WebViewController alloc]init];

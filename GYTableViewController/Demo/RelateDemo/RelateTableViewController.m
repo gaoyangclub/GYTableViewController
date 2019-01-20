@@ -152,7 +152,7 @@
 }
 
 #pragma mark 监听选中某个Cell
-- (void)tableView:(GYTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)didSelectRow:(GYTableBaseView *)tableView indexPath:(NSIndexPath *)indexPath {
     if(self.switchClickHighlight.on){
         self.steperSelectedIndex.value = indexPath.row + 1;
     }

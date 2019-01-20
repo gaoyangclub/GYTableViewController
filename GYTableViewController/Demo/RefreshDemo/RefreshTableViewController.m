@@ -188,7 +188,7 @@
 #pragma mark 触发上拉加载(交互或代码)
 - (void)footerLoadMore:(GYTableBaseView *)tableView endLoadMoreHandler:(FooterLoadMoreHandler)endLoadMoreHandler lastSectionVo:(SectionVo *)lastSectionVo {
     int64_t delay = 0.5 * NSEC_PER_SEC;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//模拟网络请求产生异步加载
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay)), dispatch_get_main_queue(), ^{//模拟网络请求产生异步加载
         if([tableView getTotalCellVoCount] > 30){//总共超出30条数据不添加数据
             endLoadMoreHandler(NO);//直接结束上拉加载刷新，并显示"已经全部加载完毕"
             return;

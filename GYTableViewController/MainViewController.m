@@ -110,7 +110,7 @@
 //    });
 //}
 
-- (void)tableView:(GYTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)didSelectRow:(GYTableBaseView *)tableView indexPath:(NSIndexPath *)indexPath {
     CellVo *cvo = [tableView getCellVoByIndexPath:indexPath];
     ControllerVo *controllerVo = cvo.cellData;
     UIViewController *viewController = [[controllerVo.controllerClass alloc]init];
