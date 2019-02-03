@@ -9,69 +9,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GYTableViewController/Demo/RefreshDemo/RefreshTableViewController.m"
-            timestampString = "569684467.746712"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "RefreshTableViewController"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[RefreshTableViewController headerRefresh:endRefreshHandler:]"
-                  moduleName = "GYTableViewController"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gaoyang/Documents/GYTableViewController/GYTableViewController/Demo/RefreshDemo/RefreshTableViewController.m"
-                  timestampString = "558500189.388059"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "123"
-                  endingLineNumber = "123"
-                  offsetFromSymbolStart = "91">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__62-[RefreshTableViewController headerRefresh:endRefreshHandler:]_block_invoke"
-                  moduleName = "GYTableViewController"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gaoyang/Documents/GYTableViewController/GYTableViewController/Demo/RefreshDemo/RefreshTableViewController.m"
-                  timestampString = "558500189.3915451"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "123"
-                  endingLineNumber = "123"
-                  offsetFromSymbolStart = "40">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_.134"
-                  moduleName = "GYTableViewController"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gaoyang/Documents/GYTableViewController/GYTableViewController/Demo/RefreshDemo/RefreshTableViewController.m"
-                  timestampString = "558500189.394977"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "123"
-                  endingLineNumber = "123"
-                  offsetFromSymbolStart = "16">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "GYTableViewController/Framework/UIViewController+GYTableView.m"
             timestampString = "569684467.747647"
             startingColumnNumber = "9223372036854775807"
@@ -89,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GYTableViewController/Framework/GYTableBaseView.m"
-            timestampString = "569684467.747972"
+            timestampString = "570859834.581812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "340"
-            endingLineNumber = "340"
+            startingLineNumber = "338"
+            endingLineNumber = "338"
             landmarkName = "-numberOfSectionsInTableView:"
             landmarkType = "7">
          </BreakpointContent>
@@ -105,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GYTableViewController/Framework/GYTableBaseView.m"
-            timestampString = "569684467.748296"
+            timestampString = "570859834.582409"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "362"
-            endingLineNumber = "362"
+            startingLineNumber = "360"
+            endingLineNumber = "360"
             landmarkName = "-tableView:numberOfRowsInSection:"
             landmarkType = "7">
          </BreakpointContent>
@@ -131,11 +68,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GYTableViewController/Framework/GYTableBaseView.m"
-            timestampString = "569684467.748415"
+            timestampString = "570859834.582548"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "439"
-            endingLineNumber = "439"
+            startingLineNumber = "437"
+            endingLineNumber = "437"
             landmarkName = "-touchesShouldCancelInContentView:"
             landmarkType = "7">
          </BreakpointContent>
@@ -147,11 +84,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GYTableViewController/Framework/GYTableBaseView.m"
-            timestampString = "569684467.748499"
+            timestampString = "570859834.582652"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "367"
-            endingLineNumber = "367"
+            startingLineNumber = "365"
+            endingLineNumber = "365"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -163,11 +100,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GYTableViewController/Framework/GYTableBaseView.m"
-            timestampString = "569684467.74858"
+            timestampString = "570859834.582749"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
             landmarkName = "-setGy_delegate:"
             landmarkType = "7">
          </BreakpointContent>
@@ -179,11 +116,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GYTableViewController/Framework/GYTableBaseView.m"
-            timestampString = "569684467.74866"
+            timestampString = "570859834.582845"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
+            startingLineNumber = "175"
+            endingLineNumber = "175"
             landmarkName = "-p_addInstanceMethod:selectorName:"
             landmarkType = "7">
          </BreakpointContent>
@@ -195,11 +132,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GYTableViewController/Framework/GYTableBaseView.m"
-            timestampString = "569684467.748737"
+            timestampString = "570859834.582934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "443"
-            endingLineNumber = "443"
+            startingLineNumber = "441"
+            endingLineNumber = "441"
             landmarkName = "-tableView:heightForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -211,11 +148,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GYTableViewController/Framework/GYTableBaseView.m"
-            timestampString = "569684467.748816"
+            timestampString = "570859834.5830179"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "536"
-            endingLineNumber = "536"
+            startingLineNumber = "534"
+            endingLineNumber = "534"
             landmarkName = "-changeSelectIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -227,11 +164,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GYTableViewController/Framework/GYTableBaseView.m"
-            timestampString = "569684467.7488869"
+            timestampString = "570859834.583161"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "644"
-            endingLineNumber = "644"
+            startingLineNumber = "642"
+            endingLineNumber = "642"
             landmarkName = "-scrollToRowAtIndexPath:atScrollPosition:animated:"
             landmarkType = "7">
          </BreakpointContent>

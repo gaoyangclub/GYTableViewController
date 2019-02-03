@@ -11,8 +11,8 @@
 
 @interface WebViewController()
 
-@property (nonatomic,strong) WKWebView *webView;
-@property (nonatomic,strong) UIProgressView *progressView;
+@property (nonatomic, strong) WKWebView *webView;
+@property (nonatomic, strong) UIProgressView *progressView;
 
 @end
 

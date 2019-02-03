@@ -10,15 +10,15 @@
 
 @interface DishesModel : NSObject
 
-@property (nonatomic,copy) NSString *title;//标题栏
+@property (nonatomic, copy) NSString *title;//标题栏
 
-@property (nonatomic,copy) NSString *iconName;//图标名称
+@property (nonatomic, copy) NSString *iconName;//图标名称
 
-@property (nonatomic,copy) NSString *des;//sku描述
+@property (nonatomic, copy) NSString *des;//sku描述
 
-@property (nonatomic,copy) NSString *price;//价值
+@property (nonatomic, copy) NSString *price;//价值
 
-@property (nonatomic,copy) NSString *linkUrl;//跳转界面
+@property (nonatomic, copy) NSString *linkUrl;//跳转界面
 
 //https://item.jd.com/5089255.html
 

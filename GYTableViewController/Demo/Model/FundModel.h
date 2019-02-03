@@ -10,13 +10,13 @@
 
 @interface FundModel : NSObject
 
-@property (nonatomic,copy) NSString *title;//标题栏
+@property (nonatomic, copy) NSString *title;//标题栏
 
-@property (nonatomic,copy) NSString *iconName;//图标名称
+@property (nonatomic, copy) NSString *iconName;//图标名称
 
-@property (nonatomic,copy) NSString *des;//描述
+@property (nonatomic, copy) NSString *des;//描述
 
-@property (nonatomic,copy) NSString *rate;//利率
+@property (nonatomic, copy) NSString *rate;//利率
 
 + (instancetype)initWithParams:(NSString *)title iconName:(NSString *)iconName des:(NSString *)des rate:(NSString *)rate;
 

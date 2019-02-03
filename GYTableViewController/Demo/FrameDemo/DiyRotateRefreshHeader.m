@@ -10,24 +10,11 @@
 
 @interface DiyRotateRefreshHeader()
 
-@property (nonatomic,strong) UILabel *rotateView;
+@property (nonatomic, strong) UILabel *rotateView;
 
 @end
 
 @implementation DiyRotateRefreshHeader
-
-- (UILabel *)rotateView {
-    if (!_rotateView) {
-        _rotateView = [[UILabel alloc]init];
-        UIFont *iconfont = [UIFont fontWithName:@"iconfont" size: 25];
-        _rotateView.font = iconfont;
-        _rotateView.text = @"\U0000e60e";// \U0000e652
-        [_rotateView sizeToFit];
-        _rotateView.textColor = COLOR_PRIMARY_DISHES;
-        [self addSubview:_rotateView];
-    }
-    return _rotateView;
-}
 
 - (void)placeSubviews {
     [super placeSubviews];
@@ -75,15 +62,6 @@
     MJRefreshCheckState
     
     if (state == MJRefreshStateRefreshing) {
-
-//        CABasicAnimation* rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-//        rotationAnimation.byValue = [NSNumber numberWithFloat: M_PI * 2.0 ];
-//        rotationAnimation.duration = 2;
-//        rotationAnimation.cumulative = YES;
-//        rotationAnimation.repeatCount = HUGE_VALF;
-//        rotationAnimation.fillMode = kCAFillModeForwards;
-//        rotationAnimation.removedOnCompletion = NO;
-//        [self.rotateView.layer addAnimation:rotationAnimation forKey:@"rotationAnimation1"];
         
         [self startRotateRepert];
     }
@@ -91,9 +69,7 @@
 
 - (void)setPullingPercent:(CGFloat)pullingPercent {
     [super setPullingPercent:pullingPercent];
-////    if (pullingPercent == 0) {
-////        self.rotateView.alpha = 1;
-////    }
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.state == MJRefreshStatePulling) {
             self.rotateView.transform = CGAffineTransformMakeRotation(pullingPercent * 360 * M_PI / 180.0);
@@ -102,5 +78,17 @@
     });
 }
 
+- (UILabel *)rotateView {
+    if (!_rotateView) {
+        _rotateView = [[UILabel alloc]init];
+        UIFont *iconfont = [UIFont fontWithName:@"iconfont" size: 25];
+        _rotateView.font = iconfont;
+        _rotateView.text = @"\U0000e60e";// \U0000e652
+        [_rotateView sizeToFit];
+        _rotateView.textColor = COLOR_PRIMARY_DISHES;
+        [self addSubview:_rotateView];
+    }
+    return _rotateView;
+}
 
 @end

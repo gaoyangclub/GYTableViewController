@@ -14,128 +14,17 @@
 #import "RefreshFundViewCell.h"
 #import "RefreshFundViewSection.h"
 
-//@interface BlankCell:GYTableViewCell
-//@end
-//@implementation BlankCell
-//
-//- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
-//    UIView *view = [super hitTest:point withEvent:event];
-////    if ([view isKindOfClass:[UITableView class]]) {
-////        return self;
-////    }
-//    if (view == self.contentView) {
-//        return [self.tableView.superview.subviews[0] hitTest:point withEvent:event];
-//    }
-//    return nil;
-//}
-//
-//
-//- (void)showSubviews {
-//    self.userInteractionEnabled = NO;
-//    return view;
-//}
-//
-//@end
-
 @interface RefreshTableViewController ()
 
-@property (nonatomic,strong) NSArray<NSString *> *bannerUrlGroup;
-@property (nonatomic,strong) NSArray<HotModel *> *hotModels;
-@property (nonatomic,strong) NSArray<FundModel *> *fundModels;
+@property (nonatomic, strong) NSArray<NSString *> *bannerUrlGroup;
+@property (nonatomic, strong) NSArray<HotModel *> *hotModels;
+@property (nonatomic, strong) NSArray<FundModel *> *fundModels;
 
-@property (nonatomic,strong) NSArray<FundModel *> *fundNewModels;
-
-//@property(nonatomic,retain)UIButton* submitButton;
-//@property(nonatomic,retain)UIView* buttonArea;
+@property (nonatomic, strong) NSArray<FundModel *> *fundNewModels;
 
 @end
 
 @implementation RefreshTableViewController
-
-//-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-//    NSLog(@"%@界面点击",[self class]);
-//}
-//
-//-(UIView *)buttonArea{
-//    if(!_buttonArea){
-//        _buttonArea = [[UIView alloc]init];
-//        [self.view addSubview:_buttonArea];
-//        _buttonArea.backgroundColor = [UIColor orangeColor];
-//    }
-//    return _buttonArea;
-//}
-//
-//-(UIButton *)submitButton{
-//    if (!_submitButton) {
-//        _submitButton = [UIButton buttonWithType:UIButtonTypeSystem];
-//        _submitButton.backgroundColor = COLOR_PRIMARY_DISHES;
-//        [_submitButton setTitle:@"结   算" forState:UIControlStateNormal];
-//        [_submitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        _submitButton.titleLabel.font = [UIFont systemFontOfSize:20];
-//        
-//        [self.buttonArea addSubview:_submitButton];
-//        
-//        //        [_submitButton addTarget:self action:@selector(clickSubmitButton:) forControlEvents:UIControlEventTouchUpInside];
-//    }
-//    return _submitButton;
-//}
-
-//----------  start ----------
-#pragma mark monk数据
-/** 以下作为前端mock的数据，模拟从后台返回的数据结构，真实操作为触发刷新后请求后台获取 **/
-- (NSArray<NSString *> *)bannerUrlGroup {
-    if (!_bannerUrlGroup) {
-        _bannerUrlGroup = @[
-                            @"https://ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/super/whfpf%3D425%2C260%2C50/sign=a4b3d7085dee3d6d2293d48b252b5910/0e2442a7d933c89524cd5cd4d51373f0830200ea.jpg",
-                            @"https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/super/whfpf%3D425%2C260%2C50/sign=a41eb338dd33c895a62bcb3bb72e47c2/5fdf8db1cb134954a2192ccb524e9258d1094a1e.jpg",
-                            @"http://c.hiphotos.baidu.com/image/w%3D400/sign=c2318ff84334970a4773112fa5c8d1c0/b7fd5266d0160924c1fae5ccd60735fae7cd340d.jpg"
-                            ];
-    }
-    return _bannerUrlGroup;
-}
-
-- (NSArray<HotModel *> *)hotModels {
-    if (!_hotModels) {
-        _hotModels = @[
-                      [HotModel initWithParams:@"大盘走势" iconName:@"fundHot01"],
-                      [HotModel initWithParams:@"投资咨询" iconName:@"fundHot02"],
-                      [HotModel initWithParams:@"收益排行" iconName:@"fundHot03"],
-                      [HotModel initWithParams:@"我的关注" iconName:@"fundHot04"]
-                      ];
-    }
-    return _hotModels;
-}
-
-- (NSArray<FundModel *> *)fundModels {
-    if (!_fundModels) {
-        _fundModels = @[
-                        [FundModel initWithParams:@"开放式" iconName:ICON_KAI_FANG des:@"国泰医药行业指数分级" rate:@"100%"],
-                        [FundModel initWithParams:@"股票式" iconName:ICON_GU_PIAO des:@"光大国企改革主题股票" rate:@"100%"],
-                        [FundModel initWithParams:@"债券型" iconName:ICON_ZHAI_QUAN des:@"华泰铂锐稳本增利债券A" rate:@"100%"],
-                        [FundModel initWithParams:@"混合型" iconName:ICON_HUN_HE des:@"中海医药精选灵活配置A" rate:@"100%"],
-                        [FundModel initWithParams:@"货币基金" iconName:ICON_HUN_HE des:@"华商现金增利货币A" rate:@"100%"],
-                        [FundModel initWithParams:@"短期理财" iconName:ICON_DUAN_QI des:@"融通七天债A" rate:@"100%"],
-                        [FundModel initWithParams:@"指数型" iconName:ICON_ZHI_SHU des:@"易方达银行指数分级" rate:@"100%"],
-                        [FundModel initWithParams:@"保本型" iconName:ICON_BAO_BEN des:@"长城保本混合" rate:@"100%"],
-                        [FundModel initWithParams:@"创新型" iconName:ICON_CHUANG_XIN des:@"华夏医疗健康混合A" rate:@"100%"],
-                        ];
-    }
-    return _fundModels;
-}
-
-- (NSArray<FundModel *> *)fundNewModels {
-    if (!_fundNewModels) {
-        _fundNewModels = @[
-                           [FundModel initWithParams:@"QDII" iconName:ICON_ZHU_ZHUANG des:@"易方达恒生ETF链接" rate:@"100%"],
-                           [FundModel initWithParams:@"QDII" iconName:ICON_ZHU_ZHUANG des:@"易方达恒生ETF链接" rate:@"100%"],
-                           [FundModel initWithParams:@"QDII" iconName:ICON_ZHU_ZHUANG des:@"易方达恒生ETF链接" rate:@"100%"],
-                           [FundModel initWithParams:@"QDII" iconName:ICON_ZHU_ZHUANG des:@"易方达恒生ETF链接" rate:@"100%"],
-                           ];
-    }
-    return _fundNewModels;
-}
-
-//----------  end  ----------
 
 - (void)viewDidLoad {
 //    self.buttonArea.frame = CGRectMake(0,0, self.view.width, self.view.height);
@@ -204,5 +93,62 @@
         endLoadMoreHandler(YES);//不要忘了结束上拉加载刷新
     });
 }
+
+//----------  start ----------
+#pragma mark mock数据
+/** 以下作为前端mock的数据，模拟从后台返回的数据结构，真实操作为触发刷新后请求后台获取 **/
+- (NSArray<NSString *> *)bannerUrlGroup {
+    if (!_bannerUrlGroup) {
+        _bannerUrlGroup = @[
+                            @"https://ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/super/whfpf%3D425%2C260%2C50/sign=a4b3d7085dee3d6d2293d48b252b5910/0e2442a7d933c89524cd5cd4d51373f0830200ea.jpg",
+                            @"https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/super/whfpf%3D425%2C260%2C50/sign=a41eb338dd33c895a62bcb3bb72e47c2/5fdf8db1cb134954a2192ccb524e9258d1094a1e.jpg",
+                            @"http://c.hiphotos.baidu.com/image/w%3D400/sign=c2318ff84334970a4773112fa5c8d1c0/b7fd5266d0160924c1fae5ccd60735fae7cd340d.jpg"
+                            ];
+    }
+    return _bannerUrlGroup;
+}
+
+- (NSArray<HotModel *> *)hotModels {
+    if (!_hotModels) {
+        _hotModels = @[
+                       [HotModel initWithParams:@"大盘走势" iconName:@"fundHot01"],
+                       [HotModel initWithParams:@"投资咨询" iconName:@"fundHot02"],
+                       [HotModel initWithParams:@"收益排行" iconName:@"fundHot03"],
+                       [HotModel initWithParams:@"我的关注" iconName:@"fundHot04"]
+                       ];
+    }
+    return _hotModels;
+}
+
+- (NSArray<FundModel *> *)fundModels {
+    if (!_fundModels) {
+        _fundModels = @[
+                        [FundModel initWithParams:@"开放式" iconName:ICON_KAI_FANG des:@"国泰医药行业指数分级" rate:@"100%"],
+                        [FundModel initWithParams:@"股票式" iconName:ICON_GU_PIAO des:@"光大国企改革主题股票" rate:@"100%"],
+                        [FundModel initWithParams:@"债券型" iconName:ICON_ZHAI_QUAN des:@"华泰铂锐稳本增利债券A" rate:@"100%"],
+                        [FundModel initWithParams:@"混合型" iconName:ICON_HUN_HE des:@"中海医药精选灵活配置A" rate:@"100%"],
+                        [FundModel initWithParams:@"货币基金" iconName:ICON_HUN_HE des:@"华商现金增利货币A" rate:@"100%"],
+                        [FundModel initWithParams:@"短期理财" iconName:ICON_DUAN_QI des:@"融通七天债A" rate:@"100%"],
+                        [FundModel initWithParams:@"指数型" iconName:ICON_ZHI_SHU des:@"易方达银行指数分级" rate:@"100%"],
+                        [FundModel initWithParams:@"保本型" iconName:ICON_BAO_BEN des:@"长城保本混合" rate:@"100%"],
+                        [FundModel initWithParams:@"创新型" iconName:ICON_CHUANG_XIN des:@"华夏医疗健康混合A" rate:@"100%"],
+                        ];
+    }
+    return _fundModels;
+}
+
+- (NSArray<FundModel *> *)fundNewModels {
+    if (!_fundNewModels) {
+        _fundNewModels = @[
+                           [FundModel initWithParams:@"QDII" iconName:ICON_ZHU_ZHUANG des:@"易方达恒生ETF链接" rate:@"100%"],
+                           [FundModel initWithParams:@"QDII" iconName:ICON_ZHU_ZHUANG des:@"易方达恒生ETF链接" rate:@"100%"],
+                           [FundModel initWithParams:@"QDII" iconName:ICON_ZHU_ZHUANG des:@"易方达恒生ETF链接" rate:@"100%"],
+                           [FundModel initWithParams:@"QDII" iconName:ICON_ZHU_ZHUANG des:@"易方达恒生ETF链接" rate:@"100%"],
+                           ];
+    }
+    return _fundNewModels;
+}
+
+//----------  end  ----------
 
 @end

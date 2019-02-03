@@ -12,19 +12,52 @@
 
 @interface GapStoreViewCell()
 
-@property (nonatomic,strong) UIImageView *iconView;
+@property (nonatomic, strong) UIImageView *iconView;
 
-@property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *titleLabel;
 
-@property (nonatomic,strong) UILabel *hotLabel;//人气热度
+@property (nonatomic, strong) UILabel *hotLabel;//人气热度
 
-@property (nonatomic,strong) UILabel *desLabel;
+@property (nonatomic, strong) UILabel *desLabel;
 
-@property (nonatomic,strong) UIButton *discountButton;
+@property (nonatomic, strong) UIButton *discountButton;
 
 @end
 
 @implementation GapStoreViewCell
+
+#pragma mark 根据外部传入数据开始布局
+- (void)showSubviews {
+    self.backgroundColor = [UIColor whiteColor];
+    
+    StoreModel *storeModel = GET_CELL_DATA(StoreModel.class);
+    CGFloat const padding = 20;
+    CGFloat const iconHeight = self.contentView.height - padding * 2;
+    [self.iconView sd_setImageWithURL:[NSURL URLWithString:storeModel.iconName]];
+    self.iconView.size = CGSizeMake(iconHeight, iconHeight);
+    self.iconView.centerY = self.contentView.height / 2.;
+    self.iconView.x = padding;
+    
+    self.titleLabel.text = storeModel.title;
+    [self.titleLabel sizeToFit];
+    
+    self.hotLabel.text = [NSString stringWithFormat:@"月均人气 %@",storeModel.hot];
+    [self.hotLabel sizeToFit];
+    
+    self.desLabel.text = storeModel.des;
+    [self.desLabel sizeToFit];
+    
+    [self.discountButton setTitle:storeModel.discount forState:UIControlStateNormal];
+    
+    self.titleLabel.x = self.hotLabel.x = self.desLabel.x = self.discountButton.x = self.iconView.maxX + padding;
+    
+    CGFloat const gap = 5;
+    
+    self.titleLabel.y = self.iconView.y;
+    self.hotLabel.y = self.titleLabel.maxY + gap;
+    self.desLabel.y = self.hotLabel.maxY + gap;
+    self.discountButton.maxY = self.iconView.maxY;
+}
 
 #pragma mark 懒加载添加视图
 - (UIImageView *)iconView {
@@ -79,40 +112,5 @@
     }
     return _discountButton;
 }
-
-#pragma mark 根据外部传入数据开始布局
-- (void)showSubviews {
-    self.backgroundColor = [UIColor whiteColor];
-    
-    StoreModel *storeModel = GET_CELL_DATA(StoreModel.class);
-    CGFloat const padding = 20;
-    CGFloat const iconHeight = self.contentView.height - padding * 2;
-    [self.iconView sd_setImageWithURL:[NSURL URLWithString:storeModel.iconName]];
-    self.iconView.size = CGSizeMake(iconHeight, iconHeight);
-    self.iconView.centerY = self.contentView.height / 2.;
-    self.iconView.x = padding;
-    
-    self.titleLabel.text = storeModel.title;
-    [self.titleLabel sizeToFit];
-    
-    self.hotLabel.text = [NSString stringWithFormat:@"月均人气 %@",storeModel.hot];
-    [self.hotLabel sizeToFit];
-    
-    self.desLabel.text = storeModel.des;
-    [self.desLabel sizeToFit];
-    
-    [self.discountButton setTitle:storeModel.discount forState:UIControlStateNormal];
-    
-    self.titleLabel.x = self.hotLabel.x = self.desLabel.x = self.discountButton.x = self.iconView.maxX + padding;
-    
-    CGFloat const gap = 5;
-    
-    self.titleLabel.y = self.iconView.y;
-    self.hotLabel.y = self.titleLabel.maxY + gap;
-    self.desLabel.y = self.hotLabel.maxY + gap;
-    self.discountButton.maxY = self.iconView.maxY;
-}
-
-
 
 @end

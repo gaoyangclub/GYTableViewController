@@ -61,7 +61,7 @@
 
 @interface MainViewController ()
 
-@property (nonatomic,retain) NSArray<ControllerVo *> *controllers;
+@property (nonatomic, strong) NSArray<ControllerVo *> *controllers;
 
 @end
 

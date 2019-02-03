@@ -25,49 +25,6 @@
 
 @implementation RelateExpressViewCell
 
-#pragma mark 懒加载添加视图
-- (UILabel *)titleLabel {
-    if (!_titleLabel) {
-        _titleLabel = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_TEXT_PRIMARY];
-        [self.contentView addSubview:_titleLabel];
-    }
-    return _titleLabel;
-}
-
-- (UILabel *)yearLabel {
-    if (!_yearLabel) {
-        _yearLabel = [UICreationUtils createLabel:SIZE_TEXT_SECONDARY color:COLOR_TEXT_PRIMARY];
-        [self.contentView addSubview:_yearLabel];
-    }
-    return _yearLabel;
-}
-
-- (UILabel *)timeLabel {
-    if (!_timeLabel) {
-        _timeLabel = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_TEXT_PRIMARY];
-        [self.contentView addSubview:_timeLabel];
-    }
-    return _timeLabel;
-}
-
-- (UIView *)routeLine {
-    if (!_routeLine) {
-        _routeLine = [[UIView alloc]init];
-        _routeLine.width = 2;
-        _routeLine.backgroundColor = COLOR_LINE;
-        [self.contentView addSubview:_routeLine];
-    }
-    return _routeLine;
-}
-
-- (UIView *)roundNode {
-    if (!_roundNode) {
-        _roundNode = [[UIView alloc]init];
-        [self.contentView addSubview:_roundNode];
-    }
-    return _roundNode;
-}
-
 #pragma mark 根据外部传入数据开始布局
 - (void)showSubviews {
     self.backgroundColor = [UIColor whiteColor];
@@ -163,9 +120,47 @@
     self.roundNode.backgroundColor = color;
 }
 
+#pragma mark 懒加载添加视图
+- (UILabel *)titleLabel {
+    if (!_titleLabel) {
+        _titleLabel = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_TEXT_PRIMARY];
+        [self.contentView addSubview:_titleLabel];
+    }
+    return _titleLabel;
+}
 
+- (UILabel *)yearLabel {
+    if (!_yearLabel) {
+        _yearLabel = [UICreationUtils createLabel:SIZE_TEXT_SECONDARY color:COLOR_TEXT_PRIMARY];
+        [self.contentView addSubview:_yearLabel];
+    }
+    return _yearLabel;
+}
 
+- (UILabel *)timeLabel {
+    if (!_timeLabel) {
+        _timeLabel = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_TEXT_PRIMARY];
+        [self.contentView addSubview:_timeLabel];
+    }
+    return _timeLabel;
+}
 
+- (UIView *)routeLine {
+    if (!_routeLine) {
+        _routeLine = [[UIView alloc]init];
+        _routeLine.width = 2;
+        _routeLine.backgroundColor = COLOR_LINE;
+        [self.contentView addSubview:_routeLine];
+    }
+    return _routeLine;
+}
 
+- (UIView *)roundNode {
+    if (!_roundNode) {
+        _roundNode = [[UIView alloc]init];
+        [self.contentView addSubview:_roundNode];
+    }
+    return _roundNode;
+}
 
 @end

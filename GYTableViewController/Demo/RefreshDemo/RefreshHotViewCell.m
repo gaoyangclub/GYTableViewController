@@ -11,29 +11,13 @@
 
 @interface HomeFastItem : UIControl
 
-@property (nonatomic,strong) UILabel *titleLable;
-@property (nonatomic,strong) UIImageView *iconView;//图片文本
-@property (nonatomic,strong) HotModel *hotModel;
+@property (nonatomic, strong) UILabel *titleLable;
+@property (nonatomic, strong) UIImageView *iconView;//图片文本
+@property (nonatomic, strong) HotModel *hotModel;
 
 @end
 
 @implementation HomeFastItem
-
-- (UILabel *)titleLable {
-    if (!_titleLable) {
-        _titleLable = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_TEXT_PRIMARY];
-        [self addSubview:_titleLable];
-    }
-    return _titleLable;
-}
-
-- (UIImageView *)iconView {
-    if (!_iconView) {
-        _iconView = [[UIImageView alloc]init];
-        [self addSubview:_iconView];
-    }
-    return _iconView;
-}
 
 - (void)layoutSubviews {
     [super layoutSubviews];
@@ -52,25 +36,32 @@
     self.titleLable.y = self.iconView.maxY + gap;
 }
 
+- (UILabel *)titleLable {
+    if (!_titleLable) {
+        _titleLable = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_TEXT_PRIMARY];
+        [self addSubview:_titleLable];
+    }
+    return _titleLable;
+}
+
+- (UIImageView *)iconView {
+    if (!_iconView) {
+        _iconView = [[UIImageView alloc]init];
+        [self addSubview:_iconView];
+    }
+    return _iconView;
+}
+
 @end
 
 @interface RefreshHotViewCell()
 
-@property (nonatomic,strong)UIView *bottomLine;
+@property (nonatomic, strong)UIView *bottomLine;
 
 @end
 
 @implementation RefreshHotViewCell
 
-- (UIView *)bottomLine {
-    if (!_bottomLine) {
-        _bottomLine = [[UIView alloc]init];
-        _bottomLine.backgroundColor = COLOR_LINE;
-        _bottomLine.height = LINE_WIDTH;
-        [self.contentView addSubview:_bottomLine];
-    }
-    return _bottomLine;
-}
 #pragma mark 根据外部传入数据开始布局
 /**
  * 批量创建HomeFastItem按钮实例，一字排开
@@ -94,5 +85,14 @@
     self.bottomLine.width = self.contentView.width;
 }
 
+- (UIView *)bottomLine {
+    if (!_bottomLine) {
+        _bottomLine = [[UIView alloc]init];
+        _bottomLine.backgroundColor = COLOR_LINE;
+        _bottomLine.height = LINE_WIDTH;
+        [self.contentView addSubview:_bottomLine];
+    }
+    return _bottomLine;
+}
 
 @end

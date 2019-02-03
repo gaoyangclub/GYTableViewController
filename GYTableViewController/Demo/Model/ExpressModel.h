@@ -10,11 +10,11 @@
 
 @interface ExpressModel : NSObject
 
-@property (nonatomic,copy) NSString *title;//快递信息
+@property (nonatomic, copy) NSString *title;//快递信息
 
 /** 偷懒分成两个时间字段 后台应该是一个时间戳字段自己解析成下面两个值 **/
-@property (nonatomic,copy) NSString *year;//年月日
-@property (nonatomic,copy) NSString *time;//时分
+@property (nonatomic, copy) NSString *year;//年月日
+@property (nonatomic, copy) NSString *time;//时分
 
 + (instancetype)initWithParams:(NSString *)title year:(NSString *)year time:(NSString *)time;
 

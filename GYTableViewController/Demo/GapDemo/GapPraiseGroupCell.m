@@ -13,9 +13,9 @@
 
 @interface GapPraiseItem : UIControl
 
-@property (nonatomic,strong) UILabel *titleLable;
-@property (nonatomic,strong) UIImageView *iconView;//图片
-@property (nonatomic,strong) HotModel *hotModel;
+@property (nonatomic, strong) UILabel *titleLable;
+@property (nonatomic, strong) UIImageView *iconView;//图片
+@property (nonatomic, strong) HotModel *hotModel;
 
 @end
 
@@ -63,22 +63,6 @@
 
 @implementation GapPraiseGroupCell
 
-- (UILabel *)groupIconView {
-    if (!_groupIconView) {
-        _groupIconView = [UICreationUtils createLabel:ICON_FONT_NAME size:20 color:COLOR_PRIMARY_PRAISE];
-        [self.contentView addSubview:_groupIconView];
-    }
-    return _groupIconView;
-}
-
-- (UILabel *)groupTitleLable {
-    if (!_groupTitleLable) {
-        _groupTitleLable = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_PRIMARY_PRAISE];
-        [self addSubview:_groupTitleLable];
-    }
-    return _groupTitleLable;
-}
-
 #pragma mark 根据外部传入数据开始布局
 /**
  * 添加三个GapPraiseItem实例，一字排开
@@ -116,6 +100,22 @@
         item.frame = CGRectMake(padding + i * (itemWidth + gap), toppadding, itemWidth, self.height - toppadding - padding);
     }
     
+}
+
+- (UILabel *)groupIconView {
+    if (!_groupIconView) {
+        _groupIconView = [UICreationUtils createLabel:ICON_FONT_NAME size:20 color:COLOR_PRIMARY_PRAISE];
+        [self.contentView addSubview:_groupIconView];
+    }
+    return _groupIconView;
+}
+
+- (UILabel *)groupTitleLable {
+    if (!_groupTitleLable) {
+        _groupTitleLable = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_PRIMARY_PRAISE];
+        [self addSubview:_groupTitleLable];
+    }
+    return _groupTitleLable;
 }
 
 @end

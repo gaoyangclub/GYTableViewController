@@ -10,11 +10,11 @@
 
 @interface HotModel : NSObject
 
-@property (nonatomic,copy) NSString *title;//标题栏
+@property (nonatomic, copy) NSString *title;//标题栏
 
-@property (nonatomic,copy) NSString *iconName;//图标名称
+@property (nonatomic, copy) NSString *iconName;//图标名称
 
-@property (nonatomic,copy) NSString *linkUrl;
+@property (nonatomic, copy) NSString *linkUrl;
 
 + (instancetype)initWithParams:(NSString *)title iconName:(NSString *)iconName;
 

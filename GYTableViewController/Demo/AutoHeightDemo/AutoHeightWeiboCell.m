@@ -34,6 +34,51 @@
 
 @implementation AutoHeightWeiboCell
 
+#pragma mark 获取动态高度,高度被缓存不会二次计算
+//    NSLog(@"getCellHeight被调用！");
+- (CGFloat)getCellHeight:(CGFloat)cellWidth {
+    WeiboModel *weiboModel = GET_CELL_DATA(WeiboModel.class);//获取Model
+    NSString *content = weiboModel.content;//获取动态内容字符串
+    CGRect contentSize = [content boundingRectWithSize:CGSizeMake(cellWidth - LEFT_PADDING - RIGHT_PADDING, FLT_MAX)
+                             options:NSStringDrawingUsesLineFragmentOrigin
+                          attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:SIZE_TEXT_SECONDARY]}
+                             context:nil];//计算给定范围内最佳尺寸
+    return TOPIC_AREA_HEIGHT + contentSize.size.height + IMAGE_AREA_HEIGHT + BOTTOM_PADDING * 2;//返回计算后的最终高度
+}
+#pragma mark 根据外部传入数据开始布局
+- (void)showSubviews {
+    self.backgroundColor = [UIColor whiteColor];
+    
+    WeiboModel *weiboModel = GET_CELL_DATA(WeiboModel.class);
+    
+    [self.iconView sd_setImageWithURL:[NSURL URLWithString:weiboModel.iconName]];
+    self.iconView.centerX = LEFT_PADDING / 2.;
+    self.iconView.centerY = TOPIC_AREA_HEIGHT / 2;
+    
+    self.nameLabel.text = weiboModel.name;
+    [self.nameLabel sizeToFit];
+    self.titleLabel.text = weiboModel.title;
+    [self.titleLabel sizeToFit];
+    CGFloat const gap = 5;
+    CGFloat const baseY = (TOPIC_AREA_HEIGHT - self.nameLabel.height - gap - self.titleLabel.height) / 2;
+    self.nameLabel.y = baseY;
+    self.titleLabel.y = self.nameLabel.maxY + gap;
+    
+    self.nameLabel.x = self.titleLabel.x = LEFT_PADDING;
+    
+    self.contentLabel.text = weiboModel.content;
+    self.contentLabel.size = [self.contentLabel sizeThatFits:CGSizeMake(self.contentView.width - LEFT_PADDING - RIGHT_PADDING, FLT_MAX)];
+    self.contentLabel.x = LEFT_PADDING;
+    self.contentLabel.y = TOPIC_AREA_HEIGHT;
+    
+    [self.photoView sd_setImageWithURL:[NSURL URLWithString:weiboModel.imageUrl]];
+    self.photoView.frame = CGRectMake(LEFT_PADDING, self.contentLabel.maxY + BOTTOM_PADDING, self.contentLabel.width, IMAGE_AREA_HEIGHT);
+    
+    self.bottomLine.x = 0;
+    self.bottomLine.maxY = self.contentView.height;
+    self.bottomLine.width = self.contentView.width;
+}
+
 #pragma mark 懒加载添加视图
 - (UIImageView *)iconView {
     if (!_iconView) {
@@ -92,51 +137,6 @@
         [self.contentView addSubview:_bottomLine];
     }
     return _bottomLine;
-}
-
-#pragma mark 获取动态高度,高度被缓存不会二次计算
-//    NSLog(@"getCellHeight被调用！");
-- (CGFloat)getCellHeight:(CGFloat)cellWidth {
-    WeiboModel *weiboModel = GET_CELL_DATA(WeiboModel.class);//获取Model
-    NSString *content = weiboModel.content;//获取动态内容字符串
-    CGRect contentSize = [content boundingRectWithSize:CGSizeMake(cellWidth - LEFT_PADDING - RIGHT_PADDING, FLT_MAX)
-                             options:NSStringDrawingUsesLineFragmentOrigin
-                          attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:SIZE_TEXT_SECONDARY]}
-                             context:nil];//计算给定范围内最佳尺寸
-    return TOPIC_AREA_HEIGHT + contentSize.size.height + IMAGE_AREA_HEIGHT + BOTTOM_PADDING * 2;//返回计算后的最终高度
-}
-#pragma mark 根据外部传入数据开始布局
-- (void)showSubviews {
-    self.backgroundColor = [UIColor whiteColor];
-    
-    WeiboModel *weiboModel = GET_CELL_DATA(WeiboModel.class);
-    
-    [self.iconView sd_setImageWithURL:[NSURL URLWithString:weiboModel.iconName]];
-    self.iconView.centerX = LEFT_PADDING / 2.;
-    self.iconView.centerY = TOPIC_AREA_HEIGHT / 2;
-    
-    self.nameLabel.text = weiboModel.name;
-    [self.nameLabel sizeToFit];
-    self.titleLabel.text = weiboModel.title;
-    [self.titleLabel sizeToFit];
-    CGFloat const gap = 5;
-    CGFloat const baseY = (TOPIC_AREA_HEIGHT - self.nameLabel.height - gap - self.titleLabel.height) / 2;
-    self.nameLabel.y = baseY;
-    self.titleLabel.y = self.nameLabel.maxY + gap;
-    
-    self.nameLabel.x = self.titleLabel.x = LEFT_PADDING;
-    
-    self.contentLabel.text = weiboModel.content;
-    self.contentLabel.size = [self.contentLabel sizeThatFits:CGSizeMake(self.contentView.width - LEFT_PADDING - RIGHT_PADDING, FLT_MAX)];
-    self.contentLabel.x = LEFT_PADDING;
-    self.contentLabel.y = TOPIC_AREA_HEIGHT;
-    
-    [self.photoView sd_setImageWithURL:[NSURL URLWithString:weiboModel.imageUrl]];
-    self.photoView.frame = CGRectMake(LEFT_PADDING, self.contentLabel.maxY + BOTTOM_PADDING, self.contentLabel.width, IMAGE_AREA_HEIGHT);
-    
-    self.bottomLine.x = 0;
-    self.bottomLine.maxY = self.contentView.height;
-    self.bottomLine.width = self.contentView.width;
 }
 
 @end

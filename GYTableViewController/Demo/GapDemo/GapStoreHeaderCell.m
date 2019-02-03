@@ -10,40 +10,15 @@
 
 @interface GapStoreHeaderCell()
 
-@property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *titleLabel;
 
-@property (nonatomic,strong) UILabel *desLabel;
+@property (nonatomic, strong) UILabel *desLabel;
 
-@property (nonatomic,strong) UILabel *headerIconView;
+@property (nonatomic, strong) UILabel *headerIconView;
 
 @end
 
 @implementation GapStoreHeaderCell
-
-#pragma mark 懒加载添加视图
-- (UILabel *)headerIconView {
-    if (!_headerIconView) {
-        _headerIconView = [UICreationUtils createLabel:ICON_FONT_NAME size:20 color:COLOR_PRIMARY_STORE];
-        [self.contentView addSubview:_headerIconView];
-    }
-    return _headerIconView;
-}
-
-- (UILabel *)titleLabel {
-    if (!_titleLabel) {
-        _titleLabel = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_PRIMARY_STORE];
-        [self.contentView addSubview:_titleLabel];
-    }
-    return _titleLabel;
-}
-
-- (UILabel *)desLabel {
-    if (!_desLabel) {
-        _desLabel = [UICreationUtils createLabel:SIZE_TEXT_SECONDARY color:COLOR_TEXT_SECONDARY];
-        [self.contentView addSubview:_desLabel];
-    }
-    return _desLabel;
-}
 
 #pragma mark 根据外部传入数据开始布局
 - (void)showSubviews {
@@ -70,6 +45,31 @@
     
     self.desLabel.centerX = self.width / 2.;
     self.desLabel.y = self.titleLabel.maxY + gap;
+}
+
+#pragma mark 懒加载添加视图
+- (UILabel *)headerIconView {
+    if (!_headerIconView) {
+        _headerIconView = [UICreationUtils createLabel:ICON_FONT_NAME size:20 color:COLOR_PRIMARY_STORE];
+        [self.contentView addSubview:_headerIconView];
+    }
+    return _headerIconView;
+}
+
+- (UILabel *)titleLabel {
+    if (!_titleLabel) {
+        _titleLabel = [UICreationUtils createLabel:SIZE_TEXT_PRIMARY color:COLOR_PRIMARY_STORE];
+        [self.contentView addSubview:_titleLabel];
+    }
+    return _titleLabel;
+}
+
+- (UILabel *)desLabel {
+    if (!_desLabel) {
+        _desLabel = [UICreationUtils createLabel:SIZE_TEXT_SECONDARY color:COLOR_TEXT_SECONDARY];
+        [self.contentView addSubview:_desLabel];
+    }
+    return _desLabel;
 }
 
 @end

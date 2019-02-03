@@ -9,9 +9,6 @@
 #import "GYTableBaseView.h"
 #import "GYRefreshAutoFooter.h"
 #import <objc/runtime.h>
-//#import <Foundation/Foundation.h>
-
-//#define iOS9+ [UIDevice currentDevice].systemVersion.doubleValue >= 9.0
 
 typedef enum {
     CellTypeNormal,//除头尾中间段的
@@ -24,14 +21,14 @@ typedef enum {
 @interface SectionVo()
 
 /** 存储该节包含的cellVo数据列表 注:包含用户数据和gap数据 不能直接对外遍历使用 **/
-@property (nonatomic,strong) NSMutableArray<CellVo *> *cellVoList;
-//@property (nonatomic,assign) BOOL isSectionGap;//作为间距容器存在
+@property (nonatomic, strong) NSMutableArray<CellVo *> *cellVoList;
+//@property (nonatomic, assign) BOOL isSectionGap;//作为间距容器存在
 
 @end
 
 @interface CellVo()
 
-@property (nonatomic,assign)CellType cellType;
+@property (nonatomic, assign) CellType cellType;
 
 - (BOOL)isRealCell;
 
@@ -40,11 +37,12 @@ typedef enum {
 @interface GYTableBaseView()<UITableViewDelegate,UITableViewDataSource>{//
     
 }
-@property (nonatomic,strong) NSMutableArray<SectionVo *> *dataArray;
 
-@property (nonatomic,assign) BOOL useCellIdentifer;
-@property (nonatomic,assign) BOOL showHeader;
-@property (nonatomic,assign) BOOL showFooter;
+@property (nonatomic, strong) NSMutableArray<SectionVo *> *dataArray;
+
+@property (nonatomic, assign) BOOL useCellIdentifer;
+@property (nonatomic, assign) BOOL showHeader;
+@property (nonatomic, assign) BOOL showFooter;
 /**
  *  是否设置顶部偏离 满足ViewController在自动测量导航栏高度占用的Insets偏移的补位
  */
@@ -105,7 +103,7 @@ typedef enum {
     return self;
 }
 
-- (NSMutableArray<SectionVo*> *)dataArray {
+- (NSMutableArray<SectionVo *> *)dataArray {
     if(!_dataArray){
         _dataArray = [[NSMutableArray<SectionVo *> alloc]init];
     }
@@ -130,7 +128,7 @@ typedef enum {
     [self.dataArray removeAllObjects];
 }
 
-- (void)addSectionVo:(SectionVo*)sectionVo {
+- (void)addSectionVo:(SectionVo *)sectionVo {
     [self.dataArray addObject:sectionVo];
 }
 
@@ -549,7 +547,7 @@ typedef enum {
     //遍历整个数据链 判断头尾标记和gap是否存在
 //    for (SectionVo* svo in self.dataArray) {
     for (NSInteger i = [self getSectionVoCount] - 1; i >= 0; i --) {
-        SectionVo* svo = [self getSectionVoByIndex:i];
+        SectionVo *svo = [self getSectionVoByIndex:i];
         if (svo && svo.cellVoList != nil && svo.cellVoList.count > 0) {
             BOOL hasFirst = NO;
             BOOL hasLast = NO;
@@ -578,17 +576,17 @@ typedef enum {
                 }
             }
             if(!hasFirst){//不存在
-                ((CellVo*)svo.cellVoList[0]).cellType = CellTypeFirst;//标记第一个就是
+                ((CellVo *)svo.cellVoList[0]).cellType = CellTypeFirst;//标记第一个就是
             }
             if(!hasLast){
-                ((CellVo*)svo.cellVoList[svo.cellVoList.count - 1]).cellType = CellTypeLast;//标记最后一个就是
+                ((CellVo *)svo.cellVoList[svo.cellVoList.count - 1]).cellType = CellTypeLast;//标记最后一个就是
             }
         }
     }
     
     if(self.sectionGap > 0 || self.cellGap > 0){
         for (NSInteger i = [self getSectionVoCount] - 1; i >= 0; i --) {
-            SectionVo* svo = [self getSectionVoByIndex:i];
+            SectionVo *svo = [self getSectionVoByIndex:i];
             //            var preCellVo:CellVo? = nil
             if(self.sectionGap > 0 && [self getSectionVoByIndex:i - 1]){//有间距且前一个存在
                 [self insertSectionVo:[self getSectionGapVo] atIndex:i];//直接插入一条
@@ -745,7 +743,7 @@ typedef enum {
     if (!sourceArray || sourceArray.count <= 0) {
         return nil;
     }
-    NSMutableArray<CellVo *> * cellVoList = [NSMutableArray<CellVo *> array];
+    NSMutableArray<CellVo *> *cellVoList = [NSMutableArray<CellVo *> array];
     for (id source in sourceArray) {
         [cellVoList addObject:
          [CellVo initWithParams:cellHeight cellClass:cellClass cellData:source]];

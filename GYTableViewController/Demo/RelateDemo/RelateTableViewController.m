@@ -12,19 +12,81 @@
 
 @interface RelateTableViewController ()
 
-@property (nonatomic,strong) NSArray<ExpressModel *> *expressModels;
-@property (nonatomic,strong) UIView *operateArea;
+@property (nonatomic, strong) NSArray<ExpressModel *> *expressModels;
+@property (nonatomic, strong) UIView *operateArea;
 
-@property (nonatomic,strong) UILabel *labelClickHighlight;
-@property (nonatomic,strong) UISwitch *switchClickHighlight;
-@property (nonatomic,strong) UILabel *labelClickMoveToCenter;
-@property (nonatomic,strong) UISwitch *switchClickMoveToCenter;
-@property (nonatomic,strong) UILabel *labelSteperSelectedIndex;
-@property (nonatomic,strong) UIStepper *steperSelectedIndex;
+@property (nonatomic, strong) UILabel *labelClickHighlight;
+@property (nonatomic, strong) UISwitch *switchClickHighlight;
+@property (nonatomic, strong) UILabel *labelClickMoveToCenter;
+@property (nonatomic, strong) UISwitch *switchClickMoveToCenter;
+@property (nonatomic, strong) UILabel *labelSteperSelectedIndex;
+@property (nonatomic, strong) UIStepper *steperSelectedIndex;
 
 @end
 
 @implementation RelateTableViewController
+
+#pragma mark 使用该控件
+- (BOOL)useGYTableView {
+    return YES;
+}
+
+#pragma mark 下拉刷新后根据选择控件选中情况设置selectedIndexPath，clickCellHighlight，clickCellMoveToCenter等属性
+- (void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler {
+    int64_t delay = 0.5 * NSEC_PER_SEC;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//模拟网络请求产生异步加载
+        [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
+            [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:RelateExpressViewCell.class sourceArray:self.expressModels]];
+        }]];
+        tableView.selectedIndexPath = [NSIndexPath indexPathForRow:self.steperSelectedIndex.value - 1 inSection:0];
+        tableView.clickCellHighlight = self.switchClickHighlight.on;
+        tableView.clickCellMoveToCenter = self.switchClickMoveToCenter.on;
+        endRefreshHandler(YES);
+    });
+}
+
+#pragma mark 监听选中某个Cell
+- (void)didSelectRow:(GYTableBaseView *)tableView indexPath:(NSIndexPath *)indexPath {
+    if(self.switchClickHighlight.on){
+        self.steperSelectedIndex.value = indexPath.row + 1;
+    }
+}
+
+#pragma mark 设置tableView位置信息
+- (CGRect)getTableViewFrame {
+    self.operateArea.frame = CGRectMake(0, 0, self.view.width, 70);
+    CGFloat const gap = 5;
+    return CGRectMake(0, self.operateArea.height + gap, self.view.width, self.view.height - self.operateArea.height - gap);
+}
+
+#pragma mark 视图布局 父视图的位置最好在getTableViewFrame方法中执行
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.view.backgroundColor = COLOR_BACKGROUND;
+    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    CGFloat const toppadding = 30;
+    CGFloat const bottompadding = self.operateArea.height - toppadding;
+    
+    self.steperSelectedIndex.x = 20;
+    
+    self.switchClickHighlight.centerX = self.operateArea.width / 2.;
+    
+    self.switchClickMoveToCenter.maxX = self.operateArea.width - 40;
+    
+    self.steperSelectedIndex.centerY = self.switchClickHighlight.centerY = self.switchClickMoveToCenter.centerY = toppadding + bottompadding / 2.;
+    
+    self.labelSteperSelectedIndex.centerX = self.steperSelectedIndex.centerX;
+    self.labelClickHighlight.centerX = self.switchClickHighlight.centerX;
+    self.labelClickMoveToCenter.centerX = self.switchClickMoveToCenter.centerX;
+    
+    self.labelSteperSelectedIndex.centerY = self.labelClickHighlight.centerY = self.labelClickMoveToCenter.centerY = toppadding / 2.;
+}
+
+- (void)moveToCenterChanged {
+    self.tableView.clickCellMoveToCenter = self.switchClickMoveToCenter.on;
+}
 
 #pragma mark 懒加载添加交互控件和点击后处理
 - (UIView *)operateArea {
@@ -99,13 +161,9 @@
     return _switchClickMoveToCenter;
 }
 
-- (void)moveToCenterChanged {
-    self.tableView.clickCellMoveToCenter = self.switchClickMoveToCenter.on;
-}
-
 //----------  start ----------
 /** 以下作为前端mock的数据，模拟从后台返回的数据结构，真实操作为触发刷新后请求后台获取 **/
-#pragma mark monk数据
+#pragma mark mock数据
 - (NSArray<ExpressModel *> *)expressModels {
     if (!_expressModels) {
         _expressModels = @[
@@ -132,65 +190,5 @@
 }
 
 //----------  end ----------
-#pragma mark 使用该控件
-- (BOOL)useGYTableView {
-    return YES;
-}
-
-#pragma mark 下拉刷新后根据选择控件选中情况设置selectedIndexPath，clickCellHighlight，clickCellMoveToCenter等属性
-- (void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler {
-    int64_t delay = 0.5 * NSEC_PER_SEC;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{//模拟网络请求产生异步加载
-        [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
-            [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:50 cellClass:RelateExpressViewCell.class sourceArray:self.expressModels]];
-        }]];
-        tableView.selectedIndexPath = [NSIndexPath indexPathForRow:self.steperSelectedIndex.value - 1 inSection:0];
-        tableView.clickCellHighlight = self.switchClickHighlight.on;
-        tableView.clickCellMoveToCenter = self.switchClickMoveToCenter.on;
-        endRefreshHandler(YES);
-    });
-}
-
-#pragma mark 监听选中某个Cell
-- (void)didSelectRow:(GYTableBaseView *)tableView indexPath:(NSIndexPath *)indexPath {
-    if(self.switchClickHighlight.on){
-        self.steperSelectedIndex.value = indexPath.row + 1;
-    }
-}
-
-#pragma mark 设置tableView位置信息
-- (CGRect)getTableViewFrame {
-    self.operateArea.frame = CGRectMake(0, 0, self.view.width, 70);
-    CGFloat const gap = 5;
-    return CGRectMake(0, self.operateArea.height + gap, self.view.width, self.view.height - self.operateArea.height - gap);
-}
-
-#pragma mark 视图布局 父视图的位置最好在getTableViewFrame方法中执行
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.backgroundColor = COLOR_BACKGROUND;
-    
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    
-    CGFloat const toppadding = 30;
-    CGFloat const bottompadding = self.operateArea.height - toppadding;
-    
-    self.steperSelectedIndex.x = 20;
-    
-    self.switchClickHighlight.centerX = self.operateArea.width / 2.;
-    
-    self.switchClickMoveToCenter.maxX = self.operateArea.width - 40;
-    
-    self.steperSelectedIndex.centerY = self.switchClickHighlight.centerY = self.switchClickMoveToCenter.centerY = toppadding + bottompadding / 2.;
-    
-    self.labelSteperSelectedIndex.centerX = self.steperSelectedIndex.centerX;
-    self.labelClickHighlight.centerX = self.switchClickHighlight.centerX;
-    self.labelClickMoveToCenter.centerX = self.switchClickMoveToCenter.centerX;
-    
-    self.labelSteperSelectedIndex.centerY = self.labelClickHighlight.centerY = self.labelClickMoveToCenter.centerY = toppadding / 2.;
-    
-    
-}
-
 
 @end

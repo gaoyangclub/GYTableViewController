@@ -11,19 +11,53 @@
 
 @interface RefreshFundViewCell()
 
-@property (nonatomic,strong) UILabel *iconView;
+@property (nonatomic, strong) UILabel *iconView;
 
-@property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *titleLabel;
 
-@property (nonatomic,strong) UILabel *desLabel;
+@property (nonatomic, strong) UILabel *desLabel;
 
-@property (nonatomic,strong) UILabel *rateLabel;
+@property (nonatomic, strong) UILabel *rateLabel;
 
-@property(nonatomic,strong) UIView *bottomLine;
+@property (nonatomic, strong) UIView *bottomLine;
 
 @end
 
 @implementation RefreshFundViewCell
+
+#pragma mark 根据外部传入数据开始布局
+- (void)showSubviews {
+    
+    self.backgroundColor = [UIColor whiteColor];
+    
+    FundModel *fundModel = GET_CELL_DATA(FundModel.class);//self.data;
+    
+    self.iconView.text = fundModel.iconName;
+    [self.iconView sizeToFit];
+    self.iconView.centerY = self.contentView.height / 2.;
+    self.iconView.x = 20;
+    
+    self.titleLabel.text = fundModel.title;
+    [self.titleLabel sizeToFit];
+    self.desLabel.text = fundModel.des;
+    [self.desLabel sizeToFit];
+    
+    self.titleLabel.x = self.desLabel.x = self.iconView.maxX + 20;
+    
+    CGFloat const vGap = 10;
+    CGFloat const baseY = (self.contentView.height - self.titleLabel.height - self.desLabel.height - vGap) / 2.;
+    self.titleLabel.y = baseY;
+    self.desLabel.y = self.titleLabel.maxY + vGap;
+    
+    self.rateLabel.text = [NSString stringWithFormat:@"季度收益  %@",fundModel.rate];;
+    [self.rateLabel sizeToFit];
+    self.rateLabel.maxX = self.contentView.width - 30;
+    self.rateLabel.centerY = self.desLabel.centerY;
+    
+    self.bottomLine.x = 0;
+    self.bottomLine.maxY = self.contentView.height;
+    self.bottomLine.width = self.contentView.width;
+}
 
 #pragma mark 懒加载添加视图
 - (UILabel *)iconView {
@@ -66,40 +100,6 @@
         [self.contentView addSubview:_bottomLine];
     }
     return _bottomLine;
-}
-
-#pragma mark 根据外部传入数据开始布局
-- (void)showSubviews {
-    
-    self.backgroundColor = [UIColor whiteColor];
-    
-    FundModel *fundModel = GET_CELL_DATA(FundModel.class);//self.data;
-    
-    self.iconView.text = fundModel.iconName;
-    [self.iconView sizeToFit];
-    self.iconView.centerY = self.contentView.height / 2.;
-    self.iconView.x = 20;
-    
-    self.titleLabel.text = fundModel.title;
-    [self.titleLabel sizeToFit];
-    self.desLabel.text = fundModel.des;
-    [self.desLabel sizeToFit];
-    
-    self.titleLabel.x = self.desLabel.x = self.iconView.maxX + 20;
-    
-    CGFloat const vGap = 10;
-    CGFloat const baseY = (self.contentView.height - self.titleLabel.height - self.desLabel.height - vGap) / 2.;
-    self.titleLabel.y = baseY;
-    self.desLabel.y = self.titleLabel.maxY + vGap;
-    
-    self.rateLabel.text = [NSString stringWithFormat:@"季度收益  %@",fundModel.rate];;
-    [self.rateLabel sizeToFit];
-    self.rateLabel.maxX = self.contentView.width - 30;
-    self.rateLabel.centerY = self.desLabel.centerY;
-    
-    self.bottomLine.x = 0;
-    self.bottomLine.maxY = self.contentView.height;
-    self.bottomLine.width = self.contentView.width;
 }
 
 @end

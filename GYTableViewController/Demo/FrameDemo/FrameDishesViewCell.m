@@ -12,19 +12,59 @@
 
 @interface FrameDishesViewCell()
 
-@property (nonatomic,strong) UIImageView *iconView;
+@property (nonatomic, strong) UIImageView *iconView;
 
-@property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *titleLabel;
 
-@property (nonatomic,strong) UILabel *desLabel;
+@property (nonatomic, strong) UILabel *desLabel;
 
-@property (nonatomic,strong) UILabel *priceLabel;
+@property (nonatomic, strong) UILabel *priceLabel;
 
-@property (nonatomic,strong) UIView *bottomLine;
+@property (nonatomic, strong) UIView *bottomLine;
 
 @end
 
 @implementation FrameDishesViewCell
+
+#pragma mark 根据外部传入数据开始布局
+- (void)showSubviews {
+    self.backgroundColor = [UIColor whiteColor];
+    
+    DishesModel *dishesModel = GET_CELL_DATA(DishesModel.class);
+    CGFloat const padding = 10;
+    CGFloat const iconHeight = self.contentView.height - padding * 2;
+    [self.iconView sd_setImageWithURL:[NSURL URLWithString:dishesModel.iconName]];
+    self.iconView.size = CGSizeMake(iconHeight, iconHeight);
+//    self.iconView.backgroundColor = [UIColor orangeColor];
+    self.iconView.centerY = self.contentView.height / 2.;
+    self.iconView.x = 20;
+    
+    self.titleLabel.text = dishesModel.title;
+    [self.titleLabel sizeToFit];
+    self.desLabel.text = dishesModel.des;
+    [self.desLabel sizeToFit];
+    
+    self.titleLabel.x = self.desLabel.x = self.iconView.maxX + 20;
+    
+    CGFloat const vGap = 10;
+    CGFloat const baseY = (self.contentView.height - self.titleLabel.height - self.desLabel.height - vGap) / 2.;
+    self.titleLabel.y = baseY;
+    self.desLabel.y = self.titleLabel.maxY + vGap;
+    
+    self.priceLabel.text = [NSString stringWithFormat:@"¥ %@",dishesModel.price];
+    [self.priceLabel sizeToFit];
+    self.priceLabel.maxX = self.contentView.width - 30;
+    self.priceLabel.centerY = self.titleLabel.centerY;
+    
+    self.bottomLine.x = 0;
+    self.bottomLine.maxY = self.contentView.height;
+    self.bottomLine.width = self.contentView.width;
+}
+
+#pragma mark 设置cell点击效果
+- (BOOL)showSelectionStyle {
+    return YES;
+}
 
 #pragma mark 懒加载添加视图
 - (UIImageView *)iconView {
@@ -68,46 +108,6 @@
         [self.contentView addSubview:_bottomLine];
     }
     return _bottomLine;
-}
-
-#pragma mark 根据外部传入数据开始布局
-- (void)showSubviews {
-    self.backgroundColor = [UIColor whiteColor];
-    
-    DishesModel *dishesModel = GET_CELL_DATA(DishesModel.class);
-    CGFloat const padding = 10;
-    CGFloat const iconHeight = self.contentView.height - padding * 2;
-    [self.iconView sd_setImageWithURL:[NSURL URLWithString:dishesModel.iconName]];
-    self.iconView.size = CGSizeMake(iconHeight, iconHeight);
-//    self.iconView.backgroundColor = [UIColor orangeColor];
-    self.iconView.centerY = self.contentView.height / 2.;
-    self.iconView.x = 20;
-    
-    self.titleLabel.text = dishesModel.title;
-    [self.titleLabel sizeToFit];
-    self.desLabel.text = dishesModel.des;
-    [self.desLabel sizeToFit];
-    
-    self.titleLabel.x = self.desLabel.x = self.iconView.maxX + 20;
-    
-    CGFloat const vGap = 10;
-    CGFloat const baseY = (self.contentView.height - self.titleLabel.height - self.desLabel.height - vGap) / 2.;
-    self.titleLabel.y = baseY;
-    self.desLabel.y = self.titleLabel.maxY + vGap;
-    
-    self.priceLabel.text = [NSString stringWithFormat:@"¥ %@",dishesModel.price];
-    [self.priceLabel sizeToFit];
-    self.priceLabel.maxX = self.contentView.width - 30;
-    self.priceLabel.centerY = self.titleLabel.centerY;
-    
-    self.bottomLine.x = 0;
-    self.bottomLine.maxY = self.contentView.height;
-    self.bottomLine.width = self.contentView.width;
-}
-
-#pragma mark 设置cell点击效果
-- (BOOL)showSelectionStyle {
-    return YES;
 }
 
 @end

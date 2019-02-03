@@ -79,7 +79,7 @@
     return cellData;
 }
 
-- (NSArray*)checkCellArrayDataClass:(Class)arrayMemberClass {
+- (NSArray *)checkCellArrayDataClass:(Class)arrayMemberClass {
     NSString *des = [NSString stringWithFormat:@"%@实例数据为空,请检查CellVo中是否设置cellData",NSStringFromClass(self.class)];
     NSAssert(self.cellVo.cellData != nil,des);
     

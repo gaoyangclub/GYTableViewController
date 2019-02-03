@@ -8,7 +8,6 @@
 //  下拉刷新上拉加载示例
 //
 
-//#import "GYTableViewController.h"
 #import "UIViewController+GYTableView.h"
 
 @interface RefreshTableViewController : UIViewController

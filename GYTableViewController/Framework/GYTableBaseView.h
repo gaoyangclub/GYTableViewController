@@ -102,25 +102,25 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 - (instancetype)initWithFrameAndParams:(CGRect)frame showHeader:(BOOL)showHeader showFooter:(BOOL)showFooter useCellIdentifer:(BOOL)useCellIdentifer delegate:(id<GYTableBaseViewDelegate>)delegate;
 - (instancetype)initWithFrameAndParams:(CGRect)frame style:(UITableViewStyle)style showHeader:(BOOL)showHeader showFooter:(BOOL)showFooter useCellIdentifer:(BOOL)useCellIdentifer delegate:(id<GYTableBaseViewDelegate>)delegate;
 
-@property (nonatomic,strong,readonly) NSMutableArray<SectionVo *> *dataSourceArray;
+@property (nonatomic, strong, readonly) NSMutableArray<SectionVo *> *dataSourceArray;
 
 @property (nonatomic, weak) id<GYTableBaseViewDelegate> gy_delegate;
 //@property (nonatomic,assign) BOOL refreshAll;
-@property (nonatomic,strong) MJRefreshHeader *header;
-@property (nonatomic,strong) MJRefreshFooter *footer;
+@property (nonatomic, strong) MJRefreshHeader *header;
+@property (nonatomic, strong) MJRefreshFooter *footer;
 
 /** 设置选中位置 **/
-@property (nonatomic,strong) NSIndexPath *selectedIndexPath;
+@property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 /** 点中cell高亮 **/
-@property (nonatomic,assign) BOOL clickCellHighlight;
+@property (nonatomic, assign) BOOL clickCellHighlight;
 /** 点中cell自动居中 **/
-@property (nonatomic,assign) BOOL clickCellMoveToCenter;
+@property (nonatomic, assign) BOOL clickCellMoveToCenter;
 /** 每一节间距 **/
-@property (nonatomic,assign) CGFloat sectionGap;
+@property (nonatomic, assign) CGFloat sectionGap;
 /** 每个cell间距 **/
-@property (nonatomic,assign) CGFloat cellGap;
+@property (nonatomic, assign) CGFloat cellGap;
 /** 首次下拉 **/
-@property (nonatomic,assign,readonly) BOOL hasFirstRefreshed;
+@property (nonatomic, assign, readonly) BOOL hasFirstRefreshed;
 
 
 /** 下拉刷新 **/
