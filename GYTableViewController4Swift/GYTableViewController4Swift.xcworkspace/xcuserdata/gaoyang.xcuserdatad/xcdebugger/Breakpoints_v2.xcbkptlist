@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/MJRefresh/MJRefresh/Base/MJRefreshComponent.m"
+            timestampString = "570964786.7432899"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
+            landmarkName = "-executeRefreshingCallback"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[MJRefreshComponent executeRefreshingCallback]"
+                  moduleName = "MJRefresh"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gaoyang/Documents/GYTableViewController/GYTableViewController4Swift/Pods/MJRefresh/MJRefresh/Base/MJRefreshComponent.m"
+                  timestampString = "570964098.649724"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "227"
+                  endingLineNumber = "227"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__47-[MJRefreshComponent executeRefreshingCallback]_block_invoke"
+                  moduleName = "MJRefresh"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gaoyang/Documents/GYTableViewController/GYTableViewController4Swift/Pods/MJRefresh/MJRefresh/Base/MJRefreshComponent.m"
+                  timestampString = "570964098.6524889"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "227"
+                  endingLineNumber = "227"
+                  offsetFromSymbolStart = "19">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__copy_helper_block_.117"
+                  moduleName = "MJRefresh"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gaoyang/Documents/GYTableViewController/GYTableViewController4Swift/Pods/MJRefresh/MJRefresh/Base/MJRefreshComponent.m"
+                  timestampString = "570964098.6552629"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "227"
+                  endingLineNumber = "227"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_.118"
+                  moduleName = "MJRefresh"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gaoyang/Documents/GYTableViewController/GYTableViewController4Swift/Pods/MJRefresh/MJRefresh/Base/MJRefreshComponent.m"
+                  timestampString = "570964098.658636"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "227"
+                  endingLineNumber = "227"
+                  offsetFromSymbolStart = "12">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GYTableViewController4Swift/Demo/GapDemo/GapPraiseGroupCell.swift"
+            timestampString = "571149953.733068"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "showSubviews()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

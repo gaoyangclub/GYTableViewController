@@ -1,0 +1,6 @@
+framework module Pods_GYTableViewController4Swift {
+  umbrella header "Pods-GYTableViewController4Swift-umbrella.h"
+
+  export *
+  module * { export * }
+}

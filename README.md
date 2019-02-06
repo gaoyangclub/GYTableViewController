@@ -3,14 +3,6 @@
     *  [项目技术特点](#技术特点)
     *  [安装方法](#安装方法)
     *  [框架用法](#框架用法)
-* 代码结构
-    *  [GYTableBaseView.h](#gytable-base-view)
-    *  [UIViewController+GYTableView.h](#gytable-view-controller)
-    *  [GYTableViewCell.h](#gytable-view-cell)
-    *  [GYTableViewSection.h](#gytable-view-section)
-    *  [SectionVo](#section-vo)
-    *  [CellVo](#cell-vo)
-    *  [GYTableBaseViewDelegate](#gytable-base-view-delegate)
 * 使用示例
     *  [如何添加Cell](#添加cell)
     *  [批量添加Cell](#批量添加cell)
@@ -29,6 +21,7 @@
 
 # 技术特点
 * 无需继承自定义类，引入头文件UIViewController+GYTableView.h即可使用<br/>
+* 支持OC和swift(混合)<br/>
 * Section和Cell层次更加清晰，根据传入的Section数据结构内部已经全部实现Section和Cell相关delegate方法<br/>
 * Cell实例可获得外部动态数据，索引位置，上下关系，选中状态等，随时更换样式<br/>
 * 自带MJRefresh框架，提供下拉刷新和上拉加载功能，外部暴露接口调用<br/>
@@ -37,350 +30,169 @@
 
 # 安装方法
 * pod安装: pod 'GYTableViewController'
-* 手动安装:手动安装需要添加两个库，将GYTableViewController项目文件中Framework文件下的文件导入自身项目，同时此框架基于MJRefresh，所以也需要导入MJRefresh框架文件，手动或者pod都可以，<a href="https://github.com/CoderMJLee/MJRefresh/#How_to_use_MJRefresh" target="_blank">MJRefresh安装方法</a><br/>
+* 手动安装:手动安装需要添加两个库，将GYTableViewController项目文件中Framework文件下的文件导入自身项目，同时此框架基于MJRefresh，所以也需要导入MJRefresh框架文件，手动或者pod都可以，<a href="https://github.com/CoderMJLee/MJRefresh/#How_to_use_MJRefresh" target="_blank">MJRefresh安装方法请戳</a><br/>
+* demo项目图标基于iconfont技术栈，<a href="https://www.iconfont.cn/heslp/detail?spm=a313x.7781069.1998910419.d8d11a391&helptype=code" target="_blank">请戳这里</a><br/>
 
 # 框架用法
-请使用该框架中的元素来代替原生列表控件，对应关系如下:<br/>
+请使用该框架中的元素来代替原生表格控件，对应关系如下:<br/>
 ```
-GYTableBaseView -> UITableView
 UIViewController+GYTableView -> UIViewController
-GYTableViewController(废弃,使用UIViewController+GYTableView代替) -> UITableViewController
+GYTableBaseView -> UITableView
 GYTableViewCell -> UITableViewCell
 GYTableViewSection 原生使用UIView展示section内容，这里使用GYTableViewSection
-SectionVo 用来设置Section样式与GYTableViewSection实例绑定
-CellVo 用来设置Cell样式与GYTableViewCell实例绑定
+SectionNode 用来设置Section样式与GYTableViewSection实例绑定
+CellNode 用来设置Cell样式与GYTableViewCell实例绑定
 ```
 
-使用时有列表控件的界面直接引入头文件UIViewController+GYTableView.h即可，.h示例如下
+使用时有表格控件的界面直接引入头文件UIViewController+GYTableView.h即可，.h示例如下
+* Objective-C
 ```objc
 #import "UIViewController+GYTableView.h"
-@interface NormalViewController : UIViewController
+@interface YourViewController : UIViewController
 ```
-.m文件必须开启useGYTableView开关来使用表格控件GYTableView
+swift项目在Bridging_Header桥接文件中引入UIViewController+GYTableView.h，参照demo示例
+.m或swift实现文件必须开启gy_useTableView开关来使用表格控件GYTableView
+* Objective-C
 ```objc
-- (BOOL)useGYTableView {
+- (BOOL)gy_useTableView {
     return YES;
 }
 ```
-.m文件中重写headerRefresh添加元素，当自带的下拉刷新控件下拉时调用；从而开始列表内容层次搭建，以及各种类型的Cell位置如何摆放等
+* Swift
+```swift
+override func gy_useTableView() -> Bool {
+    return true
+}
+```
+
+.m或swift文件中重写headerRefresh添加元素，当自带的下拉刷新控件下拉时调用；从而开始表格内容层次搭建，以及各种类型的Cell位置如何摆放等
 ```objc
-- (void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler {
+- (void)headerRefresh:(GYTableBaseView *)tableView {
     //下拉刷新后开始请求后台提供数据，请求到数据后根据解析的内容展开cell实例和位置等操作，代码结构如下(伪代码)
-    request{
-        tableView{
-            sectionVo{
-                cellVo,
-                cellVo,
+    request {
+        tableView {
+            sectionNode {
+                cellNode,
+                cellNode,
                 ...
             }
-            sectionVo{
-                cellVo,
+            sectionNode {
+                cellNode,
                 ...
             }
             ...
         }
-        endRefreshHandler();//界面搭建完毕后停止刷新
+        [tableView headerEndRefresh:YES];//界面搭建完毕后停止刷新
     }
 }
 ```
 Cell控件直接继承GYTableViewCell，.h示例如下
+* Objective-C
 ```objc
 #import "GYTableViewCell.h"
-@interface NormalViewCell : GYTableViewCell
+@interface YourViewCell : GYTableViewCell
 ```
-.m文件中重写showSubviews方法进行布局，利用GET_CELL_DATA或GET_CELL_ARRAY_DATA宏来获取列表控件中传入的数据，如传入非数组型的数据使用GET_CELL_DATA，反之使用GET_CELL_ARRAY_DATA
+* Swift
+```swift
+class YourViewCell: GYTableViewCell
+```
+.m文件中重写showSubviews方法进行布局，利用getCellData获取表格控件中传入的数据
+* Objective-C
 ```objc
 - (void)showSubviews {
-    GET_CELL_DATA([xxx class]);//先获取外部传入的数据
-    GET_CELL_ARRAY_DATA([xxx class]);//或者获取数组类型的数据
-
+    id yourData = [self getCellData];//先获取外部传入的数据
     //开始界面布局...
 }
 ```
-<a name="gytable-base-view"></a>
-# GYTableBaseView.h
-```objc
-@interface GYTableBaseView : UITableView
-
-/** 设置选中位置 **/
-@property (nonatomic,strong) NSIndexPath *selectedIndexPath;
-/** 点中cell高亮 **/
-@property (nonatomic,assign) BOOL clickCellHighlight;
-/** 点中cell自动居中 **/
-@property (nonatomic,assign) BOOL clickCellMoveToCenter;
-/** 每一节间距 **/
-@property (nonatomic,assign) CGFloat sectionGap;
-/** 每个cell间距 **/
-@property (nonatomic,assign) CGFloat cellGap;
-/** 首次下拉 **/
-@property (nonatomic,assign,readonly) BOOL hasFirstRefreshed;
-
-
-/** 下拉刷新 **/
-- (void)headerBeginRefresh;
-/** 检查数据间距 **/
-- (void)checkGaps;
-/** 清除所有数据 **/
-- (void)clearAllSectionVo;
-/** 添加一节内容 **/
-- (void)addSectionVo:(SectionVo *)sectionVo;
-/** 在某个索引插入一节内容 **/
-- (void)insertSectionVo:(SectionVo *)sectionVo atIndex:(NSInteger)index;
-/** 删除一节内容 **/
-- (void)removeSectionVoAt:(NSInteger)index;
-/** 重新刷新全部界面 类似源生的reloadData **/
-- (void)gy_reloadData;
-/** 将选中的数据项平滑居中移动 **/
-- (void)moveSelectedIndexPathToCenter;
-
-/** 获取最后一个SectionVo **/
-- (SectionVo *)getLastSectionVo;
-/** 获取第一个SectionVo **/
-- (SectionVo *)getFirstSectionVo;
-/** 获取目标索引位置SectionVo **/
-- (SectionVo *)getSectionVoByIndex:(NSInteger)index;
-/** 获取目标indexPath位置CellVo **/
-- (CellVo *)getCellVoByIndexPath:(NSIndexPath *)indexPath;
-/** 获取SectionVo总数 **/
-- (NSUInteger)getSectionVoCount;
-/** 获取CellVo总数 所有SectionVo包含的CellVo总和 **/
-- (NSUInteger)getTotalCellVoCount;
-
-@end
-```
-<a name="section-vo"></a>
-# SectionVo
-```objc
-@interface SectionVo : NSObject
-
-/** 创建SectionVo实例并初始化设置下一步回调 **/
-+ (instancetype)initWithParams:(void(^)(SectionVo *svo))nextBlock;
-/** 创建SectionVo实例并初始化设置section页眉高度、section页眉类型、section页眉数据、下一步回调 **/
-+ (instancetype)initWithParams:(CGFloat)sectionHeaderHeight sectionHeaderClass:(Class)sectionHeaderClass sectionHeaderData:(id)sectionHeaderData nextBlock:(void(^)(SectionVo *svo))nextBlock;
-/** 创建SectionVo实例并初始化设置section页眉高度、section页眉类型、section页眉数据、section页脚高度、section页脚类型、section页脚数据、下一步回调 **/
-+ (instancetype)initWithParams:(CGFloat)sectionHeaderHeight sectionHeaderClass:(Class)sectionHeaderClass sectionHeaderData:(id)sectionHeaderData sectionFooterHeight:(CGFloat)sectionFooterHeight sectionFooterClass:(Class)sectionFooterClass sectionFooterData:(id)sectionFooterData nextBlock:(void(^)(SectionVo *svo))nextBlock;
-
-/** GYTableViewSection页眉实例高度 **/
-@property (nonatomic,assign) CGFloat sectionHeaderHeight;
-/** 用来实例化GYTableViewSection页眉的自定义类型 **/
-@property (nonatomic,strong) Class sectionHeaderClass;
-/** 传递给GYTableViewSection页眉实例的数据，用来展示界面判断逻辑等，实例内部通过self.data属性获得 **/
-@property (nonatomic,strong) id sectionHeaderData;
-
-/** GYTableViewSection页脚实例高度 **/
-@property (nonatomic,assign) CGFloat sectionFooterHeight;
-/** 用来实例化GYTableViewSection页脚的自定义类型 **/
-@property (nonatomic,strong) Class sectionFooterClass;
-/** 传递给GYTableViewSection页脚实例的数据，用来展示界面判断逻辑等，实例内部通过self.data属性获得 **/
-@property (nonatomic,strong) id sectionFooterData;
-
-/** 该节包含的CellVo个数 **/
-- (NSInteger)getCellVoCount;
-/**  添加单个CellVo **/
-- (void)addCellVo:(CellVo*)cellVo;
-/**  批量添加CellVo **/
-- (void)addCellVoByList:(NSArray<CellVo *> *)otherVoList;
-
-@end
-```
-<a name="cell-vo"></a>
-# CellVo
-```objc
-@interface CellVo : NSObject
-
-/** 创建CellVo实例并初始化设置cell高度、cell类型、cell数据 **/
-+ (instancetype)initWithParams:(CGFloat)cellHeight cellClass:(Class)cellClass cellData:(id)cellData;
-/** 创建CellVo实例并初始化设置cell高度、cell类型、cell数据、cell是否唯一 **/
-+ (instancetype)initWithParams:(CGFloat)cellHeight cellClass:(Class)cellClass cellData:(id)cellData isUnique:(BOOL)isUnique;
-/** 创建CellVo实例并初始化设置cell高度、cell类型、cell数据、cell是否唯一、是否强制刷新 **/
-+ (instancetype)initWithParams:(CGFloat)cellHeight cellClass:(Class)cellClass cellData:(id)cellData isUnique:(BOOL)isUnique forceUpdate:(BOOL)forceUpdate;
-/** 通过原始数据数组批量创建CellVo并将数据分别对应存入 **/
-+ (NSArray<CellVo*>*)dividingCellVoBySourceArray:(CGFloat)cellHeight cellClass:(Class)cellClass sourceArray:(NSArray*)sourceArray;
-
-/** GYTableViewCell实例高度 **/
-@property (nonatomic,assign) CGFloat cellHeight;
-/** 用来实例化GYTableViewCell的自定义类型 **/
-@property (nonatomic,strong) Class cellClass;
-/** 传递给GYTableViewCell实例的数据，用来展示界面判断逻辑等，实例内部通过self.data属性获得 **/
-@property (nonatomic,strong) id cellData;
-/** 创建GYTableViewCell实例唯一，相当于单例，就算是相同类型的GYTableViewCell也是各自成为单例，且内容不会刷新(适合内容只初始化一次的界面) **/
-@property (nonatomic,assign) BOOL isUnique;
-/** isUnique设置为true的情况下 forceUpdate可以继续让单例GYTableViewCell中的内容强制刷新 **/
-@property (nonatomic,assign) BOOL forceUpdate;
-/** 自定义保留字段 **/
-@property (nonatomic,copy) NSString *cellName;
-
-@end
-```
-<a name="gytable-view-controller"></a>
-# UIViewController+GYTableView.h
-```objc
-@interface UIViewController (GYTableView)<GYTableBaseViewDelegate>
-
-/** controller包含的tableView实例 **/
-@property(nonatomic,strong) GYTableBaseView *tableView;
-/** 设置进入该页面是否自动下拉刷新 默认true **/
-@property(nonatomic,assign) BOOL autoRefreshHeader;
-/** 设置选中某个indexPath位置 **/
-@property(nonatomic,strong) NSIndexPath *selectedIndexPath;
-/** 设置是否标记重用cell实例 默认true **/
-@property(nonatomic,assign) BOOL useCellIdentifer;
-/** 设置每次进入该页面自动滚动到列表顶部 默认false **/
-@property(nonatomic,assign) BOOL autoRestOffset;
-/** 设置是否显示下拉刷新控件 默认true **/
-@property(nonatomic,assign) BOOL isShowHeader;
-/** 设置是否显示上拉加载控件 默认false **/
-@property(nonatomic,assign) BOOL isShowFooter;
-
-/** 设置是否使用该控件 默认false;请在引入头文件后重写该方法返回true **/
-- (BOOL)useGYTableView;
-
-/** 设置TableView的布局位置，默认铺满Controller **/
-- (CGRect)getTableViewFrame;
-/** 设置自定义下拉刷新控件实例 **/
-- (MJRefreshHeader *)getRefreshHeader;
-/** 设置自定义上拉加载控件实例 **/
-- (MJRefreshFooter *)getRefreshFooter;
-/** 设置TableView的父容器，默认当前view **/
-- (UIView *)getTableViewParent;
-
-@end
-```
-<a name="gytable-base-view-delegate"></a>
-# GYTableBaseViewDelegate
-```objc
-/** 下拉刷新或上拉加载调用结束Block hasData标注界面是否刷新出了新的数据  **/
-typedef void(^HeaderRefreshHandler)(BOOL hasData);
-typedef void(^FooterLoadMoreHandler)(BOOL hasData);
-
-@protocol GYTableBaseViewDelegate<UITableViewDelegate,UITableViewDataSource>
-
-@optional
-/** 当GYTableBaseView下拉刷新时代理调用 **/
-- (void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler;
-@optional
-/** 当GYTableBaseView上拉加载时代理调用 **/
-- (void)footerLoadMore:(GYTableBaseView *)tableView endLoadMoreHandler:(FooterLoadMoreHandler)endLoadMoreHandler lastSectionVo:(SectionVo *)lastSectionVo;
-@optional
-/** 当GYTableBaseView下拉刷新完毕后代理调用 **/
-- (void)didRefreshComplete:(GYTableBaseView *)tableView;
-@optional
-/** 当GYTableBaseView上拉加载完毕后代理调用 **/
-- (void)didLoadMoreComplete:(GYTableBaseView *)tableView;
-@optional
-/** 当GYTableBaseView某一条GYTableViewCell实例被点击时代理调用 **/
-- (void)tableView:(GYTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
-@optional
-/** 当GYTableBaseView滚动到某个位置时代理调用 **/
-- (void)didScrollToRow:(GYTableBaseView *)tableView indexPath:(NSIndexPath *)indexPath;
-
-@end
-```
-<a name="gytable-view-cell"></a>
-# GYTableViewCell.h
-```objc
-@interface GYTableViewCell : UITableViewCell
-
-/** 是否在该节中的首位 **/
-@property(nonatomic,assign) BOOL isFirst;
-/** 是否在该节中的末位 **/
-@property(nonatomic,assign) BOOL isLast;
-/** 是否在该节只有此一个GYTableViewCell实例 **/
-@property(nonatomic,assign) BOOL isSingle;
-/** 是否需要刷新界面 **/
-@property(nonatomic,assign) BOOL needRefresh;
-/** 是否初次界面加载完毕 **/
-@property(nonatomic,assign) BOOL isSubviewShow;
-/** 对应的GYTableBaseView实例 **/
-@property(nonatomic,weak) GYTableBaseView* tableView;
-/** 当前所处位置 **/
-@property(nonatomic,strong) NSIndexPath* indexPath;
-/** 对应的CellVo实例 **/
-@property(nonatomic,strong) CellVo *cellVo;
-
-/** 页面元素创建并布局 请勿使用layoutSubviews来布局 **/
-- (void)showSubviews;
-/** 是否显示选中的效果样式 默认false **/
-- (BOOL)showSelectionStyle;
-/** 根据内容动态计算高度（适合内容多少高度不定的样式或文案展示） **/
-- (CGFloat)getCellHeight:(CGFloat)cellWidth;
-/** 检查cellData的类型是否是目标类型 并返回cellData **/
-- (id)checkCellDataClass:(Class)targetClass;
-/** 检查cellData类型为NSArray中的子元素类型是否是目标类型 并返回cellData **/
-- (NSArray*)checkCellArrayDataClass:(Class)arrayMemberClass;
-
-@end
-```
-<a name="gytable-view-section"></a>
-# GYTableViewSection.h
-```objc
-@interface GYTableViewSection : UIControl
-
-/** tableView所有section总数  **/
-@property (nonatomic,assign) NSInteger sectionCount;
-/** 当前section索引位置  **/
-@property (nonatomic,assign) NSInteger sectionIndex;
-/** 外部传入的数据 用来布局或交互等（sectionVo.sectionData） **/
-@property (nonatomic,strong) id data;
-/** 是否在整个tableView的首位 **/
-@property (nonatomic,assign) BOOL isFirst;
-/** 是否在整个tableView的末位 **/
-@property (nonatomic,assign) BOOL isLast;
-
-@end
-```
-<a name="添加cell"></a>
-# 添加Cell
-### 列表控制器内部实现
-```objc
--(void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
-    [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
-        //添加一个高度为230，类型为BannerViewCell，展示banner图片列表的Cell
-        [svo addCellVo:[CellVo initWithParams:230 cellClass:RefreshBannerViewCell.class cellData:self.bannerUrlGroup]];
-    }]];
-    endRefreshHandler(YES);//不要忘了结束刷新，否则刷新动画会停留原地
+* Swift
+```swift
+override func showSubviews() {
+    let yourData = self.getData()
+    //开始界面布局...
 }
 ```
+
+<a name="添加cell"></a>
+# 添加Cell
+### 表格控制器内部实现
+* Objective-C
+```objc
+- (void)headerRefresh:(GYTableBaseView *)tableView {
+    [tableView addSectionNode:[SectionNode initWithParams:^(SectionNode *sNode) {
+        //添加一个高度为230，类型为BannerViewCell，展示banner图片序列的Cell
+        [sNode addCellNode:[CellNode initWithParams:230 cellClass:RefreshBannerViewCell.class cellData:Mock.bannerUrlGroup]];
+    }]];
+    [tableView headerEndRefresh:YES];//不要忘了结束刷新，否则刷新动画会停留原地
+}
+```
+* Swift
+```swift
+override func headerRefresh(_ tableView: GYTableBaseView!) {
+    tableView.add(SectionNode.initWithParams({ sNode in
+        //添加一个高度为230，类型为BannerViewCell，展示banner图片序列的Cell
+        sNode?.add(CellNode.initWithParams(230, cellClass: RefreshBannerViewCell.self, cellData: Mock.bannerUrlGroup))
+    }))
+    tableView.headerEndRefresh(true)
+}
+```
+
 ![案例1-1](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180329193706057-540438886.gif)
 
 <a name="批量添加cell"></a>
 # 批量添加Cell
-### 列表控制器内部实现
+### 表格控制器内部实现(暴力添加，swift略过...)
 ```objc
--(void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
-    [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
-        //添加一个高度为230，类型为BannerViewCell，展示banner图片列表的Cell
-        [svo addCellVo:[CellVo initWithParams:230 cellClass:RefreshBannerViewCell.class cellData:self.bannerUrlGroup]];
+- (void)headerRefresh:(GYTableBaseView *)tableView {
+    [tableView addSectionNode:[SectionNode initWithParams:^(SectionNode *sNode) {
+        //添加一个高度为230，类型为BannerViewCell，展示banner图片序列的Cell
+        [sNode addCellNode:[CellNode initWithParams:230 cellClass:RefreshBannerViewCell.class cellData:self.bannerUrlGroup]];
     }]];
-    //注意banner和基金产品列表属于不同区域，应存放到各自section中添加，管理section视图会比较方便
-    [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
+    //注意banner和基金产品表格属于不同区域，应存放到各自section中添加，管理section视图会比较方便
+    [tableView addSectionNode:[SectionNode initWithParams:^(SectionNode *sNode) {
         //添加多个高度为80，类型为RefreshFundViewCell，展示基金信息的Cell
-        [svo addCellVo:[CellVo initWithParams:80 cellClass:RefreshFundViewCell.class cellData:self.fundModels[0]]];
-        [svo addCellVo:[CellVo initWithParams:80 cellClass:RefreshFundViewCell.class cellData:self.fundModels[1]]];
-        [svo addCellVo:[CellVo initWithParams:80 cellClass:RefreshFundViewCell.class cellData:self.fundModels[2]]];
+        [sNode addCellNode:[CellNode initWithParams:80 cellClass:RefreshFundViewCell.class cellData:self.fundModels[0]]];
+        [sNode addCellNode:[CellNode initWithParams:80 cellClass:RefreshFundViewCell.class cellData:self.fundModels[1]]];
+        [sNode addCellNode:[CellNode initWithParams:80 cellClass:RefreshFundViewCell.class cellData:self.fundModels[2]]];
         //...
     }]];
-    endRefreshHandler(YES);//不要忘了结束刷新，否则刷新动画会停留原地
+    tableView.headerEndRefresh(true);//不要忘了结束刷新，否则刷新动画会停留原地
 }
 ```
 ### 相同类型的Cell添加可以修改成通过原数组批量添加
+* Objective-C
 ```objc
-[tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
+[tableView addSectionNode:[SectionNode initWithParams:^(SectionNode *sNode) {
     //添加多个高度为80，类型为RefreshFundViewCell，展示基金信息的Cell
-    [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:80 cellClass:RefreshFundViewCell.class sourceArray:self.fundModels]];
+    [sNode addCellNodeByList:[CellNode dividingCellNodeBySourceArray:80 cellClass:RefreshFundViewCell.class sourceArray:Mock.fundModels]];
 }]];
 ```
+* Swift
+```swift
+tableView.add(SectionNode.initWithParams({ sNode in
+    sNode?.addCellNode(byList: CellNode.dividingCellNode(bySourceArray: 80, cellClass: RefreshFundViewCell.self, sourceArray: Mock.fundNewModels))
+}))
+```
+
 ![案例1-2](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180329193736678-1640767410.gif)
 
 <a name="添加section"></a>
 # 添加Section
-### 如果一节内容需要添加section页眉视图，只要在sectionVo实例设置sectionHeaderClass即可，同理section页脚设置sectionFooterClass
+### 如果一节内容需要添加section页眉视图，只要在sectionNode实例设置sectionHeaderClass即可，同理section页脚设置sectionFooterClass
+* Objective-C
 ```objc
--(void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
-    [tableView addSectionVo:[SectionVo initWithParams:36 sectionHeaderClass:RefreshFundViewSection.class sectionHeaderData:@"精品专区" nextBlock:^(SectionVo *svo) {
+- (void)headerRefresh:(GYTableBaseView *)tableView {
+    [tableView addSectionNode:[SectionNode initWithParams:36 sectionHeaderClass:RefreshFundViewSection.class sectionHeaderData:@"精品专区" nextBlock:^(SectionNode *sNode) {
         //添加section内的cell...
     }]];
-    endRefreshHandler(YES);
+    [tableView headerEndRefresh:YES];
+}
+```
+* Swift
+```swift
+override func headerRefresh(_ tableView: GYTableBaseView!) {
+    tableView.add(SectionNode.initWithParams(36, sectionHeaderClass: RefreshFundViewSection.self, sectionHeaderData: "精品专区", nextBlock: { sNode in
+        //添加section内的cell...
+    }))
 }
 ```
 ### 分类结构如下
@@ -390,125 +202,220 @@ typedef void(^FooterLoadMoreHandler)(BOOL hasData);
 <a name="isunique唯一性"></a>
 # isUnique唯一性
 默认所有相同Class的Cell实例都是相互复用，每次下拉刷新或者table设置reloadData，被复用的Cell实例都会重新触发刷新调用showSubviews，从而根据传递的data展开；然而，一些特殊的Cell不需要复用或只实例化一次，比如标签按钮区域的Cell或者banner区域的Cell，每次下拉都是只用这个实例，可以设置为isUnique作为唯一Cell实例优化提高性能
+* Objective-C
 ```objc
--(void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
-    [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
-       //添加一个高度为230，类型为BannerViewCell，展示banner图片列表的Cell
-        [svo addCellVo:[CellVo initWithParams:230 cellClass:RefreshBannerViewCell.class cellData:self.bannerUrlGroup isUnique:YES]];
-        //添加一个高度为90，类型为RefreshHotViewCell，展示banner图片列表的Cell
-        [svo addCellVo:[CellVo initWithParams:90 cellClass:RefreshHotViewCell.class cellData:self.hotModels isUnique:YES]];
+- (void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler {
+    [tableView addSectionNode:[SectionNode initWithParams:^(SectionNode *sNode) {
+       //添加一个高度为230，类型为BannerViewCell，展示banner图片序列的Cell
+        [sNode addCellNode:[CellNode initWithParams:230 cellClass:RefreshBannerViewCell.class cellData:self.bannerUrlGroup isUnique:YES]];
+        //添加一个高度为90，类型为RefreshHotViewCell，展示banner图片序列的Cell
+        [sNode addCellNode:[CellNode initWithParams:90 cellClass:RefreshHotViewCell.class cellData:self.hotModels isUnique:YES]];
     }]];
-    endRefreshHandler(YES);
+    [tableView headerEndRefresh:YES];
 }
 ```
-
+* Swift
+```swift
+override func headerRefresh(_ tableView: GYTableBaseView!) {
+    tableView.add(SectionNode.initWithParams({ sNode in
+        //添加一个高度为230，类型为BannerViewCell，展示banner图片序列的Cell
+        sNode?.add(CellNode.initWithParams(230, cellClass: RefreshBannerViewCell.self, cellData: Mock.bannerUrlGroup, isUnique:true))
+        //添加一个高度为90，类型为RefreshHotViewCell，展示标签按钮区域的Cell
+        sNode?.add(CellNode.initWithParams(90, cellClass: RefreshHotViewCell.self, cellData:Mock.hotModels , isUnique:true))
+    }))
+    tableView.headerEndRefresh(true)
+}
+```
 # 调用上拉加载
-### 列表控制器内部设置显示上拉加载控制器
+### 表格控制器内部设置显示上拉加载控制器
+* Objective-C
 ```objc
--(BOOL)isShowFooter{
+- (BOOL)gy_useLoadMoreFooter {
     return YES;
 }
 ```
-### 列表控制器内部重写footerLoadMore
-```objc
-//endLoadMoreHandler:结束刷新回调block,lastSectionVo:上一节sectionVo数据，即当前列表页最后一节
--(void)footerLoadMore:(GYTableBaseView *)tableView endLoadMoreHandler:(FooterLoadMoreHandler)endLoadMoreHandler lastSectionVo:(SectionVo *)lastSectionVo{
-    [lastSectionVo addCellVoByList:[CellVo dividingCellVoBySourceArray:80 cellClass:RefreshFundViewCell.class sourceArray:self.fundNewModels]];//将新增的CellVo实例继续添加到上一节SectionVo实例中
-    endLoadMoreHandler(YES);
+* Swift
+```swift
+override func gy_useLoadMoreFooter() -> Bool {
+    return true
 }
 ```
-### 根据需求添加到列表页最后一节，或者添加到新的一节数据中，并设置添加上限
+### 表格控制器内部重写footerLoadMore
+* Objective-C
 ```objc
-if([tableView getTotalCellVoCount] > 30){//总共超出30条数据不添加数据
-    endLoadMoreHandler(NO);//直接结束上拉加载刷新，并显示"已经全部加载完毕"
+//lastSectionNode:上一节sectionNode数据，即当前表格页最后一节
+- (void)footerLoadMore:(GYTableBaseView *)tableView lastSectionNode:(Section *)lastSectionNode {
+    [lastSectionNode addCellNodeByList:[CellNode dividingCellNodeBySourceArray:80 cellClass:RefreshFundViewCell.class sourceArray:self.fundNewModels]];//将新增的CellNode实例继续添加到上一节SectionNode实例中
+    [tableView footerEndLoadMore:YES];//不要忘了结束上拉加载刷新
+}
+```
+* Swift
+```swift
+override func footerLoadMore(_ tableView: GYTableBaseView!, last lastSectionNode: SectionNode!) {
+    lastSectionNode.addCellNode(byList: CellNode.dividingCellNode(bySourceArray: 80, cellClass: RefreshFundViewCell.self, sourceArray: Mock.fundNewModels))//将新增的CellNode实例继续添加到上一节SectionNode实例中
+    tableView.footerEndLoadMore(true)//不要忘了结束上拉加载刷新
+}
+```
+### 根据需求添加到表格页最后一节，或者添加到新的一节数据中，并设置添加上限，业务相关代码swift示例略...
+```objc
+if ([tableView getTotalCellNodeCount] > 30) {//总共超出30条数据不添加数据
+    [tableView footerEndLoadMore:NO];//直接结束上拉加载刷新，并显示"已经全部加载完毕"
     return;
 }
-//根据业务需求的不同，可以继续添加到上一节sectionVo，也可以添加到新的一节sectionVo中
-if([lastSectionVo getCellVoCount] < 15){//上一节少于15条继续添加到上一节sectionVo
-    [lastSectionVo addCellVoByList:[CellVo dividingCellVoBySourceArray:80 cellClass:RefreshFundViewCell.class sourceArray:self.fundNewModels]];
-}else{//上一节超了 添加到新的一节sectionVo
-    [tableView addSectionVo:[SectionVo initWithParams:36 sectionHeaderClass:RefreshFundViewSection.class sectionHeaderData:@"推荐专区" nextBlock:^(SectionVo *svo) {
-        [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:80 cellClass:RefreshFundViewCell.class sourceArray:self.fundNewModels]];
+//根据业务需求的不同，可以继续添加到上一节sectionNode，也可以添加到新的一节sectionNode中
+if ([lastSectionNode getCellNodeCount] < 15) {//上一节少于15条继续添加到上一节sectionNode
+    [lastSectionNode addCellNodeByList:[CellNode dividingCellNodeBySourceArray:80 cellClass:RefreshFundViewCell.class sourceArray:self.fundNewModels]];
+} else {//上一节超了 添加到新的一节sectionNode
+    [tableView addSectionNode:[SectionNode initWithParams:36 sectionHeaderClass:RefreshFundViewSection.class sectionHeaderData:@"推荐专区" nextBlock:^(SectionNode *sNode) {
+        [sNode addCellNodeByList:[CellNode dividingCellNodeBySourceArray:80 cellClass:RefreshFundViewCell.class sourceArray:self.fundNewModels]];
     }]];
 }
-endLoadMoreHandler(YES);//不要忘了结束上拉加载刷新
+[tableView footerEndLoadMore:YES];//不要忘了结束上拉加载刷新
 ```
 ![案例1-4](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330125420770-895910655.gif)
 
 <a name="更改ui-tableView的frame"></a>
 # 更改UITableView的frame
-### 列表控制器内部重写getTableViewFrame
+### 表格控制器内部重写getTableViewFrame
 如存在和容器底部对齐的元素，请在此方法对齐底部位置(默认占满controller边界)；autoLayerout无需重写此方法，自行设置tableView和其他元素布局关系
+* Objective-C
 ```objc
--(CGRect)getTableViewFrame{
+- (CGRect)gy_getTableViewFrame {
     self.noticeBack.frame = CGRectMake(0, 0, self.view.width, 30);
     self.submitButton.maxY = self.view.height;//底部按钮对齐容器底部
     //返回设置好的tableView位置frame 高度=总高度-公告区高-底部按钮高
     return CGRectMake(0, self.noticeBack.height, self.view.width, self.view.height - self.noticeBack.height - self.submitButton.height);
 }
 ```
+* Swift
+```swift
+override func gy_getTableViewFrame() -> CGRect {
+    //...业务代码同上
+    //返回设置好的tableView位置frame 高度=总高度-公告区高-底部按钮高
+    return CGRect.init(x: 0, y: self.noticeBack.height, width: self.view.width, height:  self.view.height - self.noticeBack.height - self.submitButton.height);
+}
+```
 ![案例2-1](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330134633439-2144359463.gif)
 
 # 自定义下拉刷新控件
-### 列表控制器内部重写getRefreshHeader
+### 表格控制器内部重写gy_getRefreshHeader
+* Objective-C
 ```objc
--(MJRefreshHeader *)getRefreshHeader{
-    return [[DiyRotateRefreshHeader alloc]init];
+- (MJRefreshHeader *)gy_getRefreshHeader {
+    return [[DiyRotateRefreshHeader alloc] init];
+}
+```
+* Swift
+```swift
+override func gy_getRefreshHeader() -> MJRefreshHeader! {
+    return DiyRotateRefreshHeader()
 }
 ```
 ![案例2-2](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330112718771-789334939.gif)
 
 <a name="侦听选中的cell"></a>
 # 侦听选中的Cell
-### 列表控制器内部实现代理 (tableView:didSelectRowAtIndexPath:已废弃)
+### 表格控制器内部实现代理 (tableView:didSelectRowAtIndexPath:已废弃)
+* Objective-C
 ```objc
 - (void)didSelectRow:(GYTableBaseView *)tableView indexPath:(NSIndexPath *)indexPath {
-    CellVo* cvo = [tableView getCellVoByIndexPath:indexPath];//获取到绑定的CellVo
-    XXClass* cellData = cvo.cellData;//获得cell的原始数据
+    CellNode* cNode = [tableView getCellNodeByIndexPath:indexPath];//获取到绑定的CellNode
+    YourClass* yourData = cNode.cellData;//获得cell的原始数据
     //根据数据添加业务逻辑...
 }
 ```
+* Swift
+```swift
+override func didSelectRow(_ tableView: GYTableBaseView!, indexPath: IndexPath!) {
+    let cNode:CellNode? = tableView.getCellNode(by: indexPath)
+    let yourData:YourClass? = cNode?.cellData as? YourClass
+    //根据数据添加业务逻辑...
+}
+```
+
 ### 设置cell点击效果，cell实例内部重写showSelectionStyle
+* Objective-C
 ```objc
 - (BOOL)showSelectionStyle {
     return YES;
 }
 ```
+* Swift
+```swift
+override func showSelectionStyle() -> Bool {
+    return true
+}
+```
+
 ![案例2-3](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330112705665-822050745.gif)
 
 <a name="设置cell或section元素间距"></a>
 # 设置Cell或Section元素间距
-### 列表控制器内部设置tableView属性cellGap或sectionGap
+### 表格控制器内部设置tableView属性cellGap或sectionGap
+* Objective-C
 ```objc
 - (void)viewDidLoad {
     self.tableView.sectionGap = 6;//设置每一节区域之间间距
     self.tableView.cellGap = 3;//设置每个Cell之间间距(包含每一节区域)
 }
 ```
+* Swift
+```swift
+override func viewDidLoad() {
+    self.tableView.sectionGap = 6//设置每一节区域之间间距
+    self.tableView.cellGap = 3//设置每个Cell之间间距(包含每一节区域)
+}
+```
 ![案例3-1](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330125032511-1083797657.gif)
 
 <a name="设置选中某个位置的cell"></a>
 # 设置选中某个位置的Cell
-### 当刷新完成后设置，列表控制器内部设置tableView属性selectedIndexPath
+### 当刷新完成后设置，表格控制器内部设置tableView属性selectedIndexPath
+* Objective-C
 ```objc
--(void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
-     [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
+- (void)headerRefresh:(GYTableBaseView *)tableView {
+     [tableView addSectionNode:[SectionNode initWithParams:^(SectionNode *sNode) {
         //..添加cell数据
      }]];
      tableView.selectedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];//设置选中某个indexPath
-     endRefreshHandler(YES);    
+     [tableView headerEndRefresh:YES];
 }
 ```
+* Swift
+```swift
+override func headerRefresh(_ tableView: GYTableBaseView!) {
+    tableView.add(SectionNode.initWithParams({ sNode in
+        //..添加cell数据
+    }))
+    tableView.selectedIndexPath = IndexPath.init(item: 0, section: 0)
+    tableView.headerEndRefresh(true)
+}
+```
+
 ### Cell实例设置选中效果，重写setSelected方法，选中样式请根据需求自行添加
+* Objective-C
 ```objc
--(void)setSelected:(BOOL)selected{
+- (void)setSelected:(BOOL)selected {
     [super setSelected:selected];
     [self checkCellRelate];//自定义选中样式方法，非框架内部方法，实现如下
 }
 ```
+* Swift
+```swift
+override var isSelected:Bool {
+    set {
+        super.isSelected = newValue
+        self.checkCellRelate()//自定义选中样式方法，非框架内部方法，业务实现略过...
+    }
+    get{
+        return super.isSelected
+    }
+}
+```
+
 ### Cell实例位置关系isFirst，isLast，位于第一个或最后一个和中间段的Cell样式不同
 ```objc
--(void)checkCellRelate{
+- (void)checkCellRelate {
     if (self.isFirst) {
         [self drawFirstStyle:nodeColor];
     }else if(self.isLast){
@@ -522,43 +429,88 @@ endLoadMoreHandler(YES);//不要忘了结束上拉加载刷新
 
 <a name="设置交互点击某个位置cell并高亮"></a>
 # 设置交互点击某个位置Cell并高亮
+* Objective-C
 ```objc
 - (void)viewDidLoad {
     self.tableView.clickCellHighlight = YES;
+}
+```
+* Swift
+```swift
+override func viewDidLoad() {
+    self.tableView.clickCellHighlight = true
 }
 ```
 ![案例4-2](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330125441581-812210708.gif)
 
 <a name="设置点击cell自动居中"></a>
 # 设置点击Cell自动居中
+* Objective-C
 ```objc
 - (void)viewDidLoad {
     self.tableView.clickCellMoveToCenter = YES;
+}
+```
+* Swift
+```swift
+override func viewDidLoad() {
+    self.tableView.clickCellMoveToCenter = true
 }
 ```
 ![案例4-3](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180329202654311-1573826271.gif)
 
 <a name="cell自动调整高度"></a>
 # Cell自动调整高度
-### 列表控制器内部设置CellVo传入高度CELL_AUTO_HEIGHT
+### 表格控制器内部设置CellNode传入高度CELL_AUTO_HEIGHT
+* Objective-C
 ```objc
--(void)headerRefresh:(GYTableBaseView *)tableView endRefreshHandler:(HeaderRefreshHandler)endRefreshHandler{
-     [tableView addSectionVo:[SectionVo initWithParams:^(SectionVo *svo) {
-         [svo addCellVoByList:[CellVo dividingCellVoBySourceArray:CELL_AUTO_HEIGHT cellClass:AutoHeightWeiboCell.class sourceArray:self.weiboModels]];
-     }]];
-     endRefreshHandler(YES);  
+- (void)headerRefresh:(GYTableBaseView *)tableView {
+    [tableView addSectionNode:[SectionNode initWithParams:^(SectionNode *sNode) {
+        [sNode addCellNodeByList:[CellNode dividingCellNodeBySourceArray:CELL_AUTO_HEIGHT cellClass:AutoHeightWeiboCell.class sourceArray:Mock.weiboModels]];
+    }]];
+    [tableView headerEndRefresh:YES];
+}
+```
+* Swift
+```swift
+override func headerRefresh(_ tableView: GYTableBaseView!) {
+    tableView.add(SectionNode.initWithParams({ sNode in
+        sNode?.addCellNode(byList: CellNode.dividingCellNode(bySourceArray: CELL_AUTO_HEIGHT, cellClass: AutoHeightWeiboCell.self, sourceArray: Mock.weiboModels))
+    tableView.headerEndRefresh(true)
 }
 ```
 ### Cell实例重写getCellHeight方法获取动态高度，获取高度内容会被缓存不会二次计算
 ```objc
--(CGFloat)getCellHeight:(CGFloat)cellWidth{
-    WeiboModel* weiboModel = GET_CELL_DATA(WeiboModel.class);//获取Model
-    NSString* content = weiboModel.content;//获取动态内容字符串
+- (CGFloat)getCellHeight:(CGFloat)cellWidth {
+    WeiboModel *weiboModel = [self getCellData];//获取Model
+    NSString *content = weiboModel.content;//获取动态内容字符串
     CGRect contentSize = [content boundingRectWithSize:CGSizeMake(cellWidth - LEFT_PADDING - RIGHT_PADDING, FLT_MAX)
-                             options:NSStringDrawingUsesLineFragmentOrigin
-                          attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:SIZE_TEXT_SECONDARY]}
-                             context:nil];//计算给定范围内最佳尺寸
+    options:NSStringDrawingUsesLineFragmentOrigin
+    attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:TVStyle.sizeTextSecondary]}
+    context:nil];//计算给定范围内最佳尺寸
     return TOPIC_AREA_HEIGHT + contentSize.size.height + IMAGE_AREA_HEIGHT + BOTTOM_PADDING * 2;//返回计算后的最终高度
 }
 ```
+* Swift
+```swift
+override func getHeight(_ cellWidth: CGFloat) -> CGFloat {
+    let weiboModel:WeiboModel? = getData() as? WeiboModel//获取Model
+    let content:String  = weiboModel!.content //获取动态内容字符串
+    let contentSize:CGRect = content.boundingRect(with: CGSize.init(width: cellWidth - AutoHeightWeiboCell.LEFT_PADDING - AutoHeightWeiboCell.RIGHT_PADDING, height: CGFloat(Float.greatestFiniteMagnitude)), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: TVStyle.sizeTextSecondary)], context: nil)
+    //计算给定范围内最佳尺寸
+    return AutoHeightWeiboCell.TOPIC_AREA_HEIGHT + contentSize.size.height + AutoHeightWeiboCell.IMAGE_AREA_HEIGHT + AutoHeightWeiboCell.BOTTOM_PADDING * 2;//返回计算后的最终高度
+}
+```
 ![案例5-1](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330124629331-180933660.gif)
+
+#ChangeLog
+###1.1.0 当前版本，框架结构整体修改，兼容swift混编，底层delegate优化为动态绑定
+##历史版本
+###1.0.0 初版
+###1.0.1 iOS11.0表格自动上移bug修复
+###1.0.2 自定义上拉加载控件支持
+###1.0.3 增加autolayout支持，修改tablebaseview参数传入方式
+###1.0.6 添加UIViewController+GYTableView分类
+###1.0.7 delegate添加prepareCell用来自定义对cell进行操作
+###1.0.8 部分bug修复
+
