@@ -35,5 +35,10 @@ class PopupListView: PopupWindowView,GYTableBaseViewDelegate {
         
         self.tableView?.gy_reloadData();//不要忘了刷新Table
     }
+    
+    //MARK: - delegate选中后关闭弹窗
+    func didSelectRow(_ tableView: GYTableBaseView!, indexPath: IndexPath!) {
+        self.dismiss()
+    }
 
 }

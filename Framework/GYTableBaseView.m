@@ -178,8 +178,8 @@ typedef enum {
     SEL sel = NSSelectorFromString(selectorName);
     if (![obj respondsToSelector:sel]) {
         Method exchangeM = class_getInstanceMethod([self class], sel);
-        class_addMethod([obj class], sel, class_getMethodImplementation_stret([self class], sel),method_getTypeEncoding(exchangeM));
-    class_addMethod([obj class], sel, class_getMethodImplementation_stret([self class], sel),method_getTypeEncoding(exchangeM));
+        class_addMethod([obj class], sel, class_getMethodImplementation([self class], sel),method_getTypeEncoding(exchangeM));
+        class_addMethod([obj class], sel, class_getMethodImplementation([self class], sel),method_getTypeEncoding(exchangeM));
     }
 }
 
