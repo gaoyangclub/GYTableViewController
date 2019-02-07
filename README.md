@@ -486,10 +486,7 @@ override func headerRefresh(_ tableView: GYTableBaseView!) {
 - (CGFloat)getCellHeight:(CGFloat)cellWidth {
     WeiboModel *weiboModel = [self getCellData];//获取Model
     NSString *content = weiboModel.content;//获取动态内容字符串
-    CGRect contentSize = [content boundingRectWithSize:CGSizeMake(cellWidth - LEFT_PADDING - RIGHT_PADDING, FLT_MAX)
-    options:NSStringDrawingUsesLineFragmentOrigin
-    attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:TVStyle.sizeTextSecondary]}
-    context:nil];//计算给定范围内最佳尺寸
+    CGRect contentSize = [content boundingRectWithSize:CGSizeMake(cellWidth - LEFT_PADDING - RIGHT_PADDING, FLT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:TVStyle.sizeTextSecondary]} context:nil];//计算给定范围内最佳尺寸
     return TOPIC_AREA_HEIGHT + contentSize.size.height + IMAGE_AREA_HEIGHT + BOTTOM_PADDING * 2;//返回计算后的最终高度
 }
 ```
