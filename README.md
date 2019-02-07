@@ -1,4 +1,4 @@
-# 自定义封装UITableView，更加简洁高效，无需为了实现delegate增加胶水代码，自带下拉刷新上拉加载控件
+# 简洁高效的Table控件1.1.0正式版，适合复杂样式的内容排版，丰富的元素相关API
 * 如何开始
     *  [项目技术特点](#技术特点)
     *  [安装方法](#安装方法)
@@ -8,7 +8,7 @@
     *  [批量添加Cell](#批量添加cell)
     *  [如何添加Section](#添加section)
     *  [如何让Cell实例唯一](#isunique唯一性)
-    *  [如何上拉加载更多](#调用上拉加载)
+    *  [如何上拉加载更多](#上拉加载更多)
     *  [如何修改UITableView位置](#更改ui-tableView的frame)
     *  [如何修改下拉刷新控件](#自定义下拉刷新控件)
     *  [如何侦听选中的Cell](#侦听选中的cell)
@@ -17,16 +17,16 @@
     *  [如何交互点击选中位置并高亮](#设置交互点击某个位置cell并高亮)
     *  [如何交互点击选中位置并自动居中](#设置点击cell自动居中)
     *  [如何根据动态内容调整Cell高度](#cell自动调整高度)
-
+    *  [如何自己创建一个TableView并控制样式](#自定义创建TableView)
 
 # 技术特点
 * 无需继承自定义类，引入头文件UIViewController+GYTableView.h即可使用<br/>
 * 支持OC和swift(混合)<br/>
 * Section和Cell层次更加清晰，根据传入的Section数据结构内部已经全部实现Section和Cell相关delegate方法<br/>
 * Cell实例可获得外部动态数据，索引位置，上下关系，选中状态等，随时更换样式<br/>
-* 自带MJRefresh框架，提供下拉刷新和上拉加载功能，外部暴露接口调用<br/>
+* 自带MJRefresh框架，提供下拉刷新和上拉加载功能<br/>
 * 提供Section，Cell间距设置，提供选中行高亮、选中行自动居中，提供设置Cell动态高度设置等API<br/>
-* 框架中的元素全部继承于原生的tableView相关元素，除部分代理方法外，其他原生方法扔然可以使用<br/>
+* 框架中的元素全部继承于原生的tableView，除部分代理方法外，其他原生方法扔然可以使用<br/>
 
 # 安装方法
 * pod安装: pod 'GYTableViewController'
@@ -34,7 +34,7 @@
 * demo项目图标基于iconfont技术栈，<a href="https://www.iconfont.cn/heslp/detail?spm=a313x.7781069.1998910419.d8d11a391&helptype=code" target="_blank">请戳这里</a><br/>
 
 # 框架用法
-请使用该框架中的元素来代替原生表格控件，对应关系如下:<br/>
+请使用该框架中的元素来代替原生Table控件，对应关系如下:<br/>
 ```
 UIViewController+GYTableView -> UIViewController
 GYTableBaseView -> UITableView
@@ -44,14 +44,15 @@ SectionNode 用来设置Section样式与GYTableViewSection实例绑定
 CellNode 用来设置Cell样式与GYTableViewCell实例绑定
 ```
 
-使用时有表格控件的界面直接引入头文件UIViewController+GYTableView.h即可，.h示例如下
+使用时有Table控件的界面直接引入头文件UIViewController+GYTableView.h即可，.h示例如下
 * Objective-C
 ```objc
 #import "UIViewController+GYTableView.h"
 @interface YourViewController : UIViewController
 ```
-swift项目在Bridging_Header桥接文件中引入UIViewController+GYTableView.h，参照demo示例
-.m或swift实现文件必须开启gy_useTableView开关来使用表格控件GYTableView
+swift项目在Bridging_Header桥接文件中引入UIViewController+GYTableView.h，参照demo示例<br/>
+
+.m或swift实现文件必须开启gy_useTableView开关来使用Table控件GYTableView
 * Objective-C
 ```objc
 - (BOOL)gy_useTableView {
@@ -65,7 +66,7 @@ override func gy_useTableView() -> Bool {
 }
 ```
 
-.m或swift文件中重写headerRefresh添加元素，当自带的下拉刷新控件下拉时调用；从而开始表格内容层次搭建，以及各种类型的Cell位置如何摆放等
+.m或swift文件中重写headerRefresh添加元素，当自带的下拉刷新控件下拉时调用；从而开始Table内容层次搭建，以及各种类型的Cell位置如何摆放等
 ```objc
 - (void)headerRefresh:(GYTableBaseView *)tableView {
     //下拉刷新后开始请求后台提供数据，请求到数据后根据解析的内容展开cell实例和位置等操作，代码结构如下(伪代码)
@@ -96,7 +97,7 @@ Cell控件直接继承GYTableViewCell，.h示例如下
 ```swift
 class YourViewCell: GYTableViewCell
 ```
-.m文件中重写showSubviews方法进行布局，利用getCellData获取表格控件中传入的数据
+.m文件中重写showSubviews方法进行布局，利用getCellData获取Table控件中传入的数据
 * Objective-C
 ```objc
 - (void)showSubviews {
@@ -114,7 +115,7 @@ override func showSubviews() {
 
 <a name="添加cell"></a>
 # 添加Cell
-### 表格控制器内部实现
+### Table控制器内部实现
 * Objective-C
 ```objc
 - (void)headerRefresh:(GYTableBaseView *)tableView {
@@ -140,14 +141,14 @@ override func headerRefresh(_ tableView: GYTableBaseView!) {
 
 <a name="批量添加cell"></a>
 # 批量添加Cell
-### 表格控制器内部实现(暴力添加，swift略过...)
+### Table控制器内部实现(暴力添加，swift略过...)
 ```objc
 - (void)headerRefresh:(GYTableBaseView *)tableView {
     [tableView addSectionNode:[SectionNode initWithParams:^(SectionNode *sNode) {
         //添加一个高度为230，类型为BannerViewCell，展示banner图片序列的Cell
         [sNode addCellNode:[CellNode initWithParams:230 cellClass:RefreshBannerViewCell.class cellData:self.bannerUrlGroup]];
     }]];
-    //注意banner和基金产品表格属于不同区域，应存放到各自section中添加，管理section视图会比较方便
+    //注意banner和基金产品列表属于不同区域，应存放到各自section中添加，管理section视图会比较方便
     [tableView addSectionNode:[SectionNode initWithParams:^(SectionNode *sNode) {
         //添加多个高度为80，类型为RefreshFundViewCell，展示基金信息的Cell
         [sNode addCellNode:[CellNode initWithParams:80 cellClass:RefreshFundViewCell.class cellData:self.fundModels[0]]];
@@ -226,8 +227,8 @@ override func headerRefresh(_ tableView: GYTableBaseView!) {
     tableView.headerEndRefresh(true)
 }
 ```
-# 调用上拉加载
-### 表格控制器内部设置显示上拉加载控制器
+# 上拉加载更多
+### Table控制器内部设置显示上拉加载控制器
 * Objective-C
 ```objc
 - (BOOL)gy_useLoadMoreFooter {
@@ -240,10 +241,10 @@ override func gy_useLoadMoreFooter() -> Bool {
     return true
 }
 ```
-### 表格控制器内部重写footerLoadMore
+### Table控制器内部重写footerLoadMore
 * Objective-C
 ```objc
-//lastSectionNode:上一节sectionNode数据，即当前表格页最后一节
+//lastSectionNode:上一节sectionNode数据，即当前Table页最后一节
 - (void)footerLoadMore:(GYTableBaseView *)tableView lastSectionNode:(Section *)lastSectionNode {
     [lastSectionNode addCellNodeByList:[CellNode dividingCellNodeBySourceArray:80 cellClass:RefreshFundViewCell.class sourceArray:self.fundNewModels]];//将新增的CellNode实例继续添加到上一节SectionNode实例中
     [tableView footerEndLoadMore:YES];//不要忘了结束上拉加载刷新
@@ -256,7 +257,7 @@ override func footerLoadMore(_ tableView: GYTableBaseView!, last lastSectionNode
     tableView.footerEndLoadMore(true)//不要忘了结束上拉加载刷新
 }
 ```
-### 根据需求添加到表格页最后一节，或者添加到新的一节数据中，并设置添加上限，业务相关代码swift示例略...
+### 根据需求添加到Table页最后一节，或者添加到新的一节数据中，并设置添加上限，业务相关代码swift示例略...
 ```objc
 if ([tableView getTotalCellNodeCount] > 30) {//总共超出30条数据不添加数据
     [tableView footerEndLoadMore:NO];//直接结束上拉加载刷新，并显示"已经全部加载完毕"
@@ -276,7 +277,7 @@ if ([lastSectionNode getCellNodeCount] < 15) {//上一节少于15条继续添加
 
 <a name="更改ui-tableView的frame"></a>
 # 更改UITableView的frame
-### 表格控制器内部重写getTableViewFrame
+### Table控制器内部重写getTableViewFrame
 如存在和容器底部对齐的元素，请在此方法对齐底部位置(默认占满controller边界)；autoLayerout无需重写此方法，自行设置tableView和其他元素布局关系
 * Objective-C
 ```objc
@@ -298,7 +299,7 @@ override func gy_getTableViewFrame() -> CGRect {
 ![案例2-1](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330134633439-2144359463.gif)
 
 # 自定义下拉刷新控件
-### 表格控制器内部重写gy_getRefreshHeader
+### Table控制器内部重写gy_getRefreshHeader
 * Objective-C
 ```objc
 - (MJRefreshHeader *)gy_getRefreshHeader {
@@ -315,7 +316,7 @@ override func gy_getRefreshHeader() -> MJRefreshHeader! {
 
 <a name="侦听选中的cell"></a>
 # 侦听选中的Cell
-### 表格控制器内部实现代理 (tableView:didSelectRowAtIndexPath:已废弃)
+### Table控制器内部实现代理 (tableView:didSelectRowAtIndexPath:已废弃)
 * Objective-C
 ```objc
 - (void)didSelectRow:(GYTableBaseView *)tableView indexPath:(NSIndexPath *)indexPath {
@@ -351,7 +352,7 @@ override func showSelectionStyle() -> Bool {
 
 <a name="设置cell或section元素间距"></a>
 # 设置Cell或Section元素间距
-### 表格控制器内部设置tableView属性cellGap或sectionGap
+### Table控制器内部设置tableView属性cellGap或sectionGap
 * Objective-C
 ```objc
 - (void)viewDidLoad {
@@ -370,7 +371,7 @@ override func viewDidLoad() {
 
 <a name="设置选中某个位置的cell"></a>
 # 设置选中某个位置的Cell
-### 当刷新完成后设置，表格控制器内部设置tableView属性selectedIndexPath
+### 当刷新完成后设置，Table控制器内部设置tableView属性selectedIndexPath
 * Objective-C
 ```objc
 - (void)headerRefresh:(GYTableBaseView *)tableView {
@@ -461,7 +462,7 @@ override func viewDidLoad() {
 
 <a name="cell自动调整高度"></a>
 # Cell自动调整高度
-### 表格控制器内部设置CellNode传入高度CELL_AUTO_HEIGHT
+### Table控制器内部设置CellNode传入高度CELL_AUTO_HEIGHT
 * Objective-C
 ```objc
 - (void)headerRefresh:(GYTableBaseView *)tableView {
@@ -480,6 +481,7 @@ override func headerRefresh(_ tableView: GYTableBaseView!) {
 }
 ```
 ### Cell实例重写getCellHeight方法获取动态高度，获取高度内容会被缓存不会二次计算
+* Objective-C
 ```objc
 - (CGFloat)getCellHeight:(CGFloat)cellWidth {
     WeiboModel *weiboModel = [self getCellData];//获取Model
@@ -503,14 +505,37 @@ override func getHeight(_ cellWidth: CGFloat) -> CGFloat {
 ```
 ![案例5-1](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330124629331-180933660.gif)
 
-#ChangeLog
-###1.1.0 当前版本，框架结构整体修改，兼容swift混编，底层delegate优化为动态绑定
-##历史版本
-###1.0.0 初版
-###1.0.1 iOS11.0表格自动上移bug修复
-###1.0.2 自定义上拉加载控件支持
-###1.0.3 增加autolayout支持，修改tablebaseview参数传入方式
-###1.0.6 添加UIViewController+GYTableView分类
-###1.0.7 delegate添加prepareCell用来自定义对cell进行操作
-###1.0.8 部分bug修复
+<a name="自定义创建TableView"></a>
+# 自定义创建TableView
+### 无上拉加载和下拉刷新控件的干净TableView实例
+```objc
+self.tableView = [GYTableBaseView table:self];//创建并设置delegate
+[self.tableView addSectionNode:[SectionNode initWithParams:^(SectionNode *sNode) {
+    //添加元素...
+}]];
+[self.tableView gy_reloadData];//不要忘了刷新Table
+```
+* Swift
+```swift
+self.tableView = GYTableBaseView.table(self);//创建并设置delegate
+self.tableView?.add(SectionNode.initWithParams({ sNode in
+    //添加元素...
+}))
+self.tableView?.gy_reloadData();//不要忘了刷新Table
+```
+
+## ChangeLog
+```
+1.1.0 当前版本，框架结构整体修改，兼容swift混编，底层delegate优化为动态绑定
+```
+## 历史版本
+```
+1.0.0 初版
+1.0.1 iOS11.0 Table自动上移bug修复
+1.0.2 自定义上拉加载控件支持
+1.0.3 增加autolayout支持，修改tablebaseview参数传入方式
+1.0.6 添加UIViewController+GYTableView分类
+1.0.7 delegate添加prepareCell用来自定义对cell进行操作
+1.0.8 部分bug修复
+```
 

@@ -2,7 +2,7 @@
 //  UIView+GY.h
 //  GYTableViewController
 //
-//  Created by 高扬 on 17/3/1.
+//  Created by 高扬 on 2017/3/1.
 //  Copyright © 2017年 高扬. All rights reserved.
 //
 

@@ -2,8 +2,8 @@
 //  UICreationUtils.h
 //  GYTableViewController
 //
-//  Created by 高扬 on 16/12/7.
-//  Copyright © 2016年 admin. All rights reserved.
+//  Created by 高扬 on 2016/12/7.
+//  Copyright © 2016年 高扬. All rights reserved.
 //
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
@@ -23,6 +23,16 @@
 
 + (CAShapeLayer *)createRangeLayer:(CGFloat)radius textColor:(UIColor *)textColor backgroundColor:(UIColor *)backgroundColor;
 + (CAShapeLayer *)createRangeLayer:(CGFloat)radius textColor:(UIColor *)textColor backgroundColor:(UIColor *)backgroundColor isAdd:(BOOL)isAdd;
+
+/**
+ 创建一个叉叉图层
+ @param size 尺寸
+ @param color 颜色
+ @param strokeWidth 线条粗细
+ @return 图层
+ */
++ (CAShapeLayer *)createCloseLayer:(CGSize)size color:(UIColor *)color strokeWidth:(CGFloat)strokeWidth;
+
 + (CAShapeLayer *)createPlusLayer:(CGFloat)radius color:(UIColor *)color strokeWidth:(CGFloat)strokeWidth isAdd:(BOOL)isAdd;
 
 + (void)autoEnsureViewsWidth:(CGFloat)baseX totolWidth:(CGFloat)totolWidth views:(NSArray *)views viewWidths:(NSArray *)viewWidths padding:(CGFloat)padding;

@@ -32,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark AutoHeightDemo数据
 @property (class, nonatomic, strong, readonly) NSArray<WeiboModel *> *weiboModels;
 
+#pragma mark CreateTableDemo数据
+@property (class, nonatomic, strong, readonly) NSArray<NSString *> *popupOptions;
+
 @end
 
 NS_ASSUME_NONNULL_END

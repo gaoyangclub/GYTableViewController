@@ -22,4 +22,6 @@
 #import "DiyRotateRefreshHeader.h"
 #import "WebViewController.h"
 
+#import "PopupWindowView.h"
+
 #endif /*GYTableViewController4Swift_Bridging_Header_h*/

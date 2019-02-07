@@ -70,7 +70,9 @@ class MainViewController: UIViewController {
         ControllerNode.initWithTitle("Table位置、自定义刷新、点击跳转示例", andClass: FrameTableViewController.self),
         ControllerNode.initWithTitle("Section或Cell间距示例", andClass: GapTableViewController.self),
         ControllerNode.initWithTitle("Cell上下关系和选中高亮示例", andClass: RelateTableViewController.self),
-        ControllerNode.initWithTitle("Cell自动调整高度示例", andClass: AutoHeightTableViewController.self)
+        ControllerNode.initWithTitle("Cell自动调整高度示例", andClass: AutoHeightTableViewController.self),
+        ControllerNode.initWithTitle("自定义创建TableView示例", andClass: CreateTableViewController.self),
+        
     ]
 
 }

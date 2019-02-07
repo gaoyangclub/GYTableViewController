@@ -3,7 +3,7 @@
 //  GYTableViewSection.m
 //  GYTableViewController
 //
-//  Created by 高扬 on 16/10/17.
+//  Created by 高扬 on 2016/10/17.
 //  Copyright © 2016年 高扬. All rights reserved.
 //
 

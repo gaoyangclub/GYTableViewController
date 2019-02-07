@@ -3,7 +3,7 @@
 //  GYTableViewController
 //
 //  Created by 高扬 on 17/11/18.
-//  Copyright © 2017年 GaoYang. All rights reserved.
+//  Copyright © 2017年 高扬. All rights reserved.
 //
 
 #import "WebViewController.h"

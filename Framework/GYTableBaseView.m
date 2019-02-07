@@ -2,7 +2,7 @@
 //  GYTableBaseView.m
 //  GYTableViewController
 //
-//  Created by 高扬 on 16/10/13.
+//  Created by 高扬 on 2016/10/13.
 //  Copyright © 2016年 高扬. All rights reserved.
 //
 
@@ -51,6 +51,10 @@ typedef enum {
 @end
 
 @implementation GYTableBaseView
+
++ (instancetype)table:(id<GYTableBaseViewDelegate>)delegate {
+    return [[self alloc] initWithFrameAndParams:CGRectZero showHeader:NO showFooter:NO useCellIdentifer:YES delegate:delegate];
+}
 
 - (instancetype)initWithFrameAndParams:(CGRect)frame showHeader:(BOOL)showHeader showFooter:(BOOL)showFooter useCellIdentifer:(BOOL)useCellIdentifer delegate:(id<GYTableBaseViewDelegate>)delegate {// topEdgeDiverge:(BOOL)topEdgeDiverge
     self = [super initWithFrame:frame];
@@ -375,7 +379,7 @@ typedef enum {
     
     GYTableViewCell *cell;
     BOOL isCreate = NO;
-    if (self.useCellIdentifer) {
+    if (tableView.useCellIdentifer) {
         NSString *cellIdentifer;
         NSString *classString = NSStringFromClass(cellClass);
         if (cellNode.isUnique) {//唯一

@@ -23,6 +23,8 @@ static NSArray<ExpressModel *> *_expressModels;
 
 static NSArray<WeiboModel *> *_weiboModels;
 
+static NSArray<NSString *> *_popupOptions;
+
 @implementation Mock
 
 //----------  start ----------
@@ -192,5 +194,13 @@ static NSArray<WeiboModel *> *_weiboModels;
 }
 
 //----------  end ----------
+
+#pragma mark CreateTableDemo数据
++ (NSArray<NSString *> *)popupOptions {
+    if (!_popupOptions) {
+       _popupOptions = @[@"Objective-C", @"Swift", @"Java", @"JavaScript", @"C/C++", @"Ruby", @"Python", @"PHP", @"GO", @"Perl"];
+    }
+    return _popupOptions;
+}
 
 @end

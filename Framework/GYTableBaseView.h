@@ -2,8 +2,8 @@
 //  GYTableBaseView.h
 //  GYTableViewController
 //
-//  Created by 高扬 on 16/10/13.
-//  Copyright © 2016年 admin. All rights reserved.
+//  Created by 高扬 on 2016/10/13.
+//  Copyright © 2016年 高扬. All rights reserved.
 //
 
 /*
@@ -39,33 +39,33 @@
  **/
 static CGFloat const CELL_AUTO_HEIGHT = 0;
 
-@protocol GYTableBaseViewDelegate<UITableViewDelegate,UITableViewDataSource>
+@protocol GYTableBaseViewDelegate<UITableViewDelegate>
 
 @optional
 /** 当GYTableBaseView下拉刷新时代理调用 **/
 - (void)headerRefresh:(GYTableBaseView *)tableView;
 
-@optional
+//@optional
 /** 当GYTableBaseView上拉加载时代理调用 **/
 - (void)footerLoadMore:(GYTableBaseView *)tableView lastSectionNode:(SectionNode *)lastSectionNode;
 
-@optional
+//@optional
 /** 当GYTableBaseView下拉刷新完毕后代理调用 **/
 - (void)didRefreshComplete:(GYTableBaseView *)tableView;
 
-@optional
+//@optional
 /** 当GYTableBaseView上拉加载完毕后代理调用 **/
 - (void)didLoadMoreComplete:(GYTableBaseView *)tableView;
 
-@optional
+//@optional
 /** 当GYTableBaseView某一条GYTableViewCell实例被点击时代理调用 **/
 - (void)tableView:(GYTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, "请使用didSelectRow:indexPath:代替");
 
-@optional
+//@optional
 /** 当GYTableBaseView某一条GYTableViewCell实例被点击时代理调用 **/
 - (void)didSelectRow:(GYTableBaseView *)tableView indexPath:(NSIndexPath *)indexPath;
 
-@optional
+//@optional
 /** 当GYTableBaseView滚动到某个位置时代理调用 **/
 - (void)didScrollToRow:(GYTableBaseView *)tableView indexPath:(NSIndexPath *)indexPath;
 
@@ -75,16 +75,16 @@ static CGFloat const CELL_AUTO_HEIGHT = 0;
  @param targetCell 目标cell控件实例
  @param indexPath 位置
  */
-@optional
+//@optional
 - (void)preparCell:(GYTableBaseView *)tableView targetCell:(GYTableViewCell *)targetCell indexPath:(NSIndexPath *)indexPath;
 
 /** 以下方法不可代理调用  **/
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView __attribute__((unavailable("Disabled")));
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
-@optional
+//@optional
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
-@optional
+//@optional
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
@@ -105,6 +105,8 @@ static CGFloat const CELL_AUTO_HEIGHT = 0;
 - (instancetype)initWithFrame:(CGRect)frame __attribute__((unavailable("Disabled. Use -initWithFrameAndParams instead")));
 - (instancetype)initWithCoder:(NSCoder *)aDecoder __attribute__((unavailable("Disabled. Use -initWithFrameAndParams instead")));
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style __attribute__((unavailable("Disabled. Use -initWithFrameAndParams instead")));
+
++ (instancetype)table:(id<GYTableBaseViewDelegate>)delegate;
 
 - (instancetype)initWithFrameAndParams:(CGRect)frame showHeader:(BOOL)showHeader showFooter:(BOOL)showFooter useCellIdentifer:(BOOL)useCellIdentifer delegate:(id<GYTableBaseViewDelegate>)delegate;
 - (instancetype)initWithFrameAndParams:(CGRect)frame style:(UITableViewStyle)style showHeader:(BOOL)showHeader showFooter:(BOOL)showFooter useCellIdentifer:(BOOL)useCellIdentifer delegate:(id<GYTableBaseViewDelegate>)delegate;

@@ -58,6 +58,10 @@
 		A967A6492206A26B003EBE20 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A967A6482206A26B003EBE20 /* MainViewController.swift */; };
 		A967A64E2206A26D003EBE20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A967A64D2206A26D003EBE20 /* Assets.xcassets */; };
 		A967A6512206A26D003EBE20 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A967A64F2206A26D003EBE20 /* LaunchScreen.storyboard */; };
+		A97B2D53220C17A00056FF0F /* PopupWindowView.m in Sources */ = {isa = PBXBuildFile; fileRef = A97B2D52220C17A00056FF0F /* PopupWindowView.m */; };
+		A97B2D55220C17E60056FF0F /* CreateTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97B2D54220C17E60056FF0F /* CreateTableViewController.swift */; };
+		A97B2D57220C18030056FF0F /* PopupListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97B2D56220C18030056FF0F /* PopupListView.swift */; };
+		A97B2D59220C18280056FF0F /* PopupListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97B2D58220C18280056FF0F /* PopupListViewCell.swift */; };
 		A9F57A632207294D00D1D4C0 /* RefreshBannerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F57A622207294D00D1D4C0 /* RefreshBannerViewCell.swift */; };
 		A9F57A65220730A900D1D4C0 /* RefreshHotViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F57A64220730A900D1D4C0 /* RefreshHotViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -139,6 +143,11 @@
 		A967A6502206A26D003EBE20 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A967A6522206A26D003EBE20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A967A6712206A42D003EBE20 /* GYTableViewController4Swift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GYTableViewController4Swift-Bridging-Header.h"; sourceTree = "<group>"; };
+		A97B2D51220C17A00056FF0F /* PopupWindowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupWindowView.h; sourceTree = "<group>"; };
+		A97B2D52220C17A00056FF0F /* PopupWindowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupWindowView.m; sourceTree = "<group>"; };
+		A97B2D54220C17E60056FF0F /* CreateTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTableViewController.swift; sourceTree = "<group>"; };
+		A97B2D56220C18030056FF0F /* PopupListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupListView.swift; sourceTree = "<group>"; };
+		A97B2D58220C18280056FF0F /* PopupListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupListViewCell.swift; sourceTree = "<group>"; };
 		A9F57A622207294D00D1D4C0 /* RefreshBannerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshBannerViewCell.swift; sourceTree = "<group>"; };
 		A9F57A64220730A900D1D4C0 /* RefreshHotViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshHotViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -179,6 +188,7 @@
 		A92A96AA220B0AEE00A52092 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A97B2D50220C17A00056FF0F /* UI */,
 				A92A96AB220B0AEE00A52092 /* Config */,
 				A92A96B0220B0AEE00A52092 /* Utils */,
 				A92A96B5220B0AEE00A52092 /* Model */,
@@ -327,6 +337,7 @@
 				A933050E220932E200639D4E /* GapDemo */,
 				A932493922096C3B005C65E0 /* RelateDemo */,
 				A932493E22097DD9005C65E0 /* AutoHeightDemo */,
+				A97B2D4F220C178A0056FF0F /* CreateTableDemo */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -376,6 +387,25 @@
 				A967A6712206A42D003EBE20 /* GYTableViewController4Swift-Bridging-Header.h */,
 			);
 			path = GYTableViewController4Swift;
+			sourceTree = "<group>";
+		};
+		A97B2D4F220C178A0056FF0F /* CreateTableDemo */ = {
+			isa = PBXGroup;
+			children = (
+				A97B2D54220C17E60056FF0F /* CreateTableViewController.swift */,
+				A97B2D56220C18030056FF0F /* PopupListView.swift */,
+				A97B2D58220C18280056FF0F /* PopupListViewCell.swift */,
+			);
+			path = CreateTableDemo;
+			sourceTree = "<group>";
+		};
+		A97B2D50220C17A00056FF0F /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				A97B2D51220C17A00056FF0F /* PopupWindowView.h */,
+				A97B2D52220C17A00056FF0F /* PopupWindowView.m */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		C6EC39135705CB46C153C081 /* Pods */ = {
@@ -552,16 +582,20 @@
 				A92A456F2208740100F299E7 /* FrameTableViewController.swift in Sources */,
 				A92BCA6122082D890007650F /* RefreshFundViewSection.swift in Sources */,
 				A933051622093AD600639D4E /* GapStoreViewCell.swift in Sources */,
+				A97B2D57220C18030056FF0F /* PopupListView.swift in Sources */,
 				A93C39C022070F2C00A8B624 /* GYTableViewSection.m in Sources */,
 				A933050822092B6D00639D4E /* DiyRotateRefreshHeader.m in Sources */,
 				A92A96C6220B0AEF00A52092 /* Mock.m in Sources */,
 				A932493B22096C75005C65E0 /* RelateTableViewController.swift in Sources */,
+				A97B2D55220C17E60056FF0F /* CreateTableViewController.swift in Sources */,
 				A93C39BE22070F2C00A8B624 /* UIViewController+GYTableView.m in Sources */,
 				A92A96C9220B0AEF00A52092 /* DishesModel.m in Sources */,
 				A92A96CC220B0AEF00A52092 /* WeiboModel.m in Sources */,
 				A92A96CE220B0AEF00A52092 /* StoreModel.m in Sources */,
 				A93305102209331200639D4E /* GapTableViewController.swift in Sources */,
 				A93C39C322070F2C00A8B624 /* GYTableViewCell.m in Sources */,
+				A97B2D59220C18280056FF0F /* PopupListViewCell.swift in Sources */,
+				A97B2D53220C17A00056FF0F /* PopupWindowView.m in Sources */,
 				A967A6472206A26B003EBE20 /* AppDelegate.swift in Sources */,
 				A92A96CD220B0AEF00A52092 /* FundModel.m in Sources */,
 				A92A45772208805100F299E7 /* WebViewController.m in Sources */,

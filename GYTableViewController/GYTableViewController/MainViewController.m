@@ -13,6 +13,7 @@
 #import "GapTableViewController.h"
 #import "RelateTableViewController.h"
 #import "AutoHeightTableViewController.h"
+#import "CreateTableViewController.h"
 
 //#import "GYTableViewCell.h"
 
@@ -75,6 +76,7 @@
                          [ControllerNode initWithTitle:@"Section或Cell间距示例" andClass:GapTableViewController.class],
                          [ControllerNode initWithTitle:@"Cell上下关系和选中高亮示例" andClass:RelateTableViewController.class],
                          [ControllerNode initWithTitle:@"Cell自动调整高度示例" andClass:AutoHeightTableViewController.class],
+                         [ControllerNode initWithTitle:@"自定义创建TableView示例" andClass:CreateTableViewController.class],
                          ];
     }
     return _controllers;

@@ -3,7 +3,7 @@
 //  UICreationUtils.m
 //  GYTableViewController
 //
-//  Created by 高扬 on 16/12/7.
+//  Created by 高扬 on 2016/12/7.
 //  Copyright © 2016年 高扬. All rights reserved.
 //
 
@@ -80,6 +80,23 @@
     [layer addSublayer:pluslayer];
     
     return layer;
+}
+
++ (CAShapeLayer *)createCloseLayer:(CGSize)size color:(UIColor *)color strokeWidth:(CGFloat)strokeWidth {
+    
+    UIBezierPath *closePath = [UIBezierPath bezierPath];
+    [closePath moveToPoint:CGPointMake(0,0)];
+    [closePath addLineToPoint:CGPointMake(size.width, size.height)];
+    
+    [closePath moveToPoint:CGPointMake(size.width,0)];
+    [closePath addLineToPoint:CGPointMake(0, size.height)];
+    
+    CAShapeLayer *closelayer = [[CAShapeLayer alloc]init];
+    closelayer.strokeColor = color.CGColor;
+    closelayer.lineWidth = strokeWidth;
+    closelayer.path = closePath.CGPath;
+    
+    return closelayer;
 }
 
 + (CAShapeLayer *)createPlusLayer:(CGFloat)radius color:(UIColor *)color strokeWidth:(CGFloat)strokeWidth isAdd:(BOOL)isAdd {

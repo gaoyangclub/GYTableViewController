@@ -141,8 +141,6 @@
         _submitButton.titleLabel.font = [UIFont systemFontOfSize:20];
         
         [self.view addSubview:_submitButton];
-        
-        //        [_submitButton addTarget:self action:@selector(clickSubmitButton:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _submitButton;
 }

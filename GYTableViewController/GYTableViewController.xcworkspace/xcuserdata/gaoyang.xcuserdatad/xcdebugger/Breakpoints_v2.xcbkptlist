@@ -180,11 +180,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Framework/GYTableBaseView.m"
-            timestampString = "571070388.918171"
+            timestampString = "571219292.8035229"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "722"
-            endingLineNumber = "722"
+            startingLineNumber = "726"
+            endingLineNumber = "726"
             landmarkName = "+initWithParams:cellClass:cellData:isUnique:forceUpdate:"
             landmarkType = "7">
          </BreakpointContent>

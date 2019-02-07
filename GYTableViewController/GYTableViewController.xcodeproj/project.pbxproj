@@ -61,6 +61,10 @@
 		A93133652209C64800A75123 /* MJRefreshComponent+GY.m in Sources */ = {isa = PBXBuildFile; fileRef = A931335A2209C64700A75123 /* MJRefreshComponent+GY.m */; };
 		A93133662209C64800A75123 /* GYRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = A931335B2209C64700A75123 /* GYRefreshAutoFooter.m */; };
 		A93133672209C64800A75123 /* GYTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A931335D2209C64800A75123 /* GYTableViewCell.m */; };
+		A97B2D44220BFFE30056FF0F /* PopupWindowView.m in Sources */ = {isa = PBXBuildFile; fileRef = A97B2D42220BFFE30056FF0F /* PopupWindowView.m */; };
+		A97B2D48220C01790056FF0F /* PopupListView.m in Sources */ = {isa = PBXBuildFile; fileRef = A97B2D47220C01790056FF0F /* PopupListView.m */; };
+		A97B2D4B220C04150056FF0F /* PopupListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A97B2D4A220C04150056FF0F /* PopupListViewCell.m */; };
+		A97B2D4E220C06D80056FF0F /* CreateTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A97B2D4D220C06D80056FF0F /* CreateTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -157,6 +161,14 @@
 		A931335F2209C64800A75123 /* MJRefreshComponent+GY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MJRefreshComponent+GY.h"; sourceTree = "<group>"; };
 		A93133602209C64800A75123 /* GYTableViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GYTableViewSection.h; sourceTree = "<group>"; };
 		A93133612209C64800A75123 /* GYRefreshAutoFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GYRefreshAutoFooter.h; sourceTree = "<group>"; };
+		A97B2D42220BFFE30056FF0F /* PopupWindowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupWindowView.m; sourceTree = "<group>"; };
+		A97B2D43220BFFE30056FF0F /* PopupWindowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupWindowView.h; sourceTree = "<group>"; };
+		A97B2D46220C01790056FF0F /* PopupListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopupListView.h; sourceTree = "<group>"; };
+		A97B2D47220C01790056FF0F /* PopupListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopupListView.m; sourceTree = "<group>"; };
+		A97B2D49220C04150056FF0F /* PopupListViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopupListViewCell.h; sourceTree = "<group>"; };
+		A97B2D4A220C04150056FF0F /* PopupListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopupListViewCell.m; sourceTree = "<group>"; };
+		A97B2D4C220C06D80056FF0F /* CreateTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateTableViewController.h; sourceTree = "<group>"; };
+		A97B2D4D220C06D80056FF0F /* CreateTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateTableViewController.m; sourceTree = "<group>"; };
 		BB0902A3C76E084E2D3480F4 /* Pods-GYTableViewController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GYTableViewController.release.xcconfig"; path = "Pods/Target Support Files/Pods-GYTableViewController/Pods-GYTableViewController.release.xcconfig"; sourceTree = "<group>"; };
 		E301B20D533B9F90241B2513 /* libPods-GYTableViewController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GYTableViewController.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8EEDD4C6537A6D01962065B /* Pods-GYTableViewController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GYTableViewController.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GYTableViewController/Pods-GYTableViewController.debug.xcconfig"; sourceTree = "<group>"; };
@@ -228,6 +240,7 @@
 				A929708B206F31CD0052AF0E /* GapDemo */,
 				A929705E206F31CD0052AF0E /* RelateDemo */,
 				A9297056206F31CD0052AF0E /* AutoHeightDemo */,
+				A97B2D45220C01410056FF0F /* CreateTableDemo */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -341,6 +354,7 @@
 		A92A9684220B09DA00A52092 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A97B2D41220BFFD60056FF0F /* UI */,
 				A92A9685220B09DA00A52092 /* Config */,
 				A92A968A220B09DA00A52092 /* Utils */,
 				A92A968F220B09DA00A52092 /* Model */,
@@ -410,6 +424,28 @@
 			);
 			name = Framework;
 			path = ../../Framework;
+			sourceTree = "<group>";
+		};
+		A97B2D41220BFFD60056FF0F /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				A97B2D43220BFFE30056FF0F /* PopupWindowView.h */,
+				A97B2D42220BFFE30056FF0F /* PopupWindowView.m */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		A97B2D45220C01410056FF0F /* CreateTableDemo */ = {
+			isa = PBXGroup;
+			children = (
+				A97B2D4C220C06D80056FF0F /* CreateTableViewController.h */,
+				A97B2D4D220C06D80056FF0F /* CreateTableViewController.m */,
+				A97B2D46220C01790056FF0F /* PopupListView.h */,
+				A97B2D47220C01790056FF0F /* PopupListView.m */,
+				A97B2D49220C04150056FF0F /* PopupListViewCell.h */,
+				A97B2D4A220C04150056FF0F /* PopupListViewCell.m */,
+			);
+			path = CreateTableDemo;
 			sourceTree = "<group>";
 		};
 		EB0972150089E8C3C31FE649 /* Pods */ = {
@@ -568,6 +604,7 @@
 				A93133622209C64800A75123 /* UIViewController+GYTableView.m in Sources */,
 				A93133652209C64800A75123 /* MJRefreshComponent+GY.m in Sources */,
 				A92970B9206F31CD0052AF0E /* FrameTableViewController.m in Sources */,
+				A97B2D48220C01790056FF0F /* PopupListView.m in Sources */,
 				A92A96A5220B09DA00A52092 /* ExpressModel.m in Sources */,
 				A92970CC206F31CD0052AF0E /* GapStoreHeaderCell.m in Sources */,
 				A929704B206F2FD50052AF0E /* main.m in Sources */,
@@ -577,6 +614,7 @@
 				A92A96A2220B09DA00A52092 /* UICreationUtils.m in Sources */,
 				A92A96A8220B09DA00A52092 /* StoreModel.m in Sources */,
 				A92970BC206F31CD0052AF0E /* FrameDishesViewCell.m in Sources */,
+				A97B2D44220BFFE30056FF0F /* PopupWindowView.m in Sources */,
 				A92A96A0220B09DA00A52092 /* Mock.m in Sources */,
 				A93133672209C64800A75123 /* GYTableViewCell.m in Sources */,
 				A92A96A1220B09DA00A52092 /* UIView+GY.m in Sources */,
@@ -593,10 +631,12 @@
 				A92970CA206F31CD0052AF0E /* GapStoreViewCell.m in Sources */,
 				A92970C9206F31CD0052AF0E /* GapPraiseGroupCell.m in Sources */,
 				A929703D206F2FD50052AF0E /* AppDelegate.m in Sources */,
+				A97B2D4B220C04150056FF0F /* PopupListViewCell.m in Sources */,
 				A92A96A3220B09DA00A52092 /* DishesModel.m in Sources */,
 				A92A969F220B09DA00A52092 /* TVStyle.m in Sources */,
 				A93133662209C64800A75123 /* GYRefreshAutoFooter.m in Sources */,
 				A92970B2206F31CD0052AF0E /* AutoHeightTableViewController.m in Sources */,
+				A97B2D4E220C06D80056FF0F /* CreateTableViewController.m in Sources */,
 				A92970BD206F31CD0052AF0E /* RefreshFundViewSection.m in Sources */,
 				A92970B3206F31CD0052AF0E /* AutoHeightWeiboCell.m in Sources */,
 			);
