@@ -21,7 +21,7 @@
 
 # 技术特点
 * 无需继承自定义类，引入头文件UIViewController+GYTableView.h即可使用<br/>
-* 支持OC和swift(混合)<br/>
+* 支持OC和Swift(混合)<br/>
 * Section和Cell层次更加清晰，根据传入的Section数据结构内部已经全部实现Section和Cell相关delegate方法<br/>
 * Cell实例可获得外部动态数据，索引位置，上下关系，选中状态等，随时更换样式<br/>
 * 自带MJRefresh框架，提供下拉刷新和上拉加载功能<br/>
@@ -141,7 +141,7 @@ override func headerRefresh(_ tableView: GYTableBaseView!) {
 
 <a name="批量添加cell"></a>
 # 批量添加Cell
-### Table控制器内部实现(暴力添加，swift略过...)
+### Table控制器内部实现(暴力添加，Swift略过...)
 ```objc
 - (void)headerRefresh:(GYTableBaseView *)tableView {
     [tableView addSectionNode:[SectionNode initWithParams:^(SectionNode *sNode) {
@@ -508,6 +508,7 @@ override func getHeight(_ cellWidth: CGFloat) -> CGFloat {
 <a name="自定义创建TableView"></a>
 # 自定义创建TableView
 ### 无上拉加载和下拉刷新控件的干净TableView实例
+* Objective-C
 ```objc
 self.tableView = [GYTableBaseView table:self];//创建并设置delegate
 [self.tableView addSectionNode:[SectionNode initWithParams:^(SectionNode *sNode) {
@@ -533,7 +534,7 @@ self.tableView?.gy_reloadData();//不要忘了刷新Table
 1.0.0 初版
 1.0.1 iOS11.0 Table自动上移bug修复
 1.0.2 自定义上拉加载控件支持
-1.0.3 增加autolayout支持，修改tablebaseview参数传入方式
+1.0.3 增加autolayout支持，修改TableBaseView参数传入方式
 1.0.6 添加UIViewController+GYTableView分类
 1.0.7 delegate添加prepareCell用来自定义对cell进行操作
 1.0.8 部分bug修复
