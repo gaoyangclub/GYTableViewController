@@ -521,6 +521,7 @@ self.tableView?.add(SectionNode.initWithParams({ sNode in
 }))
 self.tableView?.gy_reloadData();//不要忘了刷新Table
 ```
+![案例6-1](https://img2018.cnblogs.com/blog/1356734/201902/1356734-20190210140619566-2103275849.gif)
 
 ## ChangeLog
 ```
