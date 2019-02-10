@@ -500,7 +500,7 @@ override func getHeight(_ cellWidth: CGFloat) -> CGFloat {
     return AutoHeightWeiboCell.TOPIC_AREA_HEIGHT + contentSize.size.height + AutoHeightWeiboCell.IMAGE_AREA_HEIGHT + AutoHeightWeiboCell.BOTTOM_PADDING * 2;//返回计算后的最终高度
 }
 ```
-![案例5-1](https://images2018.cnblogs.com/blog/1356734/201803/1356734-20180330124629331-180933660.gif)
+![案例5-1](https://img2018.cnblogs.com/blog/1356734/201902/1356734-20190210141655979-1358304278.gif)
 
 <a name="自定义创建TableView"></a>
 # 自定义创建TableView
