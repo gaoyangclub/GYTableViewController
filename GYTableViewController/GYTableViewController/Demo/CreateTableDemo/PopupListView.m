@@ -27,6 +27,8 @@
         //设置TableView底部Cell细线样式
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         self.tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
+        //设置底部footerView为空白内容
+        self.tableView.tableFooterView = [[UIView alloc] init];
         //设置需要pop的容器
         self.contentArea = self.tableView;
     } else {

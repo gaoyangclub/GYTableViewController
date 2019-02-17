@@ -23,6 +23,8 @@ class PopupListView: PopupWindowView,GYTableBaseViewDelegate {
             //设置TableView底部Cell细线样式
             self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.singleLine
             self.tableView?.separatorInset = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
+            //设置底部footerView为空白内容
+            self.tableView?.tableFooterView = UIView();
             //设置需要pop的容器
             self.contentArea = self.tableView;
         } else {
