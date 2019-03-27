@@ -528,7 +528,7 @@ self.tableView?.gy_reloadData();//不要忘了刷新Table
 
 ## ChangeLog
 ```
-1.1.1 当前版本，cellIdentifer可动态传入，代码优化
+1.1.2 当前版本，cellIdentifer可动态传入，兼容新版MJRefresh 3.1.16
 ```
 ## 历史版本
 ```
