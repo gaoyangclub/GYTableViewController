@@ -13,10 +13,11 @@
 + (void)initialize{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [self swizzleMethod:@selector(loadView) withMethod:@selector(p_loadView)];
-        [self swizzleMethod:@selector(viewWillAppear:) withMethod:@selector(p_viewWillAppear:)];
-        [self swizzleMethod:@selector(viewDidLoad) withMethod:@selector(p_viewDidLoad)];
-        [self swizzleMethod:@selector(viewDidLayoutSubviews) withMethod:@selector(p_viewDidLayoutSubviews)];
+        //修改替换后的方法名称，避免和原工程项目hook方法名冲突不执行，取名方式gytableview_func
+        [self swizzleMethod:@selector(loadView) withMethod:@selector(gytableview_loadView)];
+        [self swizzleMethod:@selector(viewWillAppear:) withMethod:@selector(gytableview_viewWillAppear:)];
+        [self swizzleMethod:@selector(viewDidLoad) withMethod:@selector(gytableview_viewDidLoad)];
+        [self swizzleMethod:@selector(viewDidLayoutSubviews) withMethod:@selector(gytableview_viewDidLayoutSubviews)];
     });
 }
 
@@ -110,15 +111,15 @@ static const char *GYTableView_isShowFooter = "GYTableView_isShowFooter";
     return self.autoRestOffset;
 }
 
-- (void)p_loadView{
-    [self p_loadView];
+- (void)gytableview_loadView {
+    [self gytableview_loadView];
     if (self.gy_useTableView) {
         self.autoRefreshHeader = YES;
         self.useCellIdentifer = YES;
         //    self.autoRestOffset = YES;
         self.isShowHeader = YES;
         
-        [self p_initTableView];
+        [self gytableview_initTableView];
         
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_0
         if (@available(iOS 11.0, *)) {
@@ -130,7 +131,7 @@ static const char *GYTableView_isShowFooter = "GYTableView_isShowFooter";
     }
 }
 
-- (void)p_initTableView{
+- (void)gytableview_initTableView {
     if (!self.tableView) {
         //        BOOL translucent = (self.tabBarController != NULL && self.tabBarController.navigationController != NULL && !self.tabBarController.navigationController.navigationBar.translucent);
         self.tableView = [[GYTableBaseView alloc]initWithFrameAndParams:self.view.frame showHeader:[self gy_useRefreshHeader] showFooter:[self gy_useLoadMoreFooter] useCellIdentifer:YES delegate:self];
@@ -148,8 +149,8 @@ static const char *GYTableView_isShowFooter = "GYTableView_isShowFooter";
     }
 }
 
-- (void)p_viewWillAppear:(BOOL)animated {
-    [self p_viewWillAppear:animated];
+- (void)gytableview_viewWillAppear:(BOOL)animated {
+    [self gytableview_viewWillAppear:animated];
     if (self.gy_useTableView) {
         if([self gy_useAutoRestOffset]){// && self.contentOffsetRest
             CGPoint contentOffset = self.tableView.contentOffset;
@@ -159,8 +160,8 @@ static const char *GYTableView_isShowFooter = "GYTableView_isShowFooter";
     }
 }
 
-- (void)p_viewDidLoad {
-    [self p_viewDidLoad];
+- (void)gytableview_viewDidLoad {
+    [self gytableview_viewDidLoad];
     if (self.gy_useTableView) {
         self.tableView.frame = [self gy_getTableViewFrame];
         if ([self gy_useAutoRefreshHeader]) {
@@ -170,13 +171,13 @@ static const char *GYTableView_isShowFooter = "GYTableView_isShowFooter";
 }
 
 #pragma mark 坑爹!!! 必须时时跟随主view的frame
-- (void)p_viewDidLayoutSubviews {
+- (void)gytableview_viewDidLayoutSubviews {
     if (self.gy_useTableView) {
         if (self.tableView.translatesAutoresizingMaskIntoConstraints){//没开启约束
             self.tableView.frame = [self gy_getTableViewFrame];
         }
     }
-    [self p_viewDidLayoutSubviews];
+    [self gytableview_viewDidLayoutSubviews];
 }
 
 - (UIView *)gy_getTableViewParent {
