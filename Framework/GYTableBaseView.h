@@ -45,27 +45,21 @@ static CGFloat const CELL_AUTO_HEIGHT = 0;
 /** 当GYTableBaseView下拉刷新时代理调用 **/
 - (void)headerRefresh:(GYTableBaseView *)tableView;
 
-//@optional
 /** 当GYTableBaseView上拉加载时代理调用 **/
 - (void)footerLoadMore:(GYTableBaseView *)tableView lastSectionNode:(SectionNode *)lastSectionNode;
 
-//@optional
 /** 当GYTableBaseView下拉刷新完毕后代理调用 **/
 - (void)didRefreshComplete:(GYTableBaseView *)tableView;
 
-//@optional
 /** 当GYTableBaseView上拉加载完毕后代理调用 **/
 - (void)didLoadMoreComplete:(GYTableBaseView *)tableView;
 
-//@optional
 /** 当GYTableBaseView某一条GYTableViewCell实例被点击时代理调用 **/
 - (void)tableView:(GYTableBaseView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, "请使用didSelectRow:indexPath:代替");
 
-//@optional
 /** 当GYTableBaseView某一条GYTableViewCell实例被点击时代理调用 **/
 - (void)didSelectRow:(GYTableBaseView *)tableView indexPath:(NSIndexPath *)indexPath;
 
-//@optional
 /** 当GYTableBaseView滚动到某个位置时代理调用 **/
 - (void)didScrollToRow:(GYTableBaseView *)tableView indexPath:(NSIndexPath *)indexPath;
 
@@ -75,23 +69,20 @@ static CGFloat const CELL_AUTO_HEIGHT = 0;
  @param targetCell 目标cell控件实例
  @param indexPath 位置
  */
-//@optional
 - (void)preparCell:(GYTableBaseView *)tableView targetCell:(GYTableViewCell *)targetCell indexPath:(NSIndexPath *)indexPath;
 
 /** 以下方法不可代理调用  **/
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView __attribute__((unavailable("Disabled")));
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
-//@optional
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
-//@optional
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section __attribute__((unavailable("Disabled")));
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
 //- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath __attribute__((unavailable("Disabled")));
 
 
@@ -218,6 +209,8 @@ static CGFloat const CELL_AUTO_HEIGHT = 0;
 /** 通过原始数据数组批量创建CellNode并将数据分别对应存入 **/
 + (NSArray<CellNode *> *)dividingCellNodeBySourceArray:(CGFloat)cellHeight cellClass:(Class)cellClass sourceArray:(NSArray*)sourceArray;
 
+/** GYTableViewCell重用标示符，不填默认为CellClassName **/
+@property (nonatomic, copy) NSString *cellIdentifer;
 /** GYTableViewCell实例高度 **/
 @property (nonatomic, assign) CGFloat cellHeight;
 /** 用来实例化GYTableViewCell的自定义类型 **/

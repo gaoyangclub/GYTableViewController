@@ -190,6 +190,10 @@ typedef enum {
     [self p_addInstanceMethod:gy_delegate selectorName:@"tableView:heightForHeaderInSection:"];
     [self p_addInstanceMethod:gy_delegate selectorName:@"tableView:heightForFooterInSection:"];
     [self p_addInstanceMethod:gy_delegate selectorName:@"tableView:heightForRowAtIndexPath:"];
+    [self p_addInstanceMethod:gy_delegate selectorName:@"tableView:estimatedHeightForRowAtIndexPath:"];
+    [self p_addInstanceMethod:gy_delegate selectorName:@"tableView:estimatedHeightForHeaderInSection:"];
+    [self p_addInstanceMethod:gy_delegate selectorName:@"tableView:estimatedHeightForFooterInSection:"];
+    
     [self p_addInstanceMethod:gy_delegate selectorName:@"tableView:cellForRowAtIndexPath:"];
     [self p_addInstanceMethod:gy_delegate selectorName:@"tableView:viewForHeaderInSection:"];
     [self p_addInstanceMethod:gy_delegate selectorName:@"tableView:viewForFooterInSection:"];
@@ -199,50 +203,35 @@ typedef enum {
     self.dataSource = gy_delegate;
 }
 
-//- (void)setTopEdgeDiverge:(BOOL)topEdgeDiverge{
-////    if (topEdgeDiverge) {
-//////        self.contentInset = UIEdgeInsetsMake(0, 0, 64, 0);
-////        self.mj_insetB = 64;
-////    }else{
-//////        self.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-////    }
-//}
-
 - (void)prepare {
-//    dispatch_once_t onceToken;
-//    dispatch_once(&onceToken, ^{
     
-        self.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;//默认自动回弹键盘
+    self.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;//默认自动回弹键盘
+
+    self.separatorStyle = UITableViewCellSeparatorStyleNone; //去掉Cell自带线条
+    self.backgroundColor = [UIColor clearColor];
     
-//        self.delegate = self;
-//        self.dataSource = self;
-    
-        self.separatorStyle = UITableViewCellSeparatorStyleNone; //去掉Cell自带线条
-        self.backgroundColor = [UIColor clearColor];
-        
 //        if (self.topEdgeDiverge) {
 //            self.contentInset = UIEdgeInsetsMake(0, 0, 64, 0);
 //        }
-    
-        if (self.showHeader) {
-            MJRefreshNormalHeader* header = [[MJRefreshNormalHeader alloc]init]; //[MJRefreshNormalHeader headerWithRefreshingBlock:
-            header.lastUpdatedTimeLabel.hidden = YES;//隐藏时间
-            header.automaticallyChangeAlpha = YES;
+
+    if (self.showHeader) {
+        MJRefreshNormalHeader* header = [[MJRefreshNormalHeader alloc]init]; //[MJRefreshNormalHeader headerWithRefreshingBlock:
+        header.lastUpdatedTimeLabel.hidden = YES;//隐藏时间
+        header.automaticallyChangeAlpha = YES;
 //            header.ignoredScrollViewContentInsetTop = 50;
 //            self.mj_header = header;
-            // 设置自动切换透明度(在导航栏下面自动隐藏)
-            self.header = header;
-        }
-        
-        if (self.showFooter) {
-            MJRefreshAutoNormalFooter* footer = [[GYRefreshAutoFooter alloc]init];
-            //            footer.automaticallyHidden = YES;
-            footer.onlyRefreshPerDrag = YES; //MARK: 每一次拖拽只发一次请求(坑 不设置每次拖拽会触发2次以上)
-            footer.stateLabel.userInteractionEnabled = NO;//无法点击交互
-            [footer setTitle:@"上拉加载更多" forState:MJRefreshStateIdle];
-            self.footer = footer;
-        }
-//    });
+        // 设置自动切换透明度(在导航栏下面自动隐藏)
+        self.header = header;
+    }
+    
+    if (self.showFooter) {
+        MJRefreshAutoNormalFooter* footer = [[GYRefreshAutoFooter alloc]init];
+        //            footer.automaticallyHidden = YES;
+        footer.onlyRefreshPerDrag = YES; //MARK: 每一次拖拽只发一次请求(坑 不设置每次拖拽会触发2次以上)
+        footer.stateLabel.userInteractionEnabled = NO;//无法点击交互
+        [footer setTitle:@"上拉加载更多" forState:MJRefreshStateIdle];
+        self.footer = footer;
+    }
 }
 
 - (void)headerEndRefresh:(BOOL)hasData {
@@ -288,7 +277,7 @@ typedef enum {
             }
         });
         [self.mj_footer endRefreshing];
-    }else{
+    } else {
         [self.mj_footer endRefreshingWithNoMoreData];
     }
 }
@@ -338,23 +327,35 @@ typedef enum {
     return tableView.dataArray.count;
 }
 
+- (CGFloat)tableView:(GYTableBaseView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CellNode *cellNode = [tableView getCellNodeByIndexPath:indexPath];
+    if (cellNode) {
+        return cellNode.cellHeight;
+    }
+    return 0;
+}
+
+- (CGFloat)tableView:(GYTableBaseView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [tableView tableView:tableView heightForRowAtIndexPath:indexPath];
+}
+
 - (CGFloat)tableView:(GYTableBaseView *)tableView heightForHeaderInSection:(NSInteger)section {
     SectionNode *sectionNode = [tableView getSectionNodeByIndex:section];
     return sectionNode ? sectionNode.sectionHeaderHeight : 0;
 }
 
-//- (CGFloat)tableView:(GYTableBaseView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
-//    return [self tableView:tableView heightForHeaderInSection:section];
-//}
+- (CGFloat)tableView:(GYTableBaseView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
+    return [tableView tableView:tableView heightForHeaderInSection:section];
+}
 
 - (CGFloat)tableView:(GYTableBaseView *)tableView heightForFooterInSection:(NSInteger)section {
     SectionNode *sectionNode = [tableView getSectionNodeByIndex:section];
     return sectionNode ? sectionNode.sectionFooterHeight : 0;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section {
-//    return [self tableView:tableView heightForFooterInSection:section];
-//}
+- (CGFloat)tableView:(GYTableBaseView *)tableView estimatedHeightForFooterInSection:(NSInteger)section {
+    return [tableView tableView:tableView heightForFooterInSection:section];
+}
 
 - (NSInteger)tableView:(GYTableBaseView *)tableView numberOfRowsInSection:(NSInteger)section {
     SectionNode *sectionNode = [tableView getSectionNodeByIndex:section];
@@ -372,21 +373,19 @@ typedef enum {
     SectionNode *sectionNode = [tableView getSectionNodeByIndex:section];
     CellNode *cellNode = sectionNode.cellNodeList[row];//获取的数据给cell显示
     Class cellClass = cellNode.cellClass;
-//    if(autoCellClass != nil){
-//        cellClass = autoCellClass!
-//    }
     
     GYTableViewCell *cell;
     BOOL isCreate = NO;
     if (tableView.useCellIdentifer) {
         NSString *cellIdentifer;
-        NSString *classString = NSStringFromClass(cellClass);
-        if (cellNode.isUnique) {//唯一
-            cellIdentifer = [classString stringByAppendingString:[NSString stringWithFormat:@"_%lu_%lu", section, row]];
+        if (cellNode.cellIdentifer) {
+            cellIdentifer = cellNode.cellIdentifer;
         } else {
-            cellIdentifer = classString;
+            cellIdentifer = NSStringFromClass(cellClass);
         }
-        //        println("className:" + className)
+        if (cellNode.isUnique) {//唯一的情况下，标识符要做单独处理
+            cellIdentifer = [cellIdentifer stringByAppendingString:[NSString stringWithFormat:@"_%lu_%lu", section, row]];
+        }
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifer];
         if (cell == NULL) {
             cell = [[cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifer];
@@ -400,12 +399,11 @@ typedef enum {
     if (isCreate) { //创建阶段设置
         cell.backgroundColor = [UIColor clearColor];//无色
     }
-    if (isCreate || !cell.isSubviewShow || !cellNode.isUnique || (cellNode.isUnique && cellNode.forceUpdate)) {//cell.CellNode !=
+    if (isCreate || !cell.isSubviewShow || !cellNode.isUnique || (cellNode.isUnique && cellNode.forceUpdate)) {
         cell.needRefresh = YES; //需要刷新
     } else {
         cell.needRefresh = NO; //不需要刷新
     }
-//    NSObject* data = CellNode.cellData;
     cell.isSingle = sectionNode.cellNodeList.count <= 1;
     cell.isFirst = cellNode.cellType == CellTypeFirst;
     if (sectionNode.cellNodeList != NULL) {
@@ -413,7 +411,6 @@ typedef enum {
     }
     cell.indexPath = indexPath;
     cell.tableView = tableView;
-//    cell.data = data;
     cell.cellNode = cellNode;
     
     //当cellNode数据设置完毕后再设置选中样式，有可能根据业务数据返回showSelectionStyle值
@@ -436,18 +433,6 @@ typedef enum {
 - (BOOL)touchesShouldCancelInContentView:(UIView *)view {
     return YES;
 }
-
-- (CGFloat)tableView:(GYTableBaseView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CellNode *cellNode = [tableView getCellNodeByIndexPath:indexPath];
-    if (cellNode) {
-        return cellNode.cellHeight;
-    }
-    return 0;
-}
-
-//- (CGFloat)tableView:(GYTableBaseView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return [tableView tableView:tableView heightForRowAtIndexPath:indexPath];
-//}
 
 - (UIView *)tableView:(GYTableBaseView *)tableView viewForHeaderInSection:(NSInteger)section {
     SectionNode *sectionNode = [tableView getSectionNodeByIndex:section];
@@ -490,12 +475,6 @@ typedef enum {
     if (tableView.clickCellMoveToCenter) {
         [tableView moveCellToCenter:indexPath];
     }
-    //    if (cell) {
-////        tableView
-//        cell.needRefresh = NO; //不需要刷新
-//    }
-//    CellNode* cellNode = [self getCellNodeByIndexPath:indexPath];
-//    CellNode.isSelect = YES;
     if(tableView.clickCellHighlight){
         [tableView changeSelectIndexPath:indexPath];
     }

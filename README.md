@@ -1,4 +1,4 @@
-# 灵活轻便的Table框架1.1.0春节正式版，适合复杂样式的内容排版，丰富的元素相关API
+# 灵活轻便的Table框架1.1.1正式版，适合复杂样式的内容排版，丰富的元素相关API
 * 如何开始
     *  [项目技术特点](#技术特点)
     *  [安装方法](#安装方法)
@@ -528,7 +528,7 @@ self.tableView?.gy_reloadData();//不要忘了刷新Table
 
 ## ChangeLog
 ```
-1.1.0 当前版本，框架结构整体修改，兼容swift混编，底层delegate优化为动态绑定
+1.1.1 当前版本，cellIdentifer可动态传入，代码优化
 ```
 ## 历史版本
 ```
@@ -539,5 +539,6 @@ self.tableView?.gy_reloadData();//不要忘了刷新Table
 1.0.6 添加UIViewController+GYTableView分类
 1.0.7 delegate添加prepareCell用来自定义对cell进行操作
 1.0.8 部分bug修复
+1.1.0 框架结构整体修改，兼容swift混编，底层delegate优化为动态绑定
 ```
 ### 您的认同是我最大的动力，如果您觉得源码对您有价值，请简单的动动手指点个赞，谢谢
