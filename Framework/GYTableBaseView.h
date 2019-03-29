@@ -37,7 +37,7 @@
 /**
  自动设置高度
  **/
-static CGFloat const CELL_AUTO_HEIGHT = 0;
+static CGFloat const CELL_AUTO_HEIGHT = -1;
 
 @protocol GYTableBaseViewDelegate<UITableViewDelegate>
 
