@@ -33,10 +33,11 @@
     if (cellNode.isAutoHeight) {
         cellNode.isAutoHeight = NO;
         CGFloat cellHeight = [self getCellHeight:CGRectGetWidth(self.tableView.bounds)];
-        if (cellHeight > 0) {
+        if (cellHeight >= 0) {
             cellNode.cellHeight = cellHeight;
         }
     }
+    self.contentView.hidden = cellNode.cellHeight <= 0;//无高度直接隐藏
     [self setNeedsLayout];
 }
 
@@ -47,7 +48,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    if (self.needRefresh) {
+    if (self.needRefresh && !self.contentView.hidden) {
         [self showSubviews];
         self.isSubviewShow = YES;
     }

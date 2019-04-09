@@ -36,6 +36,9 @@
 
 #pragma mark 获取动态高度,高度被缓存不会二次计算
 - (CGFloat)getCellHeight:(CGFloat)cellWidth {
+//    if (self.indexPath.row == 2 || self.indexPath.row == 3 || self.indexPath.row == 5 || self.indexPath.row == 6 || self.indexPath.row == 8 || self.indexPath.row == 11) {
+//        return 0;
+//    }
     WeiboModel *weiboModel = [self getCellData];//获取Model
     NSString *content = weiboModel.content;//获取动态内容字符串
     CGRect contentSize = [content boundingRectWithSize:CGSizeMake(cellWidth - LEFT_PADDING - RIGHT_PADDING, FLT_MAX)
